@@ -58,7 +58,7 @@ export function VariantsSection({ workspaceId, orgId }: { workspaceId: string; o
     const { error } = await supabase.from("campaign_variants").insert({
       workspace_id: workspaceId,
       org_id: orgId,
-      label: `Variant ${label}`,
+      label: `Вариант ${label}`,
       channel: "email",
       position: items.length,
       created_by: user.id,
@@ -100,9 +100,9 @@ export function VariantsSection({ workspaceId, orgId }: { workspaceId: string; o
         },
       });
       await supabase.from("campaign_variants").update({ ai_summary: summary }).eq("id", winner.id);
-      toast.success("Winner picked");
+      toast.success("Победитель выбран");
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Could not summarize");
+      toast.error(e instanceof Error ? e.message : "Не удалось составить сводку");
     } finally {
       setPickingFor(null);
     }
@@ -112,18 +112,18 @@ export function VariantsSection({ workspaceId, orgId }: { workspaceId: string; o
     <div>
       <div className="mb-3 flex items-end justify-between gap-3">
         <div>
-          <h2 className="font-display text-xl">Variants &amp; A/B</h2>
+          <h2 className="font-display text-xl">Варианты и A/B-тесты</h2>
           <div className="mt-1 text-xs text-muted-foreground">
-            Test 2+ versions, paste results, let AI explain why one won.
+            Протестируйте 2 и более версий, вставьте результаты, и ИИ объяснит, почему победил тот или иной вариант.
           </div>
         </div>
         <button onClick={add} className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90">
-          <IconPlus size={14} /> Add variant
+          <IconPlus size={14} /> Добавить вариант
         </button>
       </div>
 
       {items.length === 0 ? (
-        <GlassPanel className="p-6 text-center text-sm text-muted-foreground">No variants yet.</GlassPanel>
+        <GlassPanel className="p-6 text-center text-sm text-muted-foreground">Пока нет вариантов.</GlassPanel>
       ) : (
         <div className="grid gap-3 lg:grid-cols-2">
           {items.map((v) => (
@@ -138,7 +138,7 @@ export function VariantsSection({ workspaceId, orgId }: { workspaceId: string; o
                 <div className="flex items-center gap-2">
                   {v.is_winner && (
                     <span className="inline-flex items-center gap-1 rounded-full bg-primary/15 px-2 py-0.5 text-[10px] uppercase tracking-wider text-primary">
-                      <IconCheck size={10} /> Winner
+                      <IconCheck size={10} /> Победитель
                     </span>
                   )}
                   <button onClick={() => remove(v.id)} className="text-muted-foreground/50 hover:text-destructive">
@@ -160,7 +160,7 @@ export function VariantsSection({ workspaceId, orgId }: { workspaceId: string; o
                   value={v.utm_tail ?? ""}
                   onChange={(e) => setItems((c) => c.map((x) => (x.id === v.id ? { ...x, utm_tail: e.target.value } : x)))}
                   onBlur={(e) => update(v.id, { utm_tail: e.target.value || null })}
-                  placeholder="utm_content suffix"
+                  placeholder="суффикс utm_content"
                   className="rounded-md border border-glass-border bg-background/40 px-2 py-1.5 font-mono text-xs outline-none focus:border-primary/50"
                 />
               </div>
@@ -168,14 +168,14 @@ export function VariantsSection({ workspaceId, orgId }: { workspaceId: string; o
                 value={v.subject ?? ""}
                 onChange={(e) => setItems((c) => c.map((x) => (x.id === v.id ? { ...x, subject: e.target.value } : x)))}
                 onBlur={(e) => update(v.id, { subject: e.target.value || null })}
-                placeholder="Subject / headline"
+                placeholder="Тема / заголовок"
                 className="w-full rounded-md border border-glass-border bg-background/40 px-2 py-1.5 text-sm outline-none focus:border-primary/50"
               />
               <textarea
                 value={v.copy ?? ""}
                 onChange={(e) => setItems((c) => c.map((x) => (x.id === v.id ? { ...x, copy: e.target.value } : x)))}
                 onBlur={(e) => update(v.id, { copy: e.target.value || null })}
-                placeholder="Body copy"
+                placeholder="Текст сообщения"
                 rows={2}
                 className="w-full resize-none rounded-md border border-glass-border bg-background/40 px-2 py-1.5 text-sm outline-none focus:border-primary/50"
               />
@@ -203,7 +203,7 @@ export function VariantsSection({ workspaceId, orgId }: { workspaceId: string; o
                 disabled={pickingFor === v.id}
                 className="inline-flex items-center justify-center gap-1.5 rounded-full border border-glass-border bg-glass/40 py-1.5 text-xs hover:bg-glass disabled:opacity-50"
               >
-                {pickingFor === v.id ? "Analyzing…" : v.is_winner ? "Re-summarize" : "Pick as winner"}
+                {pickingFor === v.id ? "Анализ…" : v.is_winner ? "Пересоставить сводку" : "Выбрать победителем"}
               </button>
             </GlassPanel>
           ))}
