@@ -29,7 +29,7 @@ function ResetPasswordPage() {
       supabase.auth.getSession().then(({ data }) => {
         if (!data.session) {
           toast.error("Эта ссылка для сброса пароля недействительна или истекла.");
-          nav({ to: "/login", replace: true });
+          nav({ to: "/login", search: { redirect: "/dashboard", mode: "signin" }, replace: true });
         } else {
           setReady(true);
         }
@@ -119,7 +119,7 @@ function ResetPasswordPage() {
           </form>
 
           <div className="mt-5 text-center text-sm">
-            <Link to="/login" className="text-muted-foreground hover:text-foreground">
+            <Link to="/login" search={{ redirect: "/dashboard", mode: "signin" }} className="text-muted-foreground hover:text-foreground">
               Назад ко входу
             </Link>
           </div>

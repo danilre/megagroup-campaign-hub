@@ -120,19 +120,19 @@ export function DashboardHexLauncher() {
   };
 
   return (
-    <section aria-label="Jump into a tool" className="relative">
+    <section aria-label="Перейти к инструменту" className="relative">
       <div className="relative z-10 flex items-end justify-between px-1">
         <div>
           <div className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-            Jump in
+            Быстрый доступ
           </div>
-          <h2 className="mt-1 font-display text-2xl">Marketing tools</h2>
+          <h2 className="mt-1 font-display text-2xl">Маркетинговые инструменты</h2>
         </div>
         <Link
           to="/tools"
           className="text-xs text-muted-foreground hover:text-foreground"
         >
-          Full command center →
+          Весь командный центр →
         </Link>
       </div>
 

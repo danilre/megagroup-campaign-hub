@@ -107,7 +107,7 @@ export function UserMenu() {
           onSelect={async (e) => {
             e.preventDefault();
             await signOut();
-            nav({ to: "/login", replace: true });
+            nav({ to: "/login", search: { redirect: "/dashboard", mode: "signin" }, replace: true });
           }}
           className="cursor-pointer text-destructive focus:text-destructive"
         >

@@ -16,26 +16,26 @@ import { parseKpiPaste } from "@/lib/ai-suggest.functions";
  */
 function SendStubGroup() {
   const notify = () =>
-    toast.message("Connect an email provider to enable sending", {
-      description: "Lovable doesn't ship an outbound mail integration by default.",
-      action: { label: "Integrations", onClick: () => window.location.assign("/integrations") },
+    toast.message("Подключите почтового провайдера, чтобы включить отправку", {
+      description: "Lovable не поставляется с интеграцией исходящей почты по умолчанию.",
+      action: { label: "Интеграции", onClick: () => window.location.assign("/integrations") },
     });
   return (
     <div className="hidden items-center gap-1.5 rounded-full border border-glass-border bg-glass/30 p-0.5 sm:inline-flex">
       <button
         onClick={notify}
         className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs text-muted-foreground transition hover:bg-glass-strong hover:text-foreground"
-        title="Send now (requires email provider)"
+        title="Отправить сейчас (требуется почтовый провайдер)"
       >
-        <IconArrowRight size={12} /> Send
+        <IconArrowRight size={12} /> Отправить
       </button>
       <span className="h-3 w-px bg-glass-border" aria-hidden />
       <button
         onClick={notify}
         className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs text-muted-foreground transition hover:bg-glass-strong hover:text-foreground"
-        title="Schedule (requires email provider)"
+        title="Запланировать (требуется почтовый провайдер)"
       >
-        <IconClock size={12} /> Schedule
+        <IconClock size={12} /> Запланировать
       </button>
     </div>
   );
@@ -122,7 +122,7 @@ export function ResultsSection({ workspaceId, orgId, currency, plan }: { workspa
     try {
       const { rows: parsed } = await parse({ data: { paste } });
       if (parsed.length === 0) {
-        toast.error("Could not parse any rows");
+        toast.error("Не удалось разобрать ни одной строки");
       } else {
         await supabase.from("workspace_kpis").insert(
           parsed.map((p) => ({
@@ -138,11 +138,11 @@ export function ResultsSection({ workspaceId, orgId, currency, plan }: { workspa
             created_by: user.id,
           })),
         );
-        toast.success(`Imported ${parsed.length} channels`);
+        toast.success(`Импортировано каналов: ${parsed.length}`);
         setPaste("");
       }
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Could not parse");
+      toast.error(e instanceof Error ? e.message : "Не удалось разобрать данные");
     } finally {
       setParsing(false);
     }
@@ -178,13 +178,13 @@ export function ResultsSection({ workspaceId, orgId, currency, plan }: { workspa
     <div>
       <div className="mb-3 flex items-end justify-between gap-3">
         <div>
-          <h2 className="font-display text-xl">Results</h2>
-          <div className="mt-1 text-xs text-muted-foreground">Per-channel performance. Paste a report to auto-fill.</div>
+          <h2 className="font-display text-xl">Результаты</h2>
+          <div className="mt-1 text-xs text-muted-foreground">Показатели по каналам. Вставьте отчёт для автозаполнения.</div>
         </div>
         <div className="flex items-center gap-2">
           <SendStubGroup />
           <button onClick={add} className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90">
-            <IconPlus size={14} /> Add row
+            <IconPlus size={14} /> Добавить строку
           </button>
         </div>
       </div>
@@ -192,23 +192,23 @@ export function ResultsSection({ workspaceId, orgId, currency, plan }: { workspa
       {(plannedBudget > 0 || kpiTarget > 0 || elapsedPct !== null) && (
         <div className="mb-4 grid gap-3 md:grid-cols-3">
           <PlanVsActualCard
-            label={plan?.kpiLabel ?? "Conversions"}
+            label={plan?.kpiLabel ?? "Конверсии"}
             actual={num(kpiActual)}
             target={kpiTarget > 0 ? num(kpiTarget) : "—"}
             pct={kpiPct}
             tone="primary"
           />
           <PlanVsActualCard
-            label="Spend"
+            label="Расходы"
             actual={money(total.spend, currency)}
             target={plannedBudget > 0 ? money(plannedBudget, currency) : "—"}
             pct={spendPct}
             tone={spendPct !== null && elapsedPct !== null && spendPct > elapsedPct + 10 ? "warn" : "primary"}
           />
           <PlanVsActualCard
-            label="Timeline"
-            actual={elapsedPct !== null ? `${elapsedPct.toFixed(0)}% elapsed` : "—"}
-            target={plan?.startDate && plan?.endDate ? `${plan.startDate} → ${plan.endDate}` : "no dates"}
+            label="Сроки"
+            actual={elapsedPct !== null ? `${elapsedPct.toFixed(0)}% прошло` : "—"}
+            target={plan?.startDate && plan?.endDate ? `${plan.startDate} → ${plan.endDate}` : "нет дат"}
             pct={elapsedPct}
             tone="muted"
           />
@@ -220,13 +220,13 @@ export function ResultsSection({ workspaceId, orgId, currency, plan }: { workspa
           <table className="w-full min-w-[700px] text-xs">
             <thead className="border-b border-glass-border bg-background/30 text-[10px] uppercase tracking-wider text-muted-foreground">
               <tr>
-                <th className="px-3 py-2 text-left">Channel</th>
-                <th className="px-2 py-2 text-right">Sent</th>
-                <th className="px-2 py-2 text-right">Opens</th>
-                <th className="px-2 py-2 text-right">Clicks</th>
-                <th className="px-2 py-2 text-right">Conv</th>
-                <th className="px-2 py-2 text-right">Spend</th>
-                <th className="px-2 py-2 text-right">Revenue</th>
+                <th className="px-3 py-2 text-left">Канал</th>
+                <th className="px-2 py-2 text-right">Отправлено</th>
+                <th className="px-2 py-2 text-right">Открытия</th>
+                <th className="px-2 py-2 text-right">Клики</th>
+                <th className="px-2 py-2 text-right">Конв.</th>
+                <th className="px-2 py-2 text-right">Расходы</th>
+                <th className="px-2 py-2 text-right">Доход</th>
                 <th className="px-2 py-2 text-right">CTR</th>
                 <th className="px-2 py-2 text-right">CPA</th>
                 <th className="px-2 py-2 text-right">ROAS</th>
@@ -237,7 +237,7 @@ export function ResultsSection({ workspaceId, orgId, currency, plan }: { workspa
               {rows.length === 0 ? (
                 <tr>
                   <td colSpan={11} className="p-6 text-center text-muted-foreground">
-                    No rows yet — add one or paste a report below.
+                    Пока нет строк — добавьте строку или вставьте отчёт ниже.
                   </td>
                 </tr>
               ) : (
@@ -280,7 +280,7 @@ export function ResultsSection({ workspaceId, orgId, currency, plan }: { workspa
             {rows.length > 0 && (
               <tfoot className="bg-background/30 font-mono text-[11px]">
                 <tr>
-                  <td className="px-3 py-2 text-left text-muted-foreground">Total</td>
+                  <td className="px-3 py-2 text-left text-muted-foreground">Итого</td>
                   <td className="px-2 py-2 text-right">{num(total.sent)}</td>
                   <td className="px-2 py-2 text-right">{num(total.opens)}</td>
                   <td className="px-2 py-2 text-right">{num(total.clicks)}</td>
@@ -304,12 +304,12 @@ export function ResultsSection({ workspaceId, orgId, currency, plan }: { workspa
 
       <div className="mt-3">
         <div className="mb-1 flex items-center gap-1.5 text-[11px] uppercase tracking-wider text-muted-foreground">
-          <IconSpark size={12} className="text-primary" /> Paste a GA4 / ESP / ad-platform report
+          <IconSpark size={12} className="text-primary" /> Вставьте отчёт GA4 / ESP / рекламной платформы
         </div>
         <textarea
           value={paste}
           onChange={(e) => setPaste(e.target.value)}
-          placeholder="Paste rows from your ESP, GA4, Meta, Google Ads…"
+          placeholder="Вставьте строки из ESP, GA4, Meta, Google Ads…"
           rows={4}
           className="w-full rounded-md border border-glass-border bg-background/40 px-3 py-2 text-xs outline-none focus:border-primary/50"
         />
@@ -319,7 +319,7 @@ export function ResultsSection({ workspaceId, orgId, currency, plan }: { workspa
             disabled={parsing}
             className="mt-2 rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
           >
-            {parsing ? "Parsing…" : "Parse & import"}
+            {parsing ? "Разбор…" : "Разобрать и импортировать"}
           </button>
         )}
       </div>

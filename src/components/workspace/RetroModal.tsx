@@ -62,9 +62,9 @@ export function RetroModal({
       setWorked(result.what_worked);
       setDidnt(result.what_didnt);
       setNext(result.next_time);
-      toast.success("Draft ready — edit before saving");
+      toast.success("Черновик готов — отредактируйте перед сохранением");
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "AI draft failed");
+      toast.error(e instanceof Error ? e.message : "Не удалось составить черновик ИИ");
     } finally {
       setDrafting(false);
     }
@@ -88,7 +88,7 @@ export function RetroModal({
     setSaving(false);
     if (error) toast.error(error.message);
     else {
-      toast.success("Retro saved");
+      toast.success("Ретроспектива сохранена");
       onClose();
     }
   };
@@ -99,9 +99,9 @@ export function RetroModal({
         <button onClick={onClose} className="absolute right-3 top-3 text-muted-foreground hover:text-foreground">
           <IconClose size={16} />
         </button>
-        <h2 className="font-display text-xl">Campaign retro</h2>
+        <h2 className="font-display text-xl">Ретроспектива кампании</h2>
         <p className="mt-1 text-xs text-muted-foreground">
-          3 questions. Each retro feeds the playbook for next time.
+          3 вопроса. Каждая ретроспектива пополняет плейбук на будущее.
         </p>
         <div className="mt-3">
           <button
@@ -109,14 +109,14 @@ export function RetroModal({
             disabled={drafting}
             className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs text-primary hover:bg-primary/15 disabled:opacity-50"
           >
-            <IconSpark size={12} /> {drafting ? "Drafting…" : "Auto-draft from KPIs"}
+            <IconSpark size={12} /> {drafting ? "Черновик…" : "Автосоставление по KPI"}
           </button>
         </div>
         <div className="mt-4 space-y-3">
           {[
-            { label: "What worked?", v: worked, set: setWorked },
-            { label: "What didn't?", v: didnt, set: setDidnt },
-            { label: "Next time, what changes?", v: next, set: setNext },
+            { label: "Что сработало?", v: worked, set: setWorked },
+            { label: "Что не сработало?", v: didnt, set: setDidnt },
+            { label: "Что изменить в следующий раз?", v: next, set: setNext },
           ].map((q) => (
             <div key={q.label}>
               <div className="text-xs uppercase tracking-wider text-muted-foreground">{q.label}</div>
@@ -131,14 +131,14 @@ export function RetroModal({
         </div>
         <div className="mt-5 flex justify-end gap-2">
           <button onClick={onClose} className="rounded-full px-4 py-1.5 text-xs text-muted-foreground hover:text-foreground">
-            Cancel
+            Отмена
           </button>
           <button
             onClick={save}
             disabled={saving}
             className="rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
           >
-            {saving ? "Saving…" : "Save retro"}
+            {saving ? "Сохранение…" : "Сохранить ретро"}
           </button>
         </div>
       </GlassPanel>

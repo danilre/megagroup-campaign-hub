@@ -29,7 +29,7 @@ export const EmailChangeEmail = ({
 }: EmailChangeEmailProps) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Confirm your email change for {siteName}</Preview>
+    <Preview>Подтвердите смену email для {siteName}</Preview>
     <Body style={styles.main}>
       <Container style={styles.container}>
         <Section style={styles.brandRow}>
@@ -39,12 +39,12 @@ export const EmailChangeEmail = ({
           </Link>
         </Section>
 
-        <Heading style={styles.h1}>Confirm your email change</Heading>
+        <Heading style={styles.h1}>Подтвердите смену email</Heading>
         <Text style={styles.text}>
-          You requested to change the email address on your {siteName} account
+          Вы запросили смену email-адреса вашего аккаунта {siteName}
           {oldEmail && newEmail ? (
             <>
-              {' '}from{' '}
+              {' '}с{' '}
               <Link href={`mailto:${oldEmail}`} style={styles.link}>
                 {oldEmail}
               </Link>{' '}
@@ -57,10 +57,10 @@ export const EmailChangeEmail = ({
           .
         </Text>
         <Button style={styles.button} href={confirmationUrl}>
-          Confirm email change
+          Подтвердить смену email
         </Button>
         <Text style={styles.text}>
-          Or paste this link into your browser:
+          Или вставьте эту ссылку в браузер:
           <br />
           <Link href={confirmationUrl} style={styles.link}>
             {confirmationUrl}
@@ -72,8 +72,8 @@ export const EmailChangeEmail = ({
             <span style={styles.footerStrong}>{siteName}</span> · {BRAND.tagline}
           </Text>
           <Text style={{ margin: '8px 0 0' }}>
-            If you didn't request this change, please secure your account
-            immediately by resetting your password.
+            Если вы не запрашивали это изменение, немедленно обезопасьте
+            свой аккаунт, сбросив пароль.
           </Text>
         </Section>
       </Container>

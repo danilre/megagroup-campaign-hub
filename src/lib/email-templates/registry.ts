@@ -13,11 +13,11 @@ export interface TemplateEntry {
 export const TEMPLATES: Record<string, TemplateEntry> = {
   invite: {
     component: InviteEmail,
-    displayName: 'Workspace invite',
+    displayName: 'Приглашение в рабочее пространство',
     subject: (data) =>
       data?.orgName
-        ? `You're invited to join ${data.orgName}`
-        : "You're invited",
+        ? `Вас пригласили в ${data.orgName}`
+        : "Вас пригласили",
     previewData: {
       orgName: 'Acme Marketing',
       inviterName: 'Sam Operator',

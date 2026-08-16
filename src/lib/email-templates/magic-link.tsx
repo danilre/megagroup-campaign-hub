@@ -24,7 +24,7 @@ export const MagicLinkEmail = ({
 }: MagicLinkEmailProps) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Your login link for {siteName}</Preview>
+    <Preview>Ваша ссылка для входа в {siteName}</Preview>
     <Body style={styles.main}>
       <Container style={styles.container}>
         <Section style={styles.brandRow}>
@@ -34,16 +34,16 @@ export const MagicLinkEmail = ({
           </Link>
         </Section>
 
-        <Heading style={styles.h1}>Your sign-in link</Heading>
+        <Heading style={styles.h1}>Ваша ссылка для входа</Heading>
         <Text style={styles.text}>
-          Click the button below to sign in to {siteName}. This link expires
-          shortly and can only be used once.
+          Нажмите кнопку ниже, чтобы войти в {siteName}. Эта ссылка скоро
+          истечёт и может быть использована только один раз.
         </Text>
         <Button style={styles.button} href={confirmationUrl}>
-          Sign in
+          Войти
         </Button>
         <Text style={styles.text}>
-          Or paste this link into your browser:
+          Или вставьте эту ссылку в браузер:
           <br />
           <Link href={confirmationUrl} style={styles.link}>
             {confirmationUrl}
@@ -55,7 +55,7 @@ export const MagicLinkEmail = ({
             <span style={styles.footerStrong}>{siteName}</span> · {BRAND.tagline}
           </Text>
           <Text style={{ margin: '8px 0 0' }}>
-            Didn't request this link? You can safely ignore this email.
+            Не запрашивали эту ссылку? Просто проигнорируйте это письмо.
           </Text>
         </Section>
       </Container>
