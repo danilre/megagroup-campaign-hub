@@ -30,10 +30,10 @@ type Row =
     };
 
 const TONE = {
-  starts: { text: "text-[oklch(0.82_0.20_155)]", label: "Starts" },
-  ends: { text: "text-[oklch(0.78_0.18_25)]", label: "Ends" },
-  active: { text: "text-primary", label: "Runs" },
-  due: { text: "text-[oklch(0.82_0.17_75)]", label: "Due" },
+  starts: { text: "text-[oklch(0.82_0.20_155)]", label: "Начинается" },
+  ends: { text: "text-[oklch(0.78_0.18_25)]", label: "Заканчивается" },
+  active: { text: "text-primary", label: "Идёт" },
+  due: { text: "text-[oklch(0.82_0.17_75)]", label: "Срок" },
 } as const;
 
 export function ThisWeekPanel() {
@@ -106,7 +106,7 @@ export function ThisWeekPanel() {
 
       const displayName = (n: string | null | undefined) => {
         const t = (n ?? "").trim();
-        if (!t || t === "Untitled workspace" || t === "Untitled campaign") return "Untitled campaign";
+        if (!t || t === "Untitled workspace" || t === "Untitled campaign") return "Без названия";
         return t;
       };
       wsRows.forEach((rawW) => {
@@ -137,8 +137,8 @@ export function ThisWeekPanel() {
             tone: "starts",
             label: w.name,
             sublabel: w.end_date
-              ? `${fmtRange(w.start_date, w.end_date)} · kicks off`
-              : "kicks off",
+              ? `${fmtRange(w.start_date, w.end_date)} · старт`
+              : "старт",
           });
         } else if (endsInWindow) {
           out.push({
@@ -150,8 +150,8 @@ export function ThisWeekPanel() {
             tone: "ends",
             label: w.name,
             sublabel: w.start_date
-              ? `${fmtRange(w.start_date, w.end_date)} · wraps up`
-              : "wraps up",
+              ? `${fmtRange(w.start_date, w.end_date)} · финал`
+              : "финал",
           });
         }
       });
@@ -183,9 +183,9 @@ export function ThisWeekPanel() {
   return (
     <div>
       <div className="flex items-end justify-between">
-        <h2 className="font-display text-2xl">This week</h2>
+        <h2 className="font-display text-2xl">На этой неделе</h2>
         <Link to="/calendar" className="text-xs text-muted-foreground hover:text-foreground">
-          See calendar →
+          Смотреть календарь →
         </Link>
       </div>
       {error ? (
@@ -196,7 +196,7 @@ export function ThisWeekPanel() {
         <GlassPanel className="honeycomb-ghost mt-4 p-8 text-sm text-muted-foreground">
           <span className="inline-flex items-center gap-2">
             <IconCalendar size={14} />
-            Nothing on the calendar this week.
+            На этой неделе в календаре пусто.
           </span>
         </GlassPanel>
 

@@ -97,12 +97,12 @@ function MqlSqoCard({ stat, elapsedPct }: { stat: Stat | null; elapsedPct: numbe
       <div className="flex items-end justify-between gap-4">
         <div>
           <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-            Pipeline pacing
+            Темп воронки
           </div>
           <div className="mt-1 font-display text-2xl">{monthLabel}</div>
         </div>
         <div className="text-right text-xs text-muted-foreground tabular-nums">
-          <span className="text-foreground">{elapsedPct.toFixed(0)}%</span> of month elapsed
+          <span className="text-foreground">{elapsedPct.toFixed(0)}%</span> месяца прошло
         </div>
       </div>
 
@@ -113,11 +113,11 @@ function MqlSqoCard({ stat, elapsedPct }: { stat: Stat | null; elapsedPct: numbe
 
       {stat && stat.mqlTarget === 0 && stat.sqoTarget === 0 && (
         <div className="mt-5 text-[11px] text-muted-foreground">
-          Set monthly targets in{" "}
+          Задайте месячные цели в разделе{" "}
           <Link to="/tools" search={{ focus: "funnel-targets" }} className="text-foreground underline-offset-4 hover:underline">
-            Funnel targets
+            Цели воронки
           </Link>{" "}
-          to see pacing.
+          чтобы увидеть темп.
         </div>
       )}
     </GlassPanel>
@@ -139,9 +139,9 @@ function Row({
   let pace: { txt: string; tone: string } = { txt: "—", tone: "text-muted-foreground" };
   if (target > 0) {
     const delta = pct - elapsedPct;
-    if (delta >= 5) pace = { txt: "Ahead", tone: "text-[oklch(0.82_0.20_155)]" };
-    else if (delta <= -5) pace = { txt: "Behind", tone: "text-[oklch(0.78_0.18_25)]" };
-    else pace = { txt: "On pace", tone: "text-[oklch(0.82_0.17_75)]" };
+    if (delta >= 5) pace = { txt: "Опережаем", tone: "text-[oklch(0.82_0.20_155)]" };
+    else if (delta <= -5) pace = { txt: "Отстаём", tone: "text-[oklch(0.78_0.18_25)]" };
+    else pace = { txt: "В темпе", tone: "text-[oklch(0.82_0.17_75)]" };
   }
   return (
     <div>
@@ -167,7 +167,7 @@ function Row({
           <div
             className="absolute inset-y-0 w-px bg-white/40"
             style={{ left: `${elapsedPct}%` }}
-            title="Expected pace"
+            title="Ожидаемый темп"
           />
         )}
       </div>
