@@ -138,7 +138,7 @@ export function TimelineGantt({ items }: { items: Item[] }) {
           return next;
         });
       } else {
-        toast.success("Rescheduled");
+        toast.success("Сроки изменены");
       }
     };
     window.addEventListener("mousemove", onMove);
@@ -174,7 +174,7 @@ export function TimelineGantt({ items }: { items: Item[] }) {
   if (items.length === 0) {
     return (
       <GlassPanel className="p-10 text-center text-sm text-muted-foreground">
-        No workspaces yet.
+        Пока нет рабочих пространств.
       </GlassPanel>
     );
   }
@@ -185,7 +185,7 @@ export function TimelineGantt({ items }: { items: Item[] }) {
   return (
     <GlassPanel className="overflow-hidden p-0">
       <div className="border-b border-glass-border bg-background/30 px-4 py-2 text-[10px] uppercase tracking-wider text-muted-foreground">
-        Drag a bar to reschedule · drag the edges to resize
+        Перетащите полосу, чтобы изменить сроки · тяните за края для изменения размера
       </div>
       <div className="relative overflow-x-auto" ref={trackRef}>
         <div className="min-w-[800px]">
@@ -227,7 +227,7 @@ export function TimelineGantt({ items }: { items: Item[] }) {
                             className="absolute left-2 right-2 truncate rounded border border-dashed border-glass-border px-2 py-1 text-[11px] italic text-muted-foreground"
                             style={{ top: `${idx * 28 + 6}px` }}
                           >
-                            {w.name} (no dates)
+                            {w.name} (без дат)
                           </div>
                         );
                       }
