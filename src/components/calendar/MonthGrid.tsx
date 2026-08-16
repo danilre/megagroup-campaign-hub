@@ -23,7 +23,7 @@ export type CalItem = {
   done: boolean;
 };
 
-const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const WEEKDAYS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 const MAX_LANES = 3; // visible campaign rows per cell before overflow
 const MAX_DAY_ITEMS = 2; // visible post chips per day before overflow
 
@@ -45,7 +45,7 @@ function startOfMonth(d: Date) {
 }
 function displayName(n: string | null | undefined) {
   const t = (n ?? "").trim();
-  if (!t || t === "Untitled workspace" || t === "Untitled campaign") return "Untitled campaign";
+  if (!t || t === "Untitled workspace" || t === "Untitled campaign") return "Без названия";
   return t;
 }
 
@@ -437,7 +437,7 @@ function DayOverflowPopover({
         className="w-72 border-glass-border bg-popover/95 p-3 backdrop-blur-xl"
       >
         <div className="mb-2 font-display text-sm">
-          {date.toLocaleDateString(undefined, {
+          {date.toLocaleDateString("ru-RU", {
             weekday: "long",
             month: "short",
             day: "numeric",
@@ -446,7 +446,7 @@ function DayOverflowPopover({
         {dayCampaigns.length > 0 && (
           <div className="mb-3 space-y-1">
             <div className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-              Campaigns
+              Кампании
             </div>
             {dayCampaigns.map((c) => {
               const color = colorForCampaign(c.id);
@@ -476,7 +476,7 @@ function DayOverflowPopover({
         {items.length > 0 && (
           <div className="space-y-1">
             <div className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-              Posts &amp; tasks
+              Посты и задачи
             </div>
             {items.map((it) => {
               const parent = campaignById.get(it.workspace_id);

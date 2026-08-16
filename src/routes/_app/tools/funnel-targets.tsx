@@ -99,7 +99,7 @@ export function FunnelTargetsContent({ hideHeader = false }: { hideHeader?: bool
     if (error) toast.error(error.message);
     else {
       await reload(orgId);
-      toast.success("Saved");
+      toast.success("Сохранено");
     }
   };
 
@@ -107,33 +107,33 @@ export function FunnelTargetsContent({ hideHeader = false }: { hideHeader?: bool
     <div className="space-y-8">
       {!hideHeader && (
         <ToolHeader
-          eyebrow="Settings · funnel"
-          title="MQL & SQO"
-          accent="targets."
+          eyebrow="Настройки · воронка"
+          title="MQL и SQO"
+          accent="цели."
           hue={200}
           icon={<IconFunnel size={24} />}
-          ariaLabel="Targets"
-          description="Monthly targets feed the Funnel Dashboard. Set an organization default; override per workspace when needed."
+          ariaLabel="Цели"
+          description="Месячные цели используются в дашборде воронки. Задайте значение по умолчанию для организации; при необходимости переопределяйте для отдельных воркспейсов."
         />
       )}
 
       <div className="flex flex-wrap items-center gap-3">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70">Scope</div>
+        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70">Область</div>
         <select
           value={scope}
           onChange={(e) => setScope(e.target.value)}
           className="field-glass rounded-xl px-3 py-2 text-sm"
         >
-          <option value="__org__">Organization default</option>
+          <option value="__org__">По умолчанию для организации</option>
           {workspaces.map((w) => (
             <option key={w.id} value={w.id}>
-              Workspace · {w.name}
+              Воркспейс · {w.name}
             </option>
           ))}
         </select>
         {scope !== "__org__" && (
           <span className="text-sm font-medium text-foreground/85">
-            Blank fields fall back to the org default for that month.
+            Пустые поля используют значение по умолчанию для организации за этот месяц.
           </span>
         )}
       </div>
@@ -141,8 +141,8 @@ export function FunnelTargetsContent({ hideHeader = false }: { hideHeader?: bool
       <div className="glass flex items-start gap-3 rounded-xl border border-glass-border px-4 py-3 text-sm text-muted-foreground">
         <span className="mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary text-[10px] font-semibold">i</span>
         <span>
-          Targets are stored in-app and work out of the box. Live funnel actuals require{" "}
-          <Link to="/connectors" className="text-primary hover:underline">a CRM connection</Link>.
+          Цели хранятся в приложении и работают сразу. Для фактических данных воронки в реальном времени нужно{" "}
+          <Link to="/connectors" className="text-primary hover:underline">подключение CRM</Link>.
         </span>
       </div>
 
@@ -153,10 +153,10 @@ export function FunnelTargetsContent({ hideHeader = false }: { hideHeader?: bool
           <table className="w-full text-sm">
             <thead className="bg-muted/30 text-xs uppercase tracking-wider text-muted-foreground">
               <tr>
-                <th className="px-4 py-3 text-left">Month</th>
-                <th className="px-4 py-3 text-right">MQL target</th>
-                <th className="px-4 py-3 text-right">SQO target</th>
-                <th className="px-4 py-3 text-right">Implied MQL→SQO</th>
+                <th className="px-4 py-3 text-left">Месяц</th>
+                <th className="px-4 py-3 text-right">Цель MQL</th>
+                <th className="px-4 py-3 text-right">Цель SQO</th>
+                <th className="px-4 py-3 text-right">Расчётный MQL→SQO</th>
                 <th className="px-4 py-3"></th>
               </tr>
             </thead>
@@ -203,13 +203,13 @@ export function FunnelTargetsContent({ hideHeader = false }: { hideHeader?: bool
                     </td>
                     <td className="px-4 py-3 text-right">
                       {saving === m ? (
-                        <span className="text-sm font-medium text-foreground/85">Saving…</span>
+                        <span className="text-sm font-medium text-foreground/85">Сохранение…</span>
                       ) : t ? (
                         <span className="inline-flex items-center gap-1 text-xs text-primary">
-                          <IconCheck size={12} /> saved
+                          <IconCheck size={12} /> сохранено
                         </span>
                       ) : fallback ? (
-                        <span className="text-sm font-medium text-foreground/85">org default</span>
+                        <span className="text-sm font-medium text-foreground/85">по умолчанию для организации</span>
                       ) : null}
                     </td>
                   </tr>

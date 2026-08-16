@@ -85,7 +85,7 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
         type="button"
         role="switch"
         aria-checked={isDark}
-        aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+        aria-label={isDark ? "Переключить на светлую тему" : "Переключить на тёмную тему"}
         data-mode={isDark ? "dark" : "light"}
         onClick={() => setIsDark((v) => !v)}
         className={`tt-btn ${className}`}

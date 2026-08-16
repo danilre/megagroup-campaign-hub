@@ -8,7 +8,7 @@ interface PhoneFieldProps {
   defaultCountry?: string;
 }
 
-export function PhoneField({ value, onChange, placeholder = "Phone number", defaultCountry = "US" }: PhoneFieldProps) {
+export function PhoneField({ value, onChange, placeholder = "Номер телефона", defaultCountry = "US" }: PhoneFieldProps) {
   return (
     <PhoneInput
       international

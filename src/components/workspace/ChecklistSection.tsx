@@ -133,9 +133,9 @@ export function ChecklistSection({
     <div>
       <div className="mb-3 flex items-end justify-between gap-3">
         <div>
-          <h2 className="font-display text-xl">Launch checklist</h2>
+          <h2 className="font-display text-xl">Чек-лист запуска</h2>
           <div className="mt-1 text-xs text-muted-foreground">
-            {items.length === 0 ? "Add the first task to get started." : `${completed} of ${items.length} done · ${pct}%`}
+            {items.length === 0 ? "Добавьте первую задачу, чтобы начать." : `${completed} из ${items.length} выполнено · ${pct}%`}
           </div>
         </div>
         {items.length > 0 && (
@@ -193,16 +193,16 @@ export function ChecklistSection({
                   onChange={(e) => update(it.id, { owner_id: e.target.value || null })}
                   className="hidden shrink-0 rounded-md border border-glass-border bg-background/40 px-2 py-1 text-xs text-muted-foreground outline-none focus:border-primary/50 sm:block"
                 >
-                  <option value="">Unassigned</option>
+                  <option value="">Не назначено</option>
                   {members.map((m) => (
                     <option key={m.user_id} value={m.user_id}>
-                      {m.full_name ?? "Member"}
+                      {m.full_name ?? "Участник"}
                     </option>
                   ))}
                 </select>
                 {owner && (
                   <span className="hidden text-[11px] text-muted-foreground sm:inline">
-                    {owner.full_name?.split(" ")[0] ?? "Member"}
+                    {owner.full_name?.split(" ")[0] ?? "Участник"}
                   </span>
                 )}
                 <input
@@ -221,7 +221,7 @@ export function ChecklistSection({
                 <button
                   onClick={() => remove(it.id)}
                   className="shrink-0 text-muted-foreground/50 opacity-0 transition hover:text-destructive group-hover:opacity-100"
-                  aria-label="Delete"
+                  aria-label="Удалить"
                 >
                   <IconClose size={14} />
                 </button>
@@ -240,7 +240,7 @@ export function ChecklistSection({
                 add();
               }
             }}
-            placeholder="Add a checklist item…"
+            placeholder="Добавить пункт чек-листа…"
             className="flex-1 bg-transparent text-sm placeholder:text-muted-foreground/60 outline-none"
           />
           {draft.trim() && (
@@ -248,7 +248,7 @@ export function ChecklistSection({
               onClick={add}
               className="rounded-md bg-primary px-3 py-1 text-xs font-medium text-primary-foreground"
             >
-              Add
+              Добавить
             </button>
           )}
         </div>
@@ -256,7 +256,7 @@ export function ChecklistSection({
 
       {items.some((i) => i.due_at && !i.done && new Date(i.due_at!) < new Date()) && (
         <div className="mt-2 flex items-center gap-1.5 text-[11px] text-destructive">
-          <IconClock size={11} /> Overdue items need attention
+          <IconClock size={11} /> Просроченные пункты требуют внимания
         </div>
       )}
     </div>

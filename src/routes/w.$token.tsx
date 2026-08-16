@@ -56,31 +56,31 @@ function PublicWorkspace() {
         )}
         {state === "missing" && (
           <GlassPanel className="p-10 text-center">
-            <div className="font-display text-2xl">Link expired or revoked</div>
-            <p className="mt-2 text-sm text-muted-foreground">Ask the workspace owner for a fresh share link.</p>
+            <div className="font-display text-2xl">Ссылка истекла или отозвана</div>
+            <p className="mt-2 text-sm text-muted-foreground">Попросите владельца рабочего пространства прислать новую ссылку.</p>
           </GlassPanel>
         )}
         {state === "ok" && w && (
           <div className="space-y-6">
             <div>
-              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Read-only share</div>
+              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Доступ только для чтения</div>
               <h1 className="mt-2 font-display text-4xl">{w.name}</h1>
               <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-glass-border bg-glass/40 px-3 py-1 text-xs uppercase tracking-wider text-muted-foreground">
-                Status · {w.status}
+                Статус · {w.status}
               </div>
             </div>
 
             {w.goal && (
               <GlassPanel className="p-5">
-                <div className="text-xs uppercase tracking-wider text-muted-foreground">Goal</div>
+                <div className="text-xs uppercase tracking-wider text-muted-foreground">Цель</div>
                 <div className="mt-2 text-sm leading-relaxed">{w.goal}</div>
               </GlassPanel>
             )}
 
             <div className="grid gap-3 sm:grid-cols-3">
-              <Stat label="Channel" value={w.channel ?? "—"} />
-              <Stat label="Start" value={w.start_date ?? "—"} />
-              <Stat label="End" value={w.end_date ?? "—"} />
+              <Stat label="Канал" value={w.channel ?? "—"} />
+              <Stat label="Начало" value={w.start_date ?? "—"} />
+              <Stat label="Конец" value={w.end_date ?? "—"} />
             </div>
 
             {w.kpi_label && (
@@ -94,7 +94,7 @@ function PublicWorkspace() {
             )}
 
             <div className="text-center text-[11px] text-muted-foreground">
-              Shared via {BRAND.name}. <Link to="/" className="text-primary underline-offset-4 hover:underline">Build your own</Link>
+              Опубликовано через {BRAND.name}. <Link to="/" className="text-primary underline-offset-4 hover:underline">Создать своё</Link>
             </div>
           </div>
         )}

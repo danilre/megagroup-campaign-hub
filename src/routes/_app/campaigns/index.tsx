@@ -171,7 +171,7 @@ function WorkspacesList() {
         })
         .select("id")
         .single();
-      if (error || !ws) throw new Error(error?.message ?? "Could not create");
+      if (error || !ws) throw new Error(error?.message ?? "Не удалось создать");
       const checklistRows = plan.checklist.map((title, i) => ({
         workspace_id: ws.id, org_id: orgId, created_by: user.id, title, position: i,
       }));
@@ -187,12 +187,12 @@ function WorkspacesList() {
           kind: "workspace.drafted_by_ai", payload: { brief_chars: brief.length },
         }),
       ]);
-      toast.success("Workspace drafted");
+      toast.success("Рабочее пространство составлено");
       setDraftOpen(false);
       setBrief("");
       nav({ to: "/campaigns/$id", params: { id: ws.id } });
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "AI draft failed");
+      toast.error(e instanceof Error ? e.message : "Не удалось составить с помощью ИИ");
     } finally {
       setDrafting(false);
     }
@@ -216,12 +216,12 @@ function WorkspacesList() {
 
   const create = async () => {
     if (!orgId || !user) {
-      toast.message("Just a sec — finishing sign-in…");
+      toast.message("Секунду — завершаем вход…");
       return;
     }
     setCreating(true);
     const now = new Date();
-    const draftName = `Campaign — ${now.toLocaleDateString(undefined, {
+    const draftName = `Кампания — ${now.toLocaleDateString(undefined, {
       month: "short",
       day: "numeric",
     })}`;
@@ -237,7 +237,7 @@ function WorkspacesList() {
       .single();
     if (error || !data) {
       setCreating(false);
-      toast.error(error?.message ?? "Could not create campaign");
+      toast.error(error?.message ?? "Не удалось создать кампанию");
       return;
     }
     if (cacheKey) {
@@ -266,13 +266,13 @@ function WorkspacesList() {
     <div className="space-y-8">
       <div className="flex items-end justify-between gap-4">
         <div className="flex items-start gap-4">
-          <PageHexBadge hue={150} size={26} icon={<IconCampaign size={22} />} aria-label="Campaigns" />
+          <PageHexBadge hue={150} size={26} icon={<IconCampaign size={22} />} aria-label="Кампании" />
           <div>
-            <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Campaigns</div>
-            <h1 className="mt-1 font-display text-4xl tracking-tight">Every initiative, one place.</h1>
+            <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Кампании</div>
+            <h1 className="mt-1 font-display text-4xl tracking-tight">Все инициативы в одном месте.</h1>
             <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-              A campaign bundles its name, audience, list, UTM links, and checklist under one roof — share saved audiences
-              and lists across campaigns from your workspace settings.
+              Кампания объединяет название, аудиторию, список, UTM-ссылки и чек-лист под одной крышей — используйте
+              сохранённые аудитории и списки в разных кампаниях из настроек рабочего пространства.
             </p>
           </div>
         </div>
@@ -281,7 +281,7 @@ function WorkspacesList() {
             onClick={() => setDraftOpen(true)}
             className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2.5 text-sm text-primary hover:bg-primary/15"
           >
-            <IconSpark size={14} /> Draft from brief
+            <IconSpark size={14} /> Составить из брифа
           </button>
           <button
             onClick={create}
@@ -290,7 +290,7 @@ function WorkspacesList() {
             className="btn-keystone inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
           >
             <IconPlus size={16} />
-            {creating ? "Creating…" : "New campaign"}
+            {creating ? "Создание…" : "Новая кампания"}
           </button>
         </div>
       </div>
@@ -306,16 +306,16 @@ function WorkspacesList() {
             </button>
             <div className="flex items-center gap-2">
               <IconSpark size={16} className="text-primary" />
-              <h2 className="font-display text-xl">Draft this campaign for me</h2>
+              <h2 className="font-display text-xl">Составить кампанию за меня</h2>
             </div>
             <p className="mt-1 text-xs text-muted-foreground">
-              Paste a 1–3 paragraph brief. AI will name it, set the goal, KPI, channel, checklist, and 2–4 variants.
+              Вставьте бриф на 1–3 абзаца. ИИ придумает название, цель, KPI, канал, чек-лист и 2–4 варианта.
             </p>
             <textarea
               value={brief}
               onChange={(e) => setBrief(e.target.value)}
               rows={8}
-              placeholder="e.g. We're launching our Pro plan in 3 weeks to existing free-tier signups. Goal: 200 paid conversions. Mostly email + a small paid social retarget…"
+              placeholder="например: Запускаем тариф Pro через 3 недели для существующих пользователей бесплатного тарифа. Цель: 200 платных конверсий. В основном email + небольшой платный ретаргетинг в соцсетях…"
               className="mt-3 w-full resize-none rounded-lg border border-glass-border bg-background/40 px-3 py-2 text-sm outline-none focus:border-primary/50"
             />
             <div className="mt-4 flex justify-end gap-2">
@@ -324,14 +324,14 @@ function WorkspacesList() {
                 disabled={drafting}
                 className="rounded-full px-4 py-1.5 text-xs text-muted-foreground hover:text-foreground"
               >
-                Cancel
+                Отмена
               </button>
               <button
                 onClick={draftFromBrief}
                 disabled={drafting || brief.trim().length < 20}
                 className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
               >
-                <IconSpark size={12} /> {drafting ? "Drafting…" : "Draft campaign"}
+                <IconSpark size={12} /> {drafting ? "Составление…" : "Составить кампанию"}
               </button>
             </div>
           </GlassPanel>
@@ -348,7 +348,7 @@ function WorkspacesList() {
       )}
 
       {items === null && loadError ? (
-        <PanelError message="Couldn't load campaigns" onRetry={() => refetch()} />
+        <PanelError message="Не удалось загрузить кампании" onRetry={() => refetch()} />
       ) : items === null ? (
         <GlassSkeleton rows={6} />
       ) : items.length === 0 ? (
@@ -358,17 +358,17 @@ function WorkspacesList() {
             <span className="inline-flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
               <IconWorkspace size={24} />
             </span>
-            <h2 className="font-display text-2xl">Start your first campaign</h2>
+            <h2 className="font-display text-2xl">Создайте свою первую кампанию</h2>
             <p className="max-w-md text-sm text-muted-foreground">
-              A campaign is one initiative — a launch, webinar, or nurture. Name it, build the audience, import the list, and mint tracked links. All four stay wired together.
+              Кампания — это одна инициатива: запуск, вебинар или подогрев. Назовите её, соберите аудиторию, импортируйте список и создайте отслеживаемые ссылки. Все четыре элемента остаются связанными.
             </p>
           </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { step: "01", label: "Name it", Icon: IconCampaign },
-              { step: "02", label: "Build audience", Icon: IconAudience },
-              { step: "03", label: "Import list", Icon: IconImport },
-              { step: "04", label: "Track URLs", Icon: IconUtm },
+              { step: "01", label: "Назовите", Icon: IconCampaign },
+              { step: "02", label: "Соберите аудиторию", Icon: IconAudience },
+              { step: "03", label: "Импортируйте список", Icon: IconImport },
+              { step: "04", label: "Отслеживайте ссылки", Icon: IconUtm },
             ].map((s) => (
               <div key={s.step} className="flex items-center gap-3 rounded-xl border border-glass-border bg-glass/30 px-4 py-3">
                 <span className="font-mono text-[10px] tracking-wider text-muted-foreground">{s.step}</span>
@@ -381,10 +381,10 @@ function WorkspacesList() {
             <div className="flex flex-wrap items-center justify-center gap-2">
               <button onClick={create} disabled={creating} className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50">
                 <IconPlus size={16} />
-                {creating ? "Creating…" : "Create your first campaign"}
+                {creating ? "Создание…" : "Создать первую кампанию"}
               </button>
               <button onClick={() => setDraftOpen(true)} className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2.5 text-sm text-primary hover:bg-primary/15">
-                <IconSpark size={14} /> Draft from brief
+                <IconSpark size={14} /> Составить из брифа
               </button>
             </div>
             <span className="text-[11px] text-muted-foreground">
@@ -392,8 +392,8 @@ function WorkspacesList() {
             </span>
           </div>
           <LoadSampleCTA
-            headline="Or load a sample to see it wired up"
-            body="Spins up a workspace with checklist, budget, and KPI seeded — so you can poke at a real example instead of a blank shell."
+            headline="Или загрузите пример, чтобы увидеть, как всё связано"
+            body="Создаёт рабочее пространство с чек-листом, бюджетом и заданным KPI — чтобы вы могли посмотреть на реальный пример, а не на пустую оболочку."
           />
         </GlassPanel>
       ) : (
@@ -470,8 +470,8 @@ function StatusFilterTabs({
         <button
           type="button"
           onClick={onManage}
-          aria-label="Manage stages"
-          title="Manage stages"
+          aria-label="Управление этапами"
+          title="Управление этапами"
           className="inline-flex size-7 items-center justify-center rounded-full text-muted-foreground transition hover:bg-glass/40 hover:text-foreground"
         >
           <Settings size={14} />
@@ -501,10 +501,10 @@ function StatusBadge({ workspace, stages }: { workspace: Workspace; stages: Stag
       .eq("id", workspace.id);
     if (error) {
       setCurrent(prev);
-      toast.error(error.message ?? "Couldn't update status");
+      toast.error(error.message ?? "Не удалось обновить статус");
     } else {
       const label = stages.find((s) => s.key === nextKey)?.label ?? nextKey;
-      toast.success(`Moved to ${label}`);
+      toast.success(`Перемещено на этап «${label}»`);
     }
   };
 
@@ -542,7 +542,7 @@ function StatusBadge({ workspace, stages }: { workspace: Workspace; stages: Stag
       </PopoverTrigger>
       <PopoverContent align="start" sideOffset={6} className="w-48 p-1" onClick={stop}>
         <div className="px-2 pb-1.5 pt-1 text-[10px] uppercase tracking-wider text-muted-foreground">
-          Change status
+          Изменить статус
         </div>
         {stages.map((s) => {
           const isCurrent = s.key === current;
@@ -582,7 +582,7 @@ function GroupedCampaigns({
       .filter((g) => g.rows.length > 0);
     const orphanRows = filtered.filter((w) => !stageKeys.has(w.status));
     if (orphanRows.length > 0) {
-      known.push({ key: "__other__", label: "Other", color: "zinc", rows: orphanRows, hideHeader: false });
+      known.push({ key: "__other__", label: "Другое", color: "zinc", rows: orphanRows, hideHeader: false });
     }
     return known;
   }, [items, stages, filter]);
@@ -590,7 +590,7 @@ function GroupedCampaigns({
   if (groups.length === 0 || groups.every((g) => g.rows.length === 0)) {
     return (
       <div className="rounded-2xl border border-glass-border bg-glass/20 px-6 py-10 text-center text-sm text-muted-foreground">
-        No campaigns in this status.
+        Нет кампаний с этим статусом.
       </div>
     );
   }
@@ -638,7 +638,7 @@ function GroupedCampaigns({
                         const n = w.name?.trim();
                         const isPlaceholder = !n || n === "Untitled workspace" || n === "Untitled campaign";
                         return isPlaceholder ? (
-                          <span className="italic text-muted-foreground">Untitled campaign</span>
+                          <span className="italic text-muted-foreground">Кампания без названия</span>
                         ) : n;
                       })()}
                     </div>
@@ -770,11 +770,11 @@ function ManageStagesDialog({
           .eq("id", s.id);
         if (error) throw error;
       }
-      toast.success("Stages updated");
+      toast.success("Этапы обновлены");
       onChanged();
       onClose();
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Failed to save stages");
+      toast.error(e instanceof Error ? e.message : "Не удалось сохранить этапы");
     } finally {
       setSaving(false);
     }
@@ -788,10 +788,10 @@ function ManageStagesDialog({
         </button>
         <div className="flex items-center gap-2">
           <Settings size={16} className="text-primary" />
-          <h2 className="font-display text-xl">Manage Stages</h2>
+          <h2 className="font-display text-xl">Управление этапами</h2>
         </div>
         <p className="mt-1 text-xs text-muted-foreground">
-          Rename, recolor, reorder, or add custom stages. System stages can be edited but not deleted.
+          Переименуйте, измените цвет, порядок или добавьте собственные этапы. Системные этапы можно редактировать, но нельзя удалить.
         </p>
 
         <ul className="mt-4 space-y-1.5 max-h-[50vh] overflow-y-auto pr-1">
@@ -814,13 +814,13 @@ function ManageStagesDialog({
                 className="flex-1 rounded-md bg-transparent px-2 py-1 text-sm outline-none focus:bg-background/40"
               />
               {s.is_system ? (
-                <span className="rounded-full bg-glass/40 px-2 py-0.5 text-[9px] uppercase tracking-wider text-muted-foreground">System</span>
+                <span className="rounded-full bg-glass/40 px-2 py-0.5 text-[9px] uppercase tracking-wider text-muted-foreground">Системный</span>
               ) : (
                 <button
                   type="button"
                   onClick={() => removeStage(s.id)}
                   className="rounded-md p-1 text-muted-foreground transition hover:bg-rose-500/15 hover:text-rose-300"
-                  aria-label="Delete stage"
+                  aria-label="Удалить этап"
                 >
                   <Trash2 size={14} />
                 </button>
@@ -835,7 +835,7 @@ function ManageStagesDialog({
             value={newLabel}
             onChange={(e) => setNewLabel(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addStage(); } }}
-            placeholder="New stage name…"
+            placeholder="Название нового этапа…"
             className="flex-1 rounded-md bg-transparent px-2 py-1 text-sm outline-none placeholder:text-muted-foreground/60 focus:bg-background/40"
           />
           <button
@@ -844,20 +844,20 @@ function ManageStagesDialog({
             disabled={!newLabel.trim()}
             className="inline-flex items-center gap-1 rounded-full bg-primary/15 px-3 py-1 text-xs text-primary hover:bg-primary/25 disabled:opacity-40"
           >
-            <IconPlus size={12} /> Add
+            <IconPlus size={12} /> Добавить
           </button>
         </div>
 
         <div className="mt-5 flex justify-end gap-2">
           <button onClick={onClose} disabled={saving} className="rounded-full px-4 py-1.5 text-xs text-muted-foreground hover:text-foreground">
-            Cancel
+            Отмена
           </button>
           <button
             onClick={save}
             disabled={saving}
             className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
           >
-            {saving ? "Saving…" : "Save changes"}
+            {saving ? "Сохранение…" : "Сохранить изменения"}
           </button>
         </div>
       </GlassPanel>

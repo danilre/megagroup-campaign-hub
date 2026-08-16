@@ -60,11 +60,11 @@ type StageDef = {
 const STAGES: StageDef[] = [
   {
     id: "lead",
-    label: "Leads",
+    label: "Лиды",
     hex: "#a78bfa",
     tint: "bg-violet-500/10",
     blurb:
-      "Anyone who has shown interest — form fills, ad clicks, event sign-ups.",
+      "Все, кто проявил интерес — заполнили форму, кликнули по рекламе, зарегистрировались на мероприятие.",
   },
   {
     id: "mql",
@@ -72,7 +72,7 @@ const STAGES: StageDef[] = [
     hex: "#818cf8",
     tint: "bg-indigo-500/10",
     blurb:
-      "Marketing Qualified Lead — a lead that has met your marketing engagement threshold and is ready to hand off to sales.",
+      "Marketing Qualified Lead — лид, достигший порога вовлечённости по маркетингу и готовый к передаче в отдел продаж.",
   },
   {
     id: "sql",
@@ -80,22 +80,22 @@ const STAGES: StageDef[] = [
     hex: "#60a5fa",
     tint: "bg-blue-500/10",
     blurb:
-      "Sales Qualified Lead — a lead the sales team has reviewed and accepted as worth actively pursuing.",
+      "Sales Qualified Lead — лид, который отдел продаж рассмотрел и признал перспективным для активной работы.",
   },
   {
     id: "opp",
-    label: "Opportunity",
+    label: "Сделка",
     hex: "#2dd4bf",
     tint: "bg-teal-500/10",
     blurb:
-      "A qualified prospect with a potential deal — has a defined need, budget, and timeline.",
+      "Квалифицированный потенциальный клиент с потенциальной сделкой — есть определённая потребность, бюджет и сроки.",
   },
   {
     id: "won",
-    label: "Won",
+    label: "Закрыто",
     hex: "#34d399",
     tint: "bg-emerald-500/10",
-    blurb: "A closed deal. A new customer.",
+    blurb: "Закрытая сделка. Новый клиент.",
   },
 ];
 
@@ -288,17 +288,17 @@ export function FunnelPageContent({ hideHeader = false }: { hideHeader?: boolean
               <PageHexBadge hue={275} size={26} icon={<IconFunnel size={22} />} aria-label="Funnel" />
               <div>
                 <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  Pipeline view
+                  Обзор воронки
                 </div>
                 <h1 className="mt-1 font-display text-4xl tracking-tight">
-                  Funnel
+                  Воронка
                 </h1>
                 <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-                  Lead → Won pipeline, filtered by period, channel and source.{" "}
+                  Воронка от лида до закрытия сделки с фильтрами по периоду, каналу и источнику.{" "}
                   <Link to="/integrations" className="text-primary hover:opacity-80">
-                    Connect your CRM or analytics source
+                    Подключите CRM или источник аналитики
                   </Link>{" "}
-                  to stream events automatically.
+                  для автоматической передачи событий.
                 </p>
               </div>
             </div>
@@ -308,13 +308,13 @@ export function FunnelPageContent({ hideHeader = false }: { hideHeader?: boolean
                 search={{ focus: "funnel-targets" }}
                 className="inline-flex items-center gap-2 rounded-xl border border-glass-border bg-glass/40 px-3.5 py-2 text-sm text-foreground transition hover:bg-glass-strong"
               >
-                Set targets <IconArrowRight size={12} />
+                Задать цели <IconArrowRight size={12} />
               </Link>
               <button
                 onClick={() => setAdding(true)}
                 className="btn-keystone inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary to-accent px-4 py-2 text-sm font-medium text-primary-foreground shadow-[0_8px_32px_-8px_oklch(0.72_0.2_275_/_0.4)] hover:opacity-90"
               >
-                <IconPlus size={14} /> Log event
+                <IconPlus size={14} /> Записать событие
               </button>
             </div>
           </div>
@@ -323,7 +323,7 @@ export function FunnelPageContent({ hideHeader = false }: { hideHeader?: boolean
         {optionsEvents.some((e) => e.is_sample) && (
           <DemoDataBanner
             storageKey="funnel-sample"
-            label="Sample data — these funnel events were seeded so the pipeline isn't empty. Replace them with your own or clear them in Settings."
+            label="Демоданные — эти события воронки добавлены, чтобы воронка не была пустой. Замените их своими или очистите в настройках."
             ctaHref="#"
           />
         )}
@@ -346,7 +346,7 @@ export function FunnelPageContent({ hideHeader = false }: { hideHeader?: boolean
           </>
         ) : optionsError ? (
           <PanelError
-            message="Couldn't load funnel"
+            message="Не удалось загрузить воронку"
             onRetry={() => {
               setOptionsReloadKey((k) => k + 1);
               setScopedReloadKey((k) => k + 1);
@@ -364,7 +364,7 @@ export function FunnelPageContent({ hideHeader = false }: { hideHeader?: boolean
           </>
         ) : scopedError ? (
           <PanelError
-            message="Couldn't load funnel events for this slice"
+            message="Не удалось загрузить события воронки для этого среза"
             onRetry={() => setScopedReloadKey((k) => k + 1)}
           />
         ) : current.length === 0 && !scopedLoading ? (
@@ -466,10 +466,10 @@ function FiltersBar(props: {
   setSourceFilter: (v: string) => void;
 }) {
   const periodOptions: { id: Period; label: string }[] = [
-    { id: "this_week", label: "This week" },
-    { id: "this_month", label: "This month" },
-    { id: "this_quarter", label: "This quarter" },
-    { id: "all_time", label: "All time" },
+    { id: "this_week", label: "Эта неделя" },
+    { id: "this_month", label: "Этот месяц" },
+    { id: "this_quarter", label: "Этот квартал" },
+    { id: "all_time", label: "Всё время" },
   ];
   return (
     <GlassPanel className="flex flex-wrap items-center gap-3 p-2">
@@ -498,13 +498,13 @@ function FiltersBar(props: {
       </div>
       <div className="ml-auto flex flex-wrap items-center gap-2">
         <FilterSelect
-          label="Channel"
+          label="Канал"
           value={props.channelFilter}
           onChange={props.setChannelFilter}
           options={["email", "paid-social", "organic", "partner", "event", ...props.channels.filter(c => !["email","paid-social","organic","partner","event"].includes(c))]}
         />
         <FilterSelect
-          label="Source"
+          label="Источник"
           value={props.sourceFilter}
           onChange={props.setSourceFilter}
           options={props.sources}
@@ -533,7 +533,7 @@ function FilterSelect({
         onChange={(e) => onChange(e.target.value)}
         className="field-glass rounded-lg px-2.5 py-1.5 text-xs"
       >
-        <option value="__all__">All</option>
+        <option value="__all__">Все</option>
         {options.map((o) => (
           <option key={o} value={o}>
             {o}
@@ -549,7 +549,7 @@ function FilterSelect({
 function DeltaBadge({ cur, prev }: { cur: number; prev: number }) {
   if (cur === 0 && prev === 0) return <span className="text-muted-foreground/60">—</span>;
   if (prev === 0) {
-    return <span className="text-muted-foreground/70">— no prior data</span>;
+    return <span className="text-muted-foreground/70">— нет данных за прошлый период</span>;
   }
   const delta = ((cur - prev) / prev) * 100;
   const up = delta >= 0;
@@ -574,7 +574,7 @@ function InfoDot({ children }: { children: React.ReactNode }) {
           type="button"
           tabIndex={-1}
           className="inline-flex size-3.5 items-center justify-center rounded-full border border-glass-border bg-glass/40 text-[9px] text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
-          aria-label="More info"
+          aria-label="Подробнее"
         >
           ?
         </button>
@@ -616,10 +616,10 @@ function SummaryRow({
           <div className="relative flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-                Overall pipeline conversion
+                Общая конверсия воронки
               </div>
               <InfoDot>
-                The share of Leads in this period that became Won customers. Calculated as Won ÷ Leads.
+                Доля лидов за этот период, ставших закрытыми сделками. Считается как Закрыто ÷ Лиды.
               </InfoDot>
             </div>
             <div className="hidden h-1.5 max-w-md flex-1 overflow-hidden rounded-full bg-black/30 sm:block">
@@ -819,15 +819,15 @@ function FunnelChart({
     <GlassPanel className="p-4 sm:p-5">
       <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
         <div>
-          <h2 className="font-display text-lg leading-tight">Pipeline funnel</h2>
+          <h2 className="font-display text-lg leading-tight">Воронка продаж</h2>
           <p className="text-xs text-muted-foreground">
-            Click a stage for details · widths proportional to volume
+            Нажмите на этап для подробностей · ширина пропорциональна объёму
           </p>
         </div>
         <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-          Conversion %
+          Конверсия %
           <InfoDot>
-            The share of the previous stage that progressed here. Higher is better.
+            Доля предыдущего этапа, перешедшая сюда. Чем выше, тем лучше.
           </InfoDot>
         </div>
       </div>
@@ -1108,7 +1108,7 @@ function FunnelChart({
                         <div className="flex items-end justify-between gap-3 border-t border-glass-border/60 pt-2.5">
                           <div>
                             <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                              In period
+                              За период
                             </div>
                             <div className="mt-0.5 font-display text-xl tabular-nums">
                               {(values[i] || 0).toLocaleString()}
@@ -1116,7 +1116,7 @@ function FunnelChart({
                           </div>
                           <div className="text-right">
                             <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                              {i === 0 ? "Top of funnel" : `From ${STAGES[i - 1].label}`}
+                              {i === 0 ? "Верх воронки" : `Из «${STAGES[i - 1].label}»`}
                             </div>
                             <div className="mt-0.5 font-display text-xl tabular-nums">
                               {convs[i] !== null ? `${convs[i]!.toFixed(1)}%` : "—"}
@@ -1214,10 +1214,10 @@ function ConversionPill({
         style={{ background: biggestDrop ? "oklch(0.86 0.14 88)" : hue }}
       />
       <span>→ {label}</span>
-      <span className="text-[10px] font-medium text-muted-foreground">from {from}</span>
+      <span className="text-[10px] font-medium text-muted-foreground">из «{from}»</span>
       {biggestDrop && (
         <span className="ml-1 text-[9px] font-bold uppercase tracking-wider text-amber-200/95">
-          Biggest drop
+          Наибольшее падение
         </span>
       )}
     </div>
@@ -1320,15 +1320,15 @@ function GettingStartedHint() {
         style={{ boxShadow: "0 0 8px oklch(0.72 0.2 275)" }}
       />
       <span>
-        Just getting started — log events or{" "}
+        Только начинаете — записывайте события или{" "}
         <Link
           to="/tools"
           search={{ focus: "campaign-import" }}
           className="text-primary underline-offset-2 hover:underline"
         >
-          import a list
+          импортируйте список
         </Link>{" "}
-        and the funnel fills in.
+        и воронка заполнится.
       </span>
       <button
         type="button"
@@ -1339,7 +1339,7 @@ function GettingStartedHint() {
           setDismissed(true);
         }}
         className="ml-auto rounded-md p-1 text-muted-foreground/70 transition hover:bg-glass-strong hover:text-foreground"
-        aria-label="Dismiss hint"
+        aria-label="Скрыть подсказку"
       >
         <IconClose size={12} />
       </button>
@@ -1376,22 +1376,22 @@ function SparseFunnelGhost({
           <div className="mx-auto inline-flex size-10 items-center justify-center rounded-xl border border-glass-border bg-glass/60 text-primary">
             <IconFunnel size={18} />
           </div>
-          <h3 className="mt-3 font-display text-lg">Your funnel fills in as events are logged.</h3>
+          <h3 className="mt-3 font-display text-lg">Воронка заполняется по мере записи событий.</h3>
           <p className="mt-1 text-xs text-muted-foreground">
-            Log a stage manually or connect your CRM to stream conversions automatically.
+            Добавьте этап вручную или подключите CRM для автоматической передачи конверсий.
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             <button
               onClick={onLog}
               className="btn-keystone inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary to-accent px-3.5 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
             >
-              <IconPlus size={14} /> Log an event
+              <IconPlus size={14} /> Записать событие
             </button>
             <Link
               to="/connectors"
               className="inline-flex items-center gap-2 rounded-xl border border-glass-border bg-glass/40 px-3.5 py-2 text-sm transition hover:bg-glass-strong"
             >
-              Connect your CRM <IconArrowRight size={12} />
+              Подключить CRM <IconArrowRight size={12} />
             </Link>
           </div>
         </motion.div>
@@ -1477,7 +1477,7 @@ function StageDetail({
           <div className="flex items-center gap-2.5">
             <span className="h-2.5 w-2.5 rounded-full" style={{ background: stage.hex }} />
             <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-              Stage detail
+              Детали этапа
             </div>
           </div>
           <SheetTitle className="font-display text-2xl">
@@ -1489,18 +1489,18 @@ function StageDetail({
         <div className="mt-5 grid grid-cols-2 gap-3">
           <GlassPanel className={`p-4 ${stage.tint}`}>
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              In period
+              За период
             </div>
             <div className="mt-1 font-display text-2xl tabular-nums">{total.toLocaleString()}</div>
           </GlassPanel>
           <GlassPanel className="p-4">
             <div className="flex items-center gap-1.5">
               <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                From {prevStage?.label ?? "—"}
+                Из «{prevStage?.label ?? "—"}»
               </span>
               {prevStage && (
                 <InfoDot>
-                  The percentage of {prevStage.label} that progressed to {stage.label}.
+                  Доля этапа «{prevStage.label}», перешедшая в «{stage.label}».
                 </InfoDot>
               )}
             </div>
@@ -1515,10 +1515,10 @@ function StageDetail({
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 pb-6 pt-5" data-lenis-prevent>
         <div>
           <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-            Top sources
+            Топ источников
           </div>
           {topSources.length === 0 ? (
-            <div className="text-sm text-muted-foreground">No entries in period.</div>
+            <div className="text-sm text-muted-foreground">Нет записей за период.</div>
           ) : (
             <div className="space-y-2">
               {topSources.map(([src, v]) => {
@@ -1546,7 +1546,7 @@ function StageDetail({
 
         <div className="mt-6">
           <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-            30-day trend
+            Динамика за 30 дней
           </div>
           <GlassPanel className="p-3">
             <svg viewBox={`0 0 ${sparkW} ${sparkH}`} className="h-16 w-full">
@@ -1576,14 +1576,14 @@ function StageDetail({
         <div className="mt-6">
           <div className="mb-2 flex items-baseline justify-between">
             <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              All entries
+              Все записи
             </div>
             <div className="text-[10px] tabular-nums text-muted-foreground/70">
               {allStageEntries.length}
             </div>
           </div>
           {allStageEntries.length === 0 ? (
-            <div className="text-sm text-muted-foreground">No entries in period.</div>
+            <div className="text-sm text-muted-foreground">Нет записей за период.</div>
           ) : (
             <div className="space-y-1.5 text-xs">
               {allStageEntries.map((e) => (
@@ -1665,18 +1665,18 @@ function StageContacts({ stage }: { stage: StageDef }) {
     <div className="mt-6">
       <div className="mb-2 flex items-baseline justify-between">
         <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-          Contacts in this stage
+          Контакты на этом этапе
         </div>
         <Link
           to="/leads"
           search={{ stage: stage.id }}
           className="text-[11px] text-foreground/70 underline-offset-2 hover:text-foreground hover:underline"
         >
-          View all{total ? ` (${total})` : ""} →
+          Все{total ? ` (${total})` : ""} →
         </Link>
       </div>
       {error ? (
-        <div className="text-sm text-rose-300/80">Couldn't load contacts.</div>
+        <div className="text-sm text-rose-300/80">Не удалось загрузить контакты.</div>
       ) : rows === null ? (
         <div className="space-y-1.5">
           <GlassSkeleton className="h-9 w-full" />
@@ -1685,7 +1685,7 @@ function StageContacts({ stage }: { stage: StageDef }) {
         </div>
       ) : rows.length === 0 ? (
         <div className="text-sm text-muted-foreground">
-          No contacts at this stage yet.
+          На этом этапе пока нет контактов.
         </div>
       ) : (
         <div className="space-y-1.5 text-xs">
@@ -1739,14 +1739,14 @@ function FilteredEmptyState({
   onLog: () => void;
 }) {
   const periodLabel: Record<Period, string> = {
-    this_week: "this week",
-    this_month: "this month",
-    this_quarter: "this quarter",
-    all_time: "all time",
+    this_week: "эту неделю",
+    this_month: "этот месяц",
+    this_quarter: "этот квартал",
+    all_time: "всё время",
   };
   const bits: string[] = [periodLabel[period]];
-  if (channelFilter !== "__all__") bits.push(`channel ${channelFilter}`);
-  if (sourceFilter !== "__all__") bits.push(`source ${sourceFilter}`);
+  if (channelFilter !== "__all__") bits.push(`канал ${channelFilter}`);
+  if (sourceFilter !== "__all__") bits.push(`источник ${sourceFilter}`);
   return (
     <GlassPanel className="relative overflow-hidden p-10 text-center">
       <div
@@ -1761,23 +1761,23 @@ function FilteredEmptyState({
           <IconFunnel size={18} />
         </div>
         <h3 className="mt-4 font-display text-lg">
-          No funnel events for <span className="font-serif italic">{bits.join(" · ")}</span>
+          Нет событий воронки за <span className="font-serif italic">{bits.join(" · ")}</span>
         </h3>
         <p className="mt-1 text-sm text-muted-foreground">
-          You have data in other periods. Try widening the period or clearing filters.
+          У вас есть данные за другие периоды. Попробуйте расширить период или сбросить фильтры.
         </p>
         <div className="mt-4 flex flex-wrap justify-center gap-2">
           <button
             onClick={onReset}
             className="inline-flex items-center gap-2 rounded-xl border border-glass-border bg-glass/40 px-3.5 py-2 text-sm transition hover:bg-glass-strong"
           >
-            Reset filters
+            Сбросить фильтры
           </button>
           <button
             onClick={onLog}
             className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary to-accent px-3.5 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
-            <IconPlus size={14} /> Log event
+            <IconPlus size={14} /> Записать событие
           </button>
         </div>
       </div>
@@ -1832,11 +1832,11 @@ function AddEventModal({
       .single();
     setSaving(false);
     if (error || !data) {
-      toast.error(error?.message ?? "Could not save");
+      toast.error(error?.message ?? "Не удалось сохранить");
       return;
     }
     onAdded(data as FunnelEvent);
-    toast.success("Logged");
+    toast.success("Записано");
     onClose();
   };
 
@@ -1856,10 +1856,10 @@ function AddEventModal({
           <div className="flex items-center justify-between">
             <div>
               <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-                Pipeline
+                Воронка
               </div>
               <h3 className="mt-0.5 font-display text-xl text-foreground">
-                Log funnel event
+                Записать событие воронки
               </h3>
             </div>
             <button
@@ -1874,7 +1874,7 @@ function AddEventModal({
             {/* Stage as segmented pills */}
             <div>
               <label className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/80">
-                Stage
+                Этап
               </label>
               <div className="mt-2 grid grid-cols-5 gap-1.5 rounded-xl border border-glass-border bg-glass/30 p-1">
                 {STAGES.map((s) => {
@@ -1911,13 +1911,13 @@ function AddEventModal({
 
             <div className="grid grid-cols-2 gap-3">
               <ModalField
-                label="Source"
+                label="Источник"
                 value={source}
                 onChange={setSource}
                 placeholder="google, partner…"
               />
               <ModalField
-                label="Channel"
+                label="Канал"
                 value={channel}
                 onChange={setChannel}
                 placeholder="email, paid-social…"
@@ -1927,14 +1927,14 @@ function AddEventModal({
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/80">
-                  Count
+                  Количество
                 </label>
                 <div className="mt-1.5 flex items-stretch overflow-hidden rounded-lg border border-glass-border bg-glass/30">
                   <button
                     type="button"
                     onClick={() => setValue((v) => Math.max(1, v - 1))}
                     className="px-3 text-lg text-muted-foreground transition hover:bg-glass/60 hover:text-foreground"
-                    aria-label="Decrease"
+                    aria-label="Уменьшить"
                   >
                     −
                   </button>
@@ -1951,7 +1951,7 @@ function AddEventModal({
                     type="button"
                     onClick={() => setValue((v) => v + 1)}
                     className="px-3 text-lg text-muted-foreground transition hover:bg-glass/60 hover:text-foreground"
-                    aria-label="Increase"
+                    aria-label="Увеличить"
                   >
                     +
                   </button>
@@ -1959,7 +1959,7 @@ function AddEventModal({
               </div>
               <div>
                 <label className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/80">
-                  Date
+                  Дата
                 </label>
                 <input
                   type="date"
@@ -1977,7 +1977,7 @@ function AddEventModal({
               disabled={saving}
               className="btn-keystone w-full rounded-xl bg-gradient-to-r from-primary to-accent px-4 py-3 text-sm font-semibold text-primary-foreground shadow-[0_8px_32px_-8px_oklch(0.72_0.2_275_/_0.45)] transition hover:opacity-90 disabled:opacity-50"
             >
-              {saving ? "Saving…" : "Log event"}
+              {saving ? "Сохранение…" : "Записать событие"}
             </button>
           </div>
         </motion.div>
@@ -2097,9 +2097,9 @@ function WeeklyCohortPanel({
     <GlassPanel className="p-6">
       <div className="mb-4 flex items-baseline justify-between">
         <div>
-          <h2 className="font-display text-xl">Weekly cohort vs target</h2>
+          <h2 className="font-display text-xl">Недельная когорта против цели</h2>
           <p className="text-sm text-muted-foreground">
-            Last 8 weeks · MQL + SQO pacing (prorated by days-in-month)
+            Последние 8 недель · темп MQL + SQO (пропорционально дням в месяце)
           </p>
         </div>
         <Link
@@ -2107,18 +2107,18 @@ function WeeklyCohortPanel({
           search={{ focus: "funnel-targets" }}
           className="text-xs text-primary hover:opacity-80"
         >
-          {hasTargets ? "Edit targets →" : "Set targets →"}
+          {hasTargets ? "Изменить цели →" : "Задать цели →"}
         </Link>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
             <tr>
-              <th className="px-2 py-2 text-left font-medium">Week of</th>
+              <th className="px-2 py-2 text-left font-medium">Неделя от</th>
               <th className="px-2 py-2 text-right font-medium">MQL</th>
-              <th className="px-2 py-2 text-right font-medium">MQL target</th>
+              <th className="px-2 py-2 text-right font-medium">Цель MQL</th>
               <th className="px-2 py-2 text-right font-medium">SQO</th>
-              <th className="px-2 py-2 text-right font-medium">SQO target</th>
+              <th className="px-2 py-2 text-right font-medium">Цель SQO</th>
               <th className="px-2 py-2 text-right font-medium">MQL→SQO</th>
             </tr>
           </thead>

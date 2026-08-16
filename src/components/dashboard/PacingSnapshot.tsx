@@ -90,7 +90,7 @@ export function PacingSnapshot({ orgId }: { orgId: string }) {
 }
 
 function MqlSqoCard({ stat, elapsedPct }: { stat: Stat | null; elapsedPct: number }) {
-  const monthLabel = new Date().toLocaleDateString(undefined, { month: "long" });
+  const monthLabel = new Date().toLocaleDateString("ru-RU", { month: "long" });
 
   return (
     <GlassPanel className="p-6">

@@ -51,21 +51,21 @@ function LoginPage() {
           // Email confirmation required — surface the check-your-inbox state.
           setPendingConfirm(email);
         } else {
-          toast.success("Account created. Welcome.");
+          toast.success("Аккаунт создан. Добро пожаловать.");
         }
       } else if (mode === "forgot") {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
           redirectTo: `${window.location.origin}/reset-password`,
         });
         if (error) throw error;
-        toast.success("Check your inbox for a reset link.");
+        toast.success("Проверьте почту — там ссылка для сброса пароля.");
         setMode("signin");
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
       }
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Something went wrong");
+      toast.error(err instanceof Error ? err.message : "Что-то пошло не так");
     } finally {
       setBusy(false);
     }
@@ -81,9 +81,9 @@ function LoginPage() {
         options: { emailRedirectTo: `${window.location.origin}/welcome` },
       });
       if (error) throw error;
-      toast.success("Confirmation email resent");
+      toast.success("Письмо с подтверждением отправлено повторно");
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Could not resend");
+      toast.error(err instanceof Error ? err.message : "Не удалось отправить письмо повторно");
     } finally {
       setResendBusy(false);
     }
@@ -229,9 +229,9 @@ function LoginPage() {
                       <path d="m3 7 9 6 9-6" />
                     </svg>
                   </div>
-                  <h2 className="font-display text-2xl tracking-tight">Check your email</h2>
+                  <h2 className="font-display text-2xl tracking-tight">Проверьте почту</h2>
                   <p className="text-sm text-muted-foreground">
-                    We sent a confirmation link to <span className="text-foreground">{pendingConfirm}</span>. Click it to finish signing up.
+                    Мы отправили ссылку для подтверждения на <span className="text-foreground">{pendingConfirm}</span>. Перейдите по ней, чтобы завершить регистрацию.
                   </p>
                   <div className="flex flex-col items-center gap-2 pt-2">
                     <button
@@ -240,7 +240,7 @@ function LoginPage() {
                       disabled={resendBusy}
                       className="rounded-full border border-glass-border bg-glass/40 px-4 py-2 text-xs text-foreground transition hover:bg-glass-strong disabled:opacity-50"
                     >
-                      {resendBusy ? "Sending…" : "Resend email"}
+                      {resendBusy ? "Отправка…" : "Отправить письмо повторно"}
                     </button>
                     <button
                       type="button"
@@ -250,7 +250,7 @@ function LoginPage() {
                       }}
                       className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground"
                     >
-                      ← Back to sign in
+                      ← Назад ко входу
                     </button>
                   </div>
                 </div>
@@ -280,12 +280,12 @@ function LoginPage() {
                       }}
                     />
                     <GoogleMark />
-                    <span className="relative">Continue with Google</span>
+                    <span className="relative">Продолжить с Google</span>
                   </button>
 
                   <div className="my-6 flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-muted-foreground/70">
                     <span className="h-px flex-1 bg-gradient-to-r from-transparent via-glass-border to-glass-border" />
-                    or with email
+                    или по email
                     <span className="h-px flex-1 bg-gradient-to-l from-transparent via-glass-border to-glass-border" />
                   </div>
                 </>
@@ -305,7 +305,7 @@ function LoginPage() {
                 />
                 {mode !== "forgot" && (
                   <GlassField
-                    label="Password"
+                    label="Пароль"
                     type="password"
                     value={password}
                     onChange={setPassword}
@@ -319,7 +319,7 @@ function LoginPage() {
                           onClick={() => setMode("forgot")}
                           className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/80 transition hover:text-primary"
                         >
-                          Forgot
+                          Забыли пароль?
                         </button>
                       ) : null
                     }
@@ -359,10 +359,10 @@ function LoginPage() {
                       {busy
                         ? "…"
                         : mode === "signin"
-                          ? "Sign in"
+                          ? "Войти"
                           : mode === "signup"
-                            ? "Create account"
-                            : "Send reset link"}
+                            ? "Создать аккаунт"
+                            : "Отправить ссылку"}
                     </span>
                   </Button>
                 </div>
@@ -381,24 +381,24 @@ function LoginPage() {
               <div className="mt-6 text-center text-sm text-muted-foreground">
                 {mode === "signin" ? (
                   <>
-                    New here?{" "}
+                    Впервые здесь?{" "}
                     <button
                       onClick={() => setMode("signup")}
                       className="text-primary transition hover:text-primary/80"
                       type="button"
                     >
-                      Create an account
+                      Создать аккаунт
                     </button>
                   </>
                 ) : mode === "signup" ? (
                   <>
-                    Already have one?{" "}
+                    Уже есть аккаунт?{" "}
                     <button
                       onClick={() => setMode("signin")}
                       className="text-primary transition hover:text-primary/80"
                       type="button"
                     >
-                      Sign in
+                      Войти
                     </button>
                   </>
                 ) : (
@@ -407,7 +407,7 @@ function LoginPage() {
                     className="text-muted-foreground transition hover:text-foreground"
                     type="button"
                   >
-                    ← Back to sign in
+                    ← Назад ко входу
                   </button>
                 )}
               </div>
@@ -418,7 +418,7 @@ function LoginPage() {
         </div>
 
         <p className="mt-6 text-center text-[10px] uppercase tracking-[0.3em] text-muted-foreground/50">
-          Secured · Encrypted · Yours
+          Безопасно · Зашифровано · Только для вас
         </p>
       </div>
     </div>

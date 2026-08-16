@@ -47,7 +47,7 @@ export function useVoiceDictation(options: {
   const start = useCallback(() => {
     const Ctor = getRecognitionCtor();
     if (!Ctor) {
-      toast.error("Voice input isn't supported in this browser. Try Chrome.");
+      toast.error("Голосовой ввод не поддерживается в этом браузере. Попробуйте Chrome.");
       return;
     }
     const rec = new Ctor();
@@ -78,11 +78,11 @@ export function useVoiceDictation(options: {
     };
     rec.onerror = (e: any) => {
       if (e?.error === "not-allowed") {
-        toast.error("Microphone access denied — enable it in your browser.");
+        toast.error("Доступ к микрофону запрещён — включите его в настройках браузера.");
       } else if (e?.error === "no-speech") {
         // silent, will auto-end
       } else if (e?.error) {
-        toast.error(`Voice error: ${e.error}`);
+        toast.error(`Ошибка голосового ввода: ${e.error}`);
       }
     };
     rec.onend = () => {
@@ -95,7 +95,7 @@ export function useVoiceDictation(options: {
       recRef.current = rec;
       setListening(true);
     } catch {
-      toast.error("Could not start voice input.");
+      toast.error("Не удалось запустить голосовой ввод.");
     }
   }, [getCurrentValue, onTranscript]);
 

@@ -183,7 +183,7 @@ function withNeighborPositions(
 export const ADD_SATELLITE_ID = "add";
 const ADD_SAT: SatelliteSpec = {
   id: ADD_SATELLITE_ID,
-  label: "Add",
+  label: "Добавить",
   to: "",
   icon: <IconPlus size={22} />,
 };
@@ -192,24 +192,24 @@ export const PRIMARIES: Primary[] = (() => {
   const defs: Array<Omit<Primary, "satellites"> & { sats: SatelliteSpec[] }> = [
     {
       id: "utm",
-      name: "UTM Builder",
-      tier: "Tracking",
+      name: "UTM-конструктор",
+      tier: "Отслеживание",
       to: "/tools/utm",
       q: -1,
       r: 0,
       hue: 275,
       icon: <IconUtm size={34} />,
       sats: [
-        { id: "name", label: "New UTM", to: "/tools/utm", icon: <IconSpark size={20} /> },
-        { id: "utm-all", label: "All UTMs", to: "/tools/all-utms", icon: <IconScroll size={20} /> },
-        { id: "tax", label: "Naming conventions", to: "/tools/taxonomy", icon: <IconSpark size={20} /> },
+        { id: "name", label: "Новая UTM", to: "/tools/utm", icon: <IconSpark size={20} /> },
+        { id: "utm-all", label: "Все UTM", to: "/tools/all-utms", icon: <IconScroll size={20} /> },
+        { id: "tax", label: "Правила именования", to: "/tools/taxonomy", icon: <IconSpark size={20} /> },
         ADD_SAT,
       ],
     },
     {
       id: "funnel",
-      name: "Funnel",
-      tier: "Analytics",
+      name: "Воронка",
+      tier: "Аналитика",
       to: "/funnel",
       q: 1,
       r: 0,
@@ -217,23 +217,23 @@ export const PRIMARIES: Primary[] = (() => {
       icon: <IconFunnel size={34} />,
       sats: [
         { id: "targets", label: "MQL / SQO", to: "/tools/funnel-targets", icon: <IconSpark size={20} /> },
-        { id: "perf2", label: "Performance", to: "/tools/campaign-performance", icon: <IconChart size={20} /> },
+        { id: "perf2", label: "Эффективность", to: "/tools/campaign-performance", icon: <IconChart size={20} /> },
         ADD_SAT,
       ],
     },
     {
       id: "campaign",
       name: "Campaign-in-a-box",
-      tier: "Workflow",
+      tier: "Рабочий процесс",
       to: "/tools/campaign-in-a-box",
       q: -1,
       r: 2,
       hue: 150,
       icon: <IconCampaign size={34} />,
       sats: [
-        { id: "creator", label: "Name Generator", to: "/tools/campaign-creator", icon: <IconCampaign size={20} /> },
-        { id: "import", label: "List Import", to: "/tools/import", icon: <IconImport size={20} /> },
-        { id: "events", label: "Events", to: "/tools/events", icon: <IconCalendar size={20} /> },
+        { id: "creator", label: "Генератор названий", to: "/tools/campaign-creator", icon: <IconCampaign size={20} /> },
+        { id: "import", label: "Импорт списка", to: "/tools/import", icon: <IconImport size={20} /> },
+        { id: "events", label: "События", to: "/tools/events", icon: <IconCalendar size={20} /> },
         ADD_SAT,
       ],
     },
@@ -521,7 +521,7 @@ export function HexToolsTree({
         <div
           className="mp-htt-stage"
           role="navigation"
-          aria-label="Marketing tools"
+          aria-label="Маркетинговые инструменты"
           style={{ width: editMode ? EDIT_STAGE_W : STAGE_W, height: editMode ? EDIT_STAGE_H : STAGE_H }}
           onClick={(e) => {
             // Close focus when the user clicks the empty stage background —
@@ -601,7 +601,7 @@ export function HexToolsTree({
                 onMouseEnter={() => !isFocusMode && !editMode && setHoverId(p.id)}
                 onFocus={() => !isFocusMode && !editMode && setHoverId(p.id)}
                 onClick={() => handlePrimaryClick(p)}
-                aria-label={editMode ? `Edit ${p.name}` : `${p.name}${p.satellites.length ? ` — ${p.satellites.length} shortcut${p.satellites.length === 1 ? "" : "s"}` : ""}`}
+                aria-label={editMode ? `Редактировать ${p.name}` : `${p.name}${p.satellites.length ? ` — ${p.satellites.length} ярлык${p.satellites.length === 1 ? "" : "ов"}` : ""}`}
                 aria-pressed={isFocusedPrimary || undefined}
               >
                 <span className="mp-htt-sheen" aria-hidden />
@@ -617,8 +617,8 @@ export function HexToolsTree({
                     role="button"
                     tabIndex={0}
                     className="mp-htt-remove"
-                    aria-label={`Hide ${p.name}`}
-                    title={`Hide ${p.name}`}
+                    aria-label={`Скрыть ${p.name}`}
+                    title={`Скрыть ${p.name}`}
                     onClick={(e) => {
                       e.stopPropagation();
                       hideHex(p.id);
@@ -732,8 +732,8 @@ export function HexToolsTree({
                         role="button"
                         tabIndex={0}
                         className="mp-htt-remove"
-                        aria-label={`Hide ${s.label}`}
-                        title={`Hide ${s.label}`}
+                        aria-label={`Скрыть ${s.label}`}
+                        title={`Скрыть ${s.label}`}
                         onPointerDown={(e) => e.stopPropagation()}
                         onClick={(e) => {
                           e.stopPropagation();
@@ -807,7 +807,7 @@ export function HexToolsTree({
                       }
                       if (!onSatelliteFocus) go(s.to);
                     }}
-                    aria-label={s.id === ADD_SATELLITE_ID ? `Add custom hex to ${activePrimary.name}` : s.label}
+                    aria-label={s.id === ADD_SATELLITE_ID ? `Добавить свой раздел в ${activePrimary.name}` : s.label}
                   >
                     <span className="mp-htt-sheen" aria-hidden />
                     <span className={`mp-htt-inner${s.id === ADD_SATELLITE_ID ? " mp-htt-add-inner" : ""}`}>
@@ -819,8 +819,8 @@ export function HexToolsTree({
                         role="button"
                         tabIndex={0}
                         className="mp-htt-remove"
-                        aria-label={`Hide ${s.label}`}
-                        title={`Hide ${s.label}`}
+                        aria-label={`Скрыть ${s.label}`}
+                        title={`Скрыть ${s.label}`}
                         onClick={(e) => {
                           e.stopPropagation();
                           hideHex(satKey(activePrimary.id, s.id));
@@ -887,7 +887,7 @@ export function HexToolsTree({
                       }
                       if (!onSatelliteFocus) go(s.to);
                     }}
-                    aria-label={s.id === ADD_SATELLITE_ID ? `Add custom hex to ${focusedPrimary.name}` : s.label}
+                    aria-label={s.id === ADD_SATELLITE_ID ? `Добавить свой раздел в ${focusedPrimary.name}` : s.label}
                     aria-pressed={isActiveSat || undefined}
                   >
                     <span className="mp-htt-sheen" aria-hidden />

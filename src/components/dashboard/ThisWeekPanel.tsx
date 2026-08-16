@@ -94,7 +94,7 @@ export function ThisWeekPanel() {
       const out: Row[] = [];
       const fmtRange = (s: string | null, e: string | null) => {
         const f = (d: string) =>
-          new Date(d + "T00:00:00").toLocaleDateString(undefined, {
+          new Date(d + "T00:00:00").toLocaleDateString("ru-RU", {
             month: "short",
             day: "numeric",
           });
@@ -204,9 +204,9 @@ export function ThisWeekPanel() {
         <div className="mt-4 grid gap-2">
           {items.map((m) => {
             const d = new Date(m.sortDate + "T00:00:00");
-            const day = d.toLocaleDateString(undefined, { weekday: "short" });
+            const day = d.toLocaleDateString("ru-RU", { weekday: "short" });
             const dayNum = d.getDate();
-            const monthShort = d.toLocaleDateString(undefined, { month: "short" });
+            const monthShort = d.toLocaleDateString("ru-RU", { month: "short" });
             const tone = TONE[m.tone];
             return (
               <Link

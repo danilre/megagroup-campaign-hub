@@ -78,21 +78,21 @@ function UnsubscribePage() {
         {status === 'loading' && (
           <>
             <h1 className="font-display text-2xl tracking-tight mb-2">
-              Checking your link…
+              Проверяем вашу ссылку…
             </h1>
-            <p className="text-muted-foreground text-sm">One moment.</p>
+            <p className="text-muted-foreground text-sm">Один момент.</p>
           </>
         )}
 
         {status === 'valid' && (
           <>
             <h1 className="font-display text-2xl tracking-tight mb-3">
-              Unsubscribe from {BRAND.name} emails?
+              Отписаться от писем {BRAND.name}?
             </h1>
             <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
-              You'll stop receiving notification emails from us at this
-              address. Critical account emails (security alerts, password
-              resets) will still be delivered.
+              вы перестанете получать от нас уведомления на этот
+              адрес. Важные письма об аккаунте (уведомления безопасности, сброс
+              пароля) по-прежнему будут доставляться.
             </p>
             <button
               type="button"
@@ -100,7 +100,7 @@ function UnsubscribePage() {
               disabled={submitting}
               className="w-full rounded-xl bg-primary text-primary-foreground font-medium py-3 px-4 transition hover:opacity-90 disabled:opacity-50"
             >
-              {submitting ? 'Unsubscribing…' : 'Confirm unsubscribe'}
+              {submitting ? 'Отписываем…' : 'Подтвердить отписку'}
             </button>
           </>
         )}
@@ -108,11 +108,11 @@ function UnsubscribePage() {
         {status === 'already' && (
           <>
             <h1 className="font-display text-2xl tracking-tight mb-2">
-              You're already unsubscribed
+              вы уже отписаны
             </h1>
             <p className="text-muted-foreground text-sm">
-              No action needed — this address won't receive notification
-              emails from {BRAND.name}.
+              Ничего делать не нужно — этот адрес не будет получать
+              уведомления от {BRAND.name}.
             </p>
           </>
         )}
@@ -120,11 +120,11 @@ function UnsubscribePage() {
         {status === 'done' && (
           <>
             <h1 className="font-display text-2xl tracking-tight mb-2">
-              You've been unsubscribed
+              вы отписаны
             </h1>
             <p className="text-muted-foreground text-sm">
-              Thanks — we won't send notification emails to this address
-              anymore.
+              Спасибо — мы больше не будем отправлять уведомления
+              на этот адрес.
             </p>
           </>
         )}
@@ -132,11 +132,11 @@ function UnsubscribePage() {
         {status === 'invalid' && (
           <>
             <h1 className="font-display text-2xl tracking-tight mb-2">
-              This link isn't valid
+              Эта ссылка недействительна
             </h1>
             <p className="text-muted-foreground text-sm">
-              The unsubscribe link is expired or incorrect. If you keep
-              receiving unwanted emails, contact support.
+              Ссылка для отписки истекла или неверна. Если вы продолжаете
+              получать нежелательные письма, обратитесь в поддержку.
             </p>
           </>
         )}
@@ -144,17 +144,17 @@ function UnsubscribePage() {
         {status === 'error' && (
           <>
             <h1 className="font-display text-2xl tracking-tight mb-2">
-              Something went wrong
+              Что-то пошло не так
             </h1>
             <p className="text-muted-foreground text-sm">
-              Please try again in a moment.
+              Пожалуйста, повторите попытку через момент.
             </p>
           </>
         )}
 
         <div className="mt-8 pt-6 border-t border-border text-xs text-muted-foreground">
           <Link to="/" className="hover:text-foreground transition">
-            ← Back to {BRAND.name}
+            ← Назад к {BRAND.name}
           </Link>
         </div>
       </div>

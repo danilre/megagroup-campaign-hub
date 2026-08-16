@@ -13,8 +13,8 @@ export const Route = createFileRoute("/intake/$orgSlug/hackathon")({
   component: HackathonIntake,
   head: () => ({
     meta: [
-      { title: "Submit an event project" },
-      { name: "description", content: "Pitch your event project for marketing support." },
+      { title: "Отправить проект мероприятия" },
+      { name: "description", content: "Представьте свой проект мероприятия для получения маркетинговой поддержки." },
     ],
   }),
 });
@@ -44,10 +44,10 @@ function HackathonIntake() {
   }, [orgSlug]);
 
   const submit = async () => {
-    if (!orgId) return toast.error("Org not found");
-    if (!form.project.trim()) return toast.error("Add the project name");
-    if (!form.email.includes("@")) return toast.error("Email looks off");
-    if (form.pitch.trim().length < 10) return toast.error("Tell us a bit more");
+    if (!orgId) return toast.error("Организация не найдена");
+    if (!form.project.trim()) return toast.error("Укажите название проекта");
+    if (!form.email.includes("@")) return toast.error("Похоже, email указан неверно");
+    if (form.pitch.trim().length < 10) return toast.error("Расскажите немного подробнее");
     setBusy(true);
     const brief = [
       `[Event] ${form.project}`,
@@ -70,7 +70,7 @@ function HackathonIntake() {
         desired_due_date: form.desired_due_date || null,
       });
     setBusy(false);
-    if (error) return toast.error(error.message ?? "Submission failed");
+    if (error) return toast.error(error.message ?? "Не удалось отправить");
     setDoneId(statusToken);
     clearDraft();
   };
@@ -91,8 +91,8 @@ function HackathonIntake() {
       <div className="relative min-h-screen overflow-hidden">
         <GradientMesh />
         <div className="relative mx-auto max-w-xl px-6 py-24 text-center">
-          <h1 className="font-display text-3xl">Org not found</h1>
-          <p className="mt-2 text-muted-foreground">Double-check the link you were given.</p>
+          <h1 className="font-display text-3xl">Организация не найдена</h1>
+          <p className="mt-2 text-muted-foreground">Уточните ссылку, которую вам дали.</p>
         </div>
       </div>
     );
@@ -105,9 +105,9 @@ function HackathonIntake() {
         <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
           <IconLogo size={20} /> {BRAND.name}
         </Link>
-        <h1 className="mt-8 font-display text-4xl">Pitch your event project</h1>
+        <h1 className="mt-8 font-display text-4xl">Представьте свой проект мероприятия</h1>
         <p className="mt-2 text-muted-foreground">
-          Get a fast track for marketing support — naming, landing page, distribution.
+          Получите ускоренный трек маркетинговой поддержки — нейминг, лендинг, дистрибуция.
         </p>
 
         {doneId ? (
@@ -115,42 +115,42 @@ function HackathonIntake() {
             <span className="inline-flex size-12 items-center justify-center rounded-full bg-primary/15 text-primary">
               <IconCheck size={22} />
             </span>
-            <div className="mt-3 font-display text-2xl">Submitted!</div>
+            <div className="mt-3 font-display text-2xl">Отправлено!</div>
             <p className="mt-1 text-sm text-muted-foreground">
-              Track status:{" "}
+              Отследить статус:{" "}
               <Link to="/request/status/$token" params={{ token: doneId }} className="text-primary underline">
-                view your submission
+                посмотреть вашу заявку
               </Link>
             </p>
           </GlassPanel>
         ) : (
           <GlassPanel className="mt-8 space-y-4 p-6 md:p-8">
-            <Field label="Project name" value={form.project} onChange={(v) => setForm({ ...form, project: v })} placeholder="HoloPager" />
-            <Field label="Your name" value={form.name} onChange={(v) => setForm({ ...form, name: v })} placeholder="Alex Builder" />
+            <Field label="Название проекта" value={form.project} onChange={(v) => setForm({ ...form, project: v })} placeholder="HoloPager" />
+            <Field label="Ваше имя" value={form.name} onChange={(v) => setForm({ ...form, name: v })} placeholder="Alex Builder" />
             <Field label="Email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} placeholder="alex@acme.com" />
             <div>
-              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">The pitch</div>
+              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Питч</div>
               <textarea
                 value={form.pitch}
                 onChange={(e) => setForm({ ...form, pitch: e.target.value })}
                 rows={4}
-                placeholder="What is it, who's it for, why now?"
+                placeholder="Что это, для кого, почему сейчас?"
                 className="mt-2 w-full rounded-xl border border-glass-border bg-glass/30 px-4 py-2.5 outline-none focus:border-primary/60"
               />
             </div>
-            <Field label="Demo URL (optional)" value={form.demo_url} onChange={(v) => setForm({ ...form, demo_url: v })} placeholder="https://…" />
+            <Field label="Ссылка на демо (необязательно)" value={form.demo_url} onChange={(v) => setForm({ ...form, demo_url: v })} placeholder="https://…" />
             <div>
-              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">What you need</div>
+              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Что вам нужно</div>
               <textarea
                 value={form.needs}
                 onChange={(e) => setForm({ ...form, needs: e.target.value })}
                 rows={3}
-                placeholder="Landing page, X/LinkedIn launch, demo video…"
+                placeholder="Лендинг, запуск в X/LinkedIn, демо-видео…"
                 className="mt-2 w-full rounded-xl border border-glass-border bg-glass/30 px-4 py-2.5 outline-none focus:border-primary/60"
               />
             </div>
             <div>
-              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Desired ship date</div>
+              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Желаемая дата запуска</div>
               <input
                 type="date"
                 value={form.desired_due_date}
@@ -163,7 +163,7 @@ function HackathonIntake() {
               disabled={busy}
               className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-60"
             >
-              <IconCheck size={14} /> {busy ? "Submitting…" : "Submit project"}
+              <IconCheck size={14} /> {busy ? "Отправка…" : "Отправить проект"}
             </button>
           </GlassPanel>
         )}

@@ -16,7 +16,7 @@ interface PanelErrorProps {
  * UI when a query fails, so users see what's wrong and can retry.
  */
 export function PanelError({
-  message = "Couldn't load",
+  message = "Не удалось загрузить",
   onRetry,
   className,
   bare,
@@ -34,7 +34,7 @@ export function PanelError({
           onClick={onRetry}
           className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-glass-border bg-glass/40 px-3 py-1 text-xs font-medium text-foreground/85 transition hover:bg-glass-strong"
         >
-          Retry
+          Повторить
         </button>
       )}
     </div>

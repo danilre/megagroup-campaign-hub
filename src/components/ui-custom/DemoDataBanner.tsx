@@ -19,7 +19,7 @@ interface DemoDataBannerProps {
   className?: string;
 }
 
-const DEFAULT_LABEL = "Demo data — connect your CRM to see real campaigns";
+const DEFAULT_LABEL = "Демоданные — подключите CRM, чтобы увидеть реальные кампании";
 
 /**
  * Surfaces that data on screen comes from a mocked/demo fallback. Dismissible;
@@ -30,7 +30,7 @@ export function DemoDataBanner({
   storageKey,
   variant = "banner",
   label = DEFAULT_LABEL,
-  ctaLabel = "Connect CRM",
+  ctaLabel = "Подключить CRM",
   ctaHref = "/integrations",
   onCtaClick,
   className,
@@ -64,7 +64,7 @@ export function DemoDataBanner({
         title={label}
       >
         <IconWarning size={10} />
-        Demo data
+        Демоданные
       </span>
     );
   }
@@ -100,7 +100,7 @@ export function DemoDataBanner({
       )}
       <button
         onClick={dismiss}
-        aria-label="Dismiss"
+        aria-label="Закрыть"
         className="inline-flex size-6 shrink-0 items-center justify-center rounded-full text-amber-200/70 transition hover:bg-amber-400/15 hover:text-amber-100"
       >
         <IconClose size={12} />

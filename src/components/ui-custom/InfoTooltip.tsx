@@ -10,7 +10,7 @@ export function InfoTooltip({ children, side = "top" }: { children: ReactNode; s
             type="button"
             tabIndex={-1}
             className="inline-flex size-4 items-center justify-center rounded-full border border-glass-border bg-glass/40 text-[9px] text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
-            aria-label="More info"
+            aria-label="Подробнее"
           >
             ?
           </button>

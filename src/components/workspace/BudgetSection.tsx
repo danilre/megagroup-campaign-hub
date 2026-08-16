@@ -80,7 +80,7 @@ export function BudgetSection({
     const { error } = await supabase.from("workspace_budget_lines").insert({
       workspace_id: workspaceId,
       org_id: orgId,
-      label: seed.label?.trim() || "New line",
+      label: seed.label?.trim() || "Новая строка",
       channel: seed.channel ?? null,
       vendor: seed.vendor ?? null,
       planned_cents: seed.planned_cents ?? 0,
@@ -112,23 +112,23 @@ export function BudgetSection({
     <div>
       <div className="mb-3 flex items-end justify-between gap-3">
         <div>
-          <h2 className="font-display text-xl">Budget</h2>
+          <h2 className="font-display text-xl">Бюджет</h2>
           <div className="mt-1 text-xs text-muted-foreground">
-            Plan, then track what each line actually cost.
+            Спланируйте, а затем отслеживайте фактические расходы по каждой строке.
           </div>
         </div>
         <div className="flex items-center gap-4 text-right">
           <div>
-            <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Planned</div>
+            <div className="text-[10px] uppercase tracking-wider text-muted-foreground">План</div>
             <div className="font-mono text-sm">{fmt(planned, currency)}</div>
           </div>
           <div>
-            <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Actual</div>
+            <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Факт</div>
             <div className="font-mono text-sm">{fmt(actual, currency)}</div>
           </div>
           <div>
             <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
-              {variance >= 0 ? "Remaining" : "Over"}
+              {variance >= 0 ? "Остаток" : "Перерасход"}
             </div>
             <div
               className={`font-mono text-sm ${overBudget ? "text-destructive" : "text-primary"}`}
@@ -141,15 +141,15 @@ export function BudgetSection({
 
       <GlassPanel className="overflow-hidden">
         <div className="grid grid-cols-12 gap-2 border-b border-glass-border bg-background/30 px-4 py-2 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-          <div className="col-span-4">Line</div>
-          <div className="col-span-2">Channel</div>
-          <div className="col-span-2">Vendor</div>
-          <div className="col-span-2 text-right">Planned</div>
-          <div className="col-span-2 text-right">Actual</div>
+          <div className="col-span-4">Строка</div>
+          <div className="col-span-2">Канал</div>
+          <div className="col-span-2">Поставщик</div>
+          <div className="col-span-2 text-right">План</div>
+          <div className="col-span-2 text-right">Факт</div>
         </div>
         {lines.length === 0 ? (
           <div className="px-4 py-6 text-center text-sm text-muted-foreground">
-            No budget lines yet.
+            Пока нет строк бюджета.
           </div>
         ) : (
           lines.map((l) => (
@@ -250,7 +250,7 @@ export function BudgetSection({
                 <button
                   onClick={() => remove(l.id)}
                   className="text-muted-foreground/50 opacity-0 transition hover:text-destructive group-hover:opacity-100"
-                  aria-label="Delete"
+                  aria-label="Удалить"
                 >
                   <IconClose size={14} />
                 </button>
@@ -281,7 +281,7 @@ export function BudgetSection({
               <>
                 <input
                   value={draft.label}
-                  placeholder="+ Add line…"
+                  placeholder="+ Добавить строку…"
                   onChange={(e) => setDraft((d) => ({ ...d, label: e.target.value }))}
                   onBlur={commit}
                   onKeyDown={onKey}

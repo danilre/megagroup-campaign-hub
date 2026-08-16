@@ -268,7 +268,7 @@ function CalendarPage() {
     });
   }, [checklistItems, filters, filteredCampaigns]);
 
-  const monthLabel = cursor.toLocaleDateString(undefined, { month: "long", year: "numeric" });
+  const monthLabel = cursor.toLocaleDateString("ru-RU", { month: "long", year: "numeric" });
 
   return (
     <div className="space-y-6">
@@ -441,7 +441,7 @@ function ListView({ items }: { items: Ws[] }) {
           <div className="mb-3 flex items-center justify-between">
             <div className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
               Неделя с{" "}
-              {new Date(week).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+              {new Date(week).toLocaleDateString("ru-RU", { month: "short", day: "numeric" })}
             </div>
             <span className="text-xs text-muted-foreground">
               {ws.length} {ws.length === 1 ? "кампания" : "кампаний"}

@@ -22,10 +22,10 @@ type TaskId =
   | "mint_utm";
 
 const TASKS: { id: TaskId; label: string; to: string; focus?: string; hint: string }[] = [
-  { id: "create_workspace", label: "Create your first campaign", to: "/campaigns", hint: "30 sec — name, goal, channel" },
-  { id: "save_campaign_name", label: "Generate a campaign name", to: "/tools", focus: "utm-campaign-name", hint: "AI codenames + tracking tag" },
-  { id: "mint_utm", label: "Mint a UTM link", to: "/tools", focus: "utm", hint: "Copy-ready URL with QR code" },
-  { id: "import_list", label: "Import a contact list", to: "/tools", focus: "campaign-import", hint: "CSV → ready to push to ESP" },
+  { id: "create_workspace", label: "Создайте первую кампанию", to: "/campaigns", hint: "30 сек — название, цель, канал" },
+  { id: "save_campaign_name", label: "Сгенерируйте название кампании", to: "/tools", focus: "utm-campaign-name", hint: "ИИ-названия + тег отслеживания" },
+  { id: "mint_utm", label: "Создайте UTM-ссылку", to: "/tools", focus: "utm", hint: "Готовый к копированию URL с QR-кодом" },
+  { id: "import_list", label: "Импортируйте список контактов", to: "/tools", focus: "campaign-import", hint: "CSV → готово к отправке в ESP" },
 ];
 
 export function OnboardingChecklist({ variant = "auto" }: { variant?: "auto" | "pill" | "full" } = {}) {
@@ -148,10 +148,10 @@ export function OnboardingChecklist({ variant = "auto" }: { variant?: "auto" | "
     if (typeof window === "undefined") return;
     celebratedRef.current = true;
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-      toast.success("Setup complete — nicely done.", { description: "All five starter steps are checked off." });
+      toast.success("Настройка завершена — отлично сделано.", { description: "Все пять начальных шагов выполнены." });
       return;
     }
-    toast.success("Setup complete — nicely done.", { description: "All five starter steps are checked off." });
+    toast.success("Настройка завершена — отлично сделано.", { description: "Все пять начальных шагов выполнены." });
     const layer = document.createElement("div");
     layer.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;";
     document.body.appendChild(layer);
@@ -197,8 +197,8 @@ export function OnboardingChecklist({ variant = "auto" }: { variant?: "auto" | "
       return (
         <button
           onClick={() => setExpanded(true)}
-          title={`Setup checklist — ${count} of ${total} done. Click to expand.`}
-          aria-label={`Onboarding checklist: ${count} of ${total} steps complete. Click to expand.`}
+          title={`Чек-лист настройки — ${count} из ${total} выполнено. Нажмите, чтобы развернуть.`}
+          aria-label={`Чек-лист адаптации: ${count} из ${total} шагов выполнено. Нажмите, чтобы развернуть.`}
           data-tour="setup-pill"
           className="inline-flex items-center gap-2 rounded-full border border-glass-border bg-glass/40 px-3 py-1.5 text-xs text-muted-foreground transition hover:bg-glass hover:text-foreground"
         >
@@ -209,7 +209,7 @@ export function OnboardingChecklist({ variant = "auto" }: { variant?: "auto" | "
               style={{ clipPath: `inset(${100 - pct}% 0 0 0)` }}
             />
           </span>
-          Setup {count}/{total}
+          Настройка {count}/{total}
           <IconArrowRight size={11} />
         </button>
 
@@ -226,9 +226,9 @@ export function OnboardingChecklist({ variant = "auto" }: { variant?: "auto" | "
         <GlassPanel tier="strong" glow className="readable-glass-surface p-6" data-tour="onboarding-checklist">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Get started</div>
+              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Начало работы</div>
               <h2 className="mt-1 font-display text-xl">
-                {count}/{total} steps · {pct}% there
+                {count}/{total} шагов · {pct}% готово
               </h2>
             </div>
             <div className="flex items-center gap-3">
@@ -236,13 +236,13 @@ export function OnboardingChecklist({ variant = "auto" }: { variant?: "auto" | "
                 onClick={() => window.dispatchEvent(new CustomEvent("lovable:start-tour"))}
                 className="text-xs text-muted-foreground hover:text-foreground"
               >
-                Replay tour
+                Повторить тур
               </button>
               <button
                 onClick={dismiss}
                 className="text-xs text-muted-foreground hover:text-foreground"
               >
-                Hide
+                Скрыть
               </button>
             </div>
           </div>

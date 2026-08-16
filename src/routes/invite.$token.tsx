@@ -58,7 +58,7 @@ function AcceptInvite() {
     if (data) {
       await supabase.from("profiles").update({ default_org_id: data as string }).eq("id", user.id);
     }
-    toast.success(`Welcome to ${invite?.org_name}`);
+    toast.success(`Добро пожаловать в ${invite?.org_name}`);
     nav({ to: "/dashboard", replace: true });
   };
 
@@ -80,34 +80,34 @@ function AcceptInvite() {
 
           {state === "invalid" && (
             <GlassPanel tier="strong" className="p-8 text-center">
-              <h1 className="font-display text-2xl">Invite not found</h1>
+              <h1 className="font-display text-2xl">Приглашение не найдено</h1>
               <p className="mt-2 text-sm text-muted-foreground">
-                This link is invalid or has been revoked. Ask your teammate for a new one.
+                Эта ссылка недействительна или была отозвана. Попросите коллегу отправить новую.
               </p>
             </GlassPanel>
           )}
 
           {state === "expired" && invite && (
             <GlassPanel tier="strong" className="p-8 text-center">
-              <h1 className="font-display text-2xl">Invite expired</h1>
+              <h1 className="font-display text-2xl">Срок действия приглашения истёк</h1>
               <p className="mt-2 text-sm text-muted-foreground">
-                The invite to <span className="text-foreground">{invite.org_name}</span> has expired.
-                Ask for a fresh link.
+                Приглашение в <span className="text-foreground">{invite.org_name}</span> истекло.
+                Попросите новую ссылку.
               </p>
             </GlassPanel>
           )}
 
           {state === "used" && invite && (
             <GlassPanel tier="strong" className="p-8 text-center">
-              <h1 className="font-display text-2xl">Already accepted</h1>
+              <h1 className="font-display text-2xl">Уже принято</h1>
               <p className="mt-2 text-sm text-muted-foreground">
-                This invite has already been used.
+                Это приглашение уже было использовано.
               </p>
               <Link
                 to="/dashboard"
                 className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90"
               >
-                Go to dashboard <IconArrowRight size={14} />
+                Перейти на дашборд <IconArrowRight size={14} />
               </Link>
             </GlassPanel>
           )}
@@ -115,30 +115,30 @@ function AcceptInvite() {
           {state === "ready" && invite && (
             <GlassPanel tier="strong" className="p-8">
               <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-                You're invited
+                Вас пригласили
               </div>
               <h1 className="mt-2 font-display text-3xl">
-                Join {invite.org_name}
+                Присоединиться к {invite.org_name}
               </h1>
               <p className="mt-3 text-sm text-muted-foreground">
-                You've been invited to join as{" "}
-                <span className="text-foreground capitalize">{invite.role}</span>. The invite was sent
-                to <span className="text-foreground">{invite.email}</span>.
+                Вас пригласили присоединиться в роли{" "}
+                <span className="text-foreground capitalize">{invite.role}</span>. Приглашение было отправлено
+                на <span className="text-foreground">{invite.email}</span>.
               </p>
 
               {needsAuth ? (
                 <div className="mt-6 space-y-3">
                   <p className="text-sm text-muted-foreground">
-                    Sign in to accept this invite.
+                    Войдите, чтобы принять это приглашение.
                   </p>
                   <Link
                     to="/"
                     className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground hover:opacity-90"
                   >
-                    Continue <IconArrowRight size={14} />
+                    Продолжить <IconArrowRight size={14} />
                   </Link>
                   <p className="text-[11px] text-muted-foreground">
-                    After signing in, return to this page to accept.
+                    После входа вернитесь на эту страницу, чтобы принять приглашение.
                   </p>
                 </div>
               ) : (
@@ -147,7 +147,7 @@ function AcceptInvite() {
                   disabled={accepting}
                   className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-60"
                 >
-                  {accepting ? "Joining…" : `Accept invite`} <IconArrowRight size={14} />
+                  {accepting ? "Присоединение…" : `Принять приглашение`} <IconArrowRight size={14} />
                 </button>
               )}
             </GlassPanel>

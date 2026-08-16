@@ -182,7 +182,7 @@ export function NeedsYouPanel() {
           key: `rt-${w.id}`,
           kind: "retro",
           label: `Retro missing for "${w.name}"`,
-          meta: `Ended ${new Date(w.end_date).toLocaleDateString()}`,
+          meta: `Ended ${new Date(w.end_date).toLocaleDateString("ru-RU")}`,
           workspaceId: w.id,
           to: "/campaigns/$id",
           params: { id: w.id },

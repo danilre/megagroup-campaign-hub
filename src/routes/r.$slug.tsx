@@ -17,7 +17,7 @@ function ShortLinkRedirect() {
       if (cancelled) return;
       const row = Array.isArray(data) ? data[0] : null;
       if (error || !row) {
-        setError("This link doesn't exist or has been removed.");
+        setError("Эта ссылка не существует или была удалена.");
         return;
       }
       // fire-and-forget click record
@@ -43,7 +43,7 @@ function ShortLinkRedirect() {
             <div className="mt-2 text-sm text-muted-foreground">{error}</div>
           </>
         ) : (
-          <div className="text-sm text-muted-foreground">Redirecting…</div>
+          <div className="text-sm text-muted-foreground">Перенаправление…</div>
         )}
       </div>
     </div>

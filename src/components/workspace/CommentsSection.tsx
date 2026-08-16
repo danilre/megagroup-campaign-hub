@@ -58,7 +58,7 @@ export function CommentsSection({ workspaceId, orgId }: { workspaceId: string; o
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workspaceId, orgId]);
 
-  const nameById = (id: string) => members.find((m) => m.user_id === id)?.full_name ?? "Teammate";
+  const nameById = (id: string) => members.find((m) => m.user_id === id)?.full_name ?? "Коллега";
 
   const post = async () => {
     if (!user || !body.trim()) return;
@@ -100,16 +100,16 @@ export function CommentsSection({ workspaceId, orgId }: { workspaceId: string; o
   return (
     <GlassPanel className="space-y-4 p-5">
       <div>
-        <div className="font-display text-lg">Comments</div>
+        <div className="font-display text-lg">Комментарии</div>
         <div className="mt-1 text-xs text-muted-foreground">
-          Use @first-last to mention teammates. Updates in realtime.
+          Используйте @имя-фамилия, чтобы упомянуть коллег. Обновляется в реальном времени.
         </div>
       </div>
 
       <div className="space-y-3">
         {items.length === 0 && (
           <div className="rounded-lg border border-dashed border-glass-border p-4 text-center text-xs text-muted-foreground">
-            No comments yet.
+            Пока нет комментариев.
           </div>
         )}
         {items.map((c) => (
@@ -122,7 +122,7 @@ export function CommentsSection({ workspaceId, orgId }: { workspaceId: string; o
                 <button
                   onClick={() => remove(c.id)}
                   className="ml-auto opacity-0 transition group-hover:opacity-100"
-                  title="Delete"
+                  title="Удалить"
                 >
                   <IconClose size={12} />
                 </button>
@@ -147,7 +147,7 @@ export function CommentsSection({ workspaceId, orgId }: { workspaceId: string; o
           value={body}
           onChange={(e) => setBody(e.target.value)}
           rows={3}
-          placeholder="Write a comment… use @name to mention"
+          placeholder="Напишите комментарий… используйте @имя для упоминания"
           className="w-full resize-none rounded-lg border border-glass-border bg-background/40 px-3 py-2 text-sm outline-none focus:border-primary/50"
         />
         <div className="flex justify-end">
@@ -156,7 +156,7 @@ export function CommentsSection({ workspaceId, orgId }: { workspaceId: string; o
             disabled={busy || !body.trim()}
             className="rounded-full bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
           >
-            {busy ? "Posting…" : "Post"}
+            {busy ? "Отправка…" : "Отправить"}
           </button>
         </div>
       </div>

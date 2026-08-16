@@ -50,6 +50,14 @@ const STATUS_DOT: Record<string, string> = {
   archived: "bg-muted-foreground/20",
 };
 
+const STATUS_LABEL: Record<string, string> = {
+  draft: "Черновик",
+  planning: "Планирование",
+  live: "В работе",
+  complete: "Завершено",
+  archived: "Архив",
+};
+
 const ACTIVITY_LABEL: Record<string, string> = {
   "workspace.created": "Создал(а) кампанию",
   "workspace.created_from_template": "Создал(а) из шаблона",
@@ -275,12 +283,12 @@ function Dashboard() {
                     </div>
                     <span className="inline-flex items-center gap-1.5 shrink-0 text-[10px] uppercase tracking-wider text-muted-foreground">
                       <span className={`inline-block size-2 rounded-full ${STATUS_DOT[w.status] ?? STATUS_DOT.draft}`} />
-                      {w.status}
+                      {STATUS_LABEL[w.status] ?? w.status}
                     </span>
                   </div>
                   <div className="mt-auto flex items-center justify-between text-[11px] text-muted-foreground">
                     <span className="inline-flex items-center gap-1.5">
-                      <IconClock size={12} /> {new Date(w.updated_at).toLocaleDateString()}
+                      <IconClock size={12} /> {new Date(w.updated_at).toLocaleDateString("ru-RU")}
                     </span>
                     <IconArrowRight size={14} className="transition group-hover:translate-x-1" />
                   </div>
@@ -328,7 +336,7 @@ function Dashboard() {
                   </span>
                 </span>
                 <span className="inline-flex shrink-0 items-center gap-1 text-[11px] text-muted-foreground">
-                  <IconClock size={11} /> {new Date(a.created_at).toLocaleString()}
+                  <IconClock size={11} /> {new Date(a.created_at).toLocaleString("ru-RU")}
                 </span>
               </Link>
             ))}

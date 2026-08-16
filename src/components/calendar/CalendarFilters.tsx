@@ -23,6 +23,14 @@ export const EMPTY_FILTERS: CalendarFilterValue = {
 
 const STATUS_OPTIONS = ["draft", "planning", "live", "complete", "archived"];
 
+const STATUS_LABEL_RU: Record<string, string> = {
+  draft: "Черновик",
+  planning: "Планирование",
+  live: "В работе",
+  complete: "Завершено",
+  archived: "Архив",
+};
+
 type Props = {
   value: CalendarFilterValue;
   onChange: (next: CalendarFilterValue) => void;
@@ -73,7 +81,7 @@ export function CalendarFilters({
             type="text"
             value={value.search}
             onChange={(e) => onChange({ ...value, search: e.target.value })}
-            placeholder="Search campaigns, posts…"
+            placeholder="Поиск кампаний, постов…"
             className="h-9 w-full rounded-lg border border-glass-border bg-background/40 pl-8 pr-3 text-sm outline-none transition focus:border-primary/50 focus:ring-1 focus:ring-primary/30"
           />
         </div>
@@ -83,19 +91,19 @@ export function CalendarFilters({
             active={value.showCampaigns && value.showPosts}
             onClick={() => onChange({ ...value, showCampaigns: true, showPosts: true })}
           >
-            All
+            Все
           </SegBtn>
           <SegBtn
             active={value.showCampaigns && !value.showPosts}
             onClick={() => onChange({ ...value, showCampaigns: true, showPosts: false })}
           >
-            Campaigns
+            Кампании
           </SegBtn>
           <SegBtn
             active={!value.showCampaigns && value.showPosts}
             onClick={() => onChange({ ...value, showCampaigns: false, showPosts: true })}
           >
-            Posts
+            Посты
           </SegBtn>
         </div>
 
@@ -106,7 +114,7 @@ export function CalendarFilters({
             (open || activeCount > 0) && "border-primary/40 text-primary",
           )}
         >
-          Filters
+          Фильтры
           {activeCount > 0 && (
             <span className="inline-flex size-5 items-center justify-center rounded-full bg-primary/20 font-mono text-[10px] text-primary">
               {activeCount}
@@ -124,26 +132,26 @@ export function CalendarFilters({
             className="inline-flex h-9 items-center gap-1 rounded-lg px-2 text-xs text-muted-foreground transition hover:text-foreground"
           >
             <IconClose size={12} />
-            Clear
+            Очистить
           </button>
         )}
 
         <div className="ml-auto font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-          {totalVisible} of {totalAll}
+          {totalVisible} из {totalAll}
         </div>
       </div>
 
       {open && (
         <div className="space-y-4 border-t border-glass-border bg-background/20 px-4 py-4">
-          <FacetRow label="Status">
+          <FacetRow label="Статус">
             {STATUS_OPTIONS.map((s) => (
               <Chip key={s} active={value.statuses.includes(s)} onClick={() => toggle("statuses", s)}>
-                {s}
+                {STATUS_LABEL_RU[s] ?? s}
               </Chip>
             ))}
           </FacetRow>
           {availableChannels.length > 0 && (
-            <FacetRow label="Channel">
+            <FacetRow label="Канал">
               {availableChannels.map((c) => (
                 <Chip
                   key={c}
@@ -156,7 +164,7 @@ export function CalendarFilters({
             </FacetRow>
           )}
           {availableTypes.length > 0 && (
-            <FacetRow label="Type">
+            <FacetRow label="Тип">
               {availableTypes.map((t) => (
                 <Chip key={t} active={value.types.includes(t)} onClick={() => toggle("types", t)}>
                   {t.replace(/_/g, " ")}
