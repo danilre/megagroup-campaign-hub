@@ -23,10 +23,10 @@ export const Route = createFileRoute("/thumbnail")({
   component: ThumbnailPage,
   head: () => ({
     meta: [
-      { title: `Thumbnail stage — ${BRAND.name}` },
-      { name: "description", content: "Static 1600x900 composition of the template's signature visuals for the listing thumbnail." },
-      { property: "og:title", content: `Thumbnail stage — ${BRAND.name}` },
-      { property: "og:description", content: "Composition page used to capture the template thumbnail." },
+      { title: `Сцена превью — ${BRAND.name}` },
+      { name: "description", content: "Статичная композиция 1600x900 из фирменных визуалов шаблона для превью в каталоге." },
+      { property: "og:title", content: `Сцена превью — ${BRAND.name}` },
+      { property: "og:description", content: "Страница-композиция для съёмки превью шаблона." },
       { property: "og:type", content: "website" },
       { name: "robots", content: "noindex" },
     ],
@@ -50,11 +50,11 @@ function axial(cx: number, cy: number, q: number, r: number) {
 
 // ─── Funnel geometry — smooth mirrored bezier silhouette ──────────────────
 const FUNNEL_STAGES = [
-  { label: "Leads", value: "4,820", hex: "#a78bfa" },
-  { label: "MQLs", value: "1,940", hex: "#818cf8" },
-  { label: "SQLs", value: "861", hex: "#60a5fa" },
-  { label: "SQOs", value: "512", hex: "#2dd4bf" },
-  { label: "Won", value: "208", hex: "#34d399" },
+  { label: "Лиды", value: "4 820", hex: "#a78bfa" },
+  { label: "MQL", value: "1 940", hex: "#818cf8" },
+  { label: "SQL", value: "861", hex: "#60a5fa" },
+  { label: "SQO", value: "512", hex: "#2dd4bf" },
+  { label: "Выиграно", value: "208", hex: "#34d399" },
 ];
 const F_VB_W = 400;
 const F_CX = F_VB_W / 2;
@@ -199,9 +199,9 @@ function ThumbnailPage() {
   ];
 
   const conversions = [
-    { i: 1, text: "40% from Leads", amber: true },
-    { i: 2, text: "44% from MQLs", amber: false },
-    { i: 3, text: "59% from SQLs", amber: false },
+    { i: 1, text: "40% от лидов", amber: true },
+    { i: 2, text: "44% от MQL", amber: false },
+    { i: 3, text: "59% от SQL", amber: false },
   ];
 
   return (
@@ -223,8 +223,8 @@ function ThumbnailPage() {
             {BRAND.name}
           </h1>
           <p className="mt-4 max-w-[400px] text-[15px] leading-relaxed text-muted-foreground">
-            Launch checklists, standardized campaign names, UTM tracking links,
-            and performance dashboards in one shared workspace.
+            Чек-листы запуска, стандартизированные названия кампаний, UTM-ссылки
+            и дашборды эффективности в едином общем рабочем пространстве.
           </p>
 
           {/* UTM pill */}
@@ -238,9 +238,9 @@ function ThumbnailPage() {
           {/* Stage pills */}
           <div className="mt-4 flex items-center gap-2">
             {[
-              { label: "Planning", hue: 275 },
-              { label: "Live", hue: 340 },
-              { label: "Complete", hue: 165 },
+              { label: "Планирование", hue: 275 },
+              { label: "Запущено", hue: 340 },
+              { label: "Завершено", hue: 165 },
             ].map((s) => (
               <span
                 key={s.label}
@@ -268,19 +268,19 @@ function ThumbnailPage() {
             return <Hex key={`${g.q},${g.r}`} x={pos.x} y={pos.y} ghost ghostOpacity={g.o} />;
           })}
           <Hex {...p(-1, 0)} hue={275}>
-            <PrimaryHexContent tier="Tracking" name="UTM Builder" hue={275} icon={<IconUtm size={28} />} />
+            <PrimaryHexContent tier="Отслеживание" name="UTM-конструктор" hue={275} icon={<IconUtm size={28} />} />
           </Hex>
           <Hex {...p(1, 0)} hue={200}>
-            <PrimaryHexContent tier="Analytics" name="Funnel" hue={200} icon={<IconFunnel size={28} />} />
+            <PrimaryHexContent tier="Аналитика" name="Воронка" hue={200} icon={<IconFunnel size={28} />} />
           </Hex>
           <Hex {...p(0, 1)} hue={150}>
-            <PrimaryHexContent tier="Workflow" name="Campaign-in-a-box" hue={150} icon={<IconCampaign size={28} />} />
+            <PrimaryHexContent tier="Процесс" name="Кампания под ключ" hue={150} icon={<IconCampaign size={28} />} />
           </Hex>
           <Hex {...p(-2, 0)} hue={275}>
-            <SatHexContent label="All UTMs" icon={<IconScroll size={18} />} />
+            <SatHexContent label="Все UTM" icon={<IconScroll size={18} />} />
           </Hex>
           <Hex {...p(2, 0)} hue={200}>
-            <SatHexContent label="Performance" icon={<IconChart size={18} />} />
+            <SatHexContent label="Эффективность" icon={<IconChart size={18} />} />
           </Hex>
           {/* under-glow */}
           <div
@@ -301,7 +301,7 @@ function ThumbnailPage() {
         <div className="absolute left-[583px] top-[668px] z-10 flex items-stretch gap-4">
           <div className="w-[248px] rounded-2xl border border-glass-border bg-glass-strong p-4 backdrop-blur-md" style={{ boxShadow: "var(--shadow-glass)" }}>
             <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-              MQLs this month
+              MQL за месяц
             </div>
             <div className="mt-1 flex items-end justify-between">
               <div className="font-display text-[30px] font-semibold leading-none">1,940</div>
@@ -332,10 +332,10 @@ function ThumbnailPage() {
           </div>
           <div className="w-[216px] rounded-2xl border border-glass-border bg-glass-strong p-4 backdrop-blur-md" style={{ boxShadow: "var(--shadow-glass)" }}>
             <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-              Launch checklist
+              Чек-лист запуска
             </div>
             <div className="mt-1 font-display text-[30px] font-semibold leading-none">
-              9<span className="font-sans text-[15px] font-normal text-muted-foreground"> of 12</span>
+              9<span className="font-sans text-[15px] font-normal text-muted-foreground"> из 12</span>
             </div>
             <div className="mt-3.5 h-1.5 w-full rounded-full bg-[oklch(1_0_0_/_0.08)]">
               <div
@@ -343,7 +343,7 @@ function ThumbnailPage() {
                 style={{ background: "linear-gradient(90deg, oklch(0.72 0.2 275), oklch(0.78 0.18 340))" }}
               />
             </div>
-            <div className="mt-2.5 text-[11px] text-muted-foreground">Next: schedule launch email</div>
+            <div className="mt-2.5 text-[11px] text-muted-foreground">Далее: запланировать письмо о запуске</div>
           </div>
         </div>
 
@@ -355,10 +355,10 @@ function ThumbnailPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <IconFunnel size={18} />
-              <span className="font-display text-[18px]">Funnel</span>
+              <span className="font-display text-[18px]">Воронка</span>
             </div>
             <span className="rounded-full border border-glass-border bg-glass-strong px-3 py-1 text-[11px] text-muted-foreground">
-              This quarter
+              В этом квартале
             </span>
           </div>
 
@@ -462,7 +462,7 @@ function ThumbnailPage() {
             <div className="h-px w-full bg-[oklch(1_0_0_/_0.08)]" />
             <div className="mt-4 flex items-center justify-between">
               <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                Q3 target pacing
+                Темп по цели Q3
               </span>
               <span className="text-[12px] text-foreground/85">82%</span>
             </div>
@@ -472,7 +472,7 @@ function ThumbnailPage() {
                 style={{ background: "linear-gradient(90deg, oklch(0.72 0.2 275), oklch(0.78 0.18 340))" }}
               />
             </div>
-            <div className="mt-2 text-[11px] text-muted-foreground">1,940 of 2,350 MQLs this quarter</div>
+            <div className="mt-2 text-[11px] text-muted-foreground">1 940 из 2 350 MQL в этом квартале</div>
           </div>
         </div>
 

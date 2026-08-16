@@ -439,7 +439,7 @@ function StatusFilterTabs({
         }`}
         aria-pressed={value === "all"}
       >
-        <span>All</span>
+        <span>Все</span>
         <span className={`font-mono text-[10px] ${value === "all" ? "text-foreground/70" : "text-muted-foreground/60"}`}>
           {items.length}
         </span>
