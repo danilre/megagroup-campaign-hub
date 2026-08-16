@@ -93,48 +93,48 @@ export function CommandPalette() {
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
-      <CommandInput placeholder="Search campaigns, tools, names, UTMs…" />
+      <CommandInput placeholder="Поиск по кампаниям, инструментам, названиям, UTM…" />
       <CommandList>
-        <CommandEmpty>No matches.</CommandEmpty>
+        <CommandEmpty>Ничего не найдено.</CommandEmpty>
 
-        <CommandGroup heading="Quick">
+        <CommandGroup heading="Быстрые действия">
           <CommandItem onSelect={() => go(() => nav({ to: "/dashboard" }))}>
-            <IconHome size={16} /> This week
+            <IconHome size={16} /> На этой неделе
             <CommandShortcut>G D</CommandShortcut>
           </CommandItem>
           <CommandItem onSelect={() => go(() => nav({ to: "/campaigns" }))}>
-            <IconWorkspace size={16} /> Campaigns
+            <IconWorkspace size={16} /> Кампании
             <CommandShortcut>G C</CommandShortcut>
           </CommandItem>
           <CommandItem onSelect={() => go(() => nav({ to: "/calendar" }))}>
-            <IconCalendar size={16} /> Calendar
+            <IconCalendar size={16} /> Календарь
           </CommandItem>
           <CommandItem onSelect={() => go(() => nav({ to: "/templates" }))}>
-            <IconTemplate size={16} /> Templates
+            <IconTemplate size={16} /> Шаблоны
           </CommandItem>
           <CommandItem onSelect={() => go(() => nav({ to: "/settings" }))}>
-            <IconSettings size={16} /> Settings
+            <IconSettings size={16} /> Настройки
           </CommandItem>
         </CommandGroup>
 
         <CommandSeparator />
 
-        <CommandGroup heading="Tools">
+        <CommandGroup heading="Инструменты">
           <CommandItem onSelect={() => go(() => nav({ to: "/tools", search: { focus: "utm-campaign-name" } }))}>
-            <IconCampaign size={16} /> Campaign Name Generator
+            <IconCampaign size={16} /> Генератор названий кампаний
           </CommandItem>
           <CommandItem onSelect={() => go(() => nav({ to: "/tools", search: { focus: "campaign-import" } }))}>
-            <IconImport size={16} /> List Import
+            <IconImport size={16} /> Импорт списка
           </CommandItem>
           <CommandItem onSelect={() => go(() => nav({ to: "/tools", search: { focus: "utm" } }))}>
-            <IconUtm size={16} /> UTM Builder
+            <IconUtm size={16} /> UTM-конструктор
           </CommandItem>
         </CommandGroup>
 
         {workspaces.length > 0 && (
           <>
             <CommandSeparator />
-            <CommandGroup heading="Campaigns">
+            <CommandGroup heading="Кампании">
               <CommandItem
                 onSelect={() =>
                   go(() => {
@@ -143,7 +143,7 @@ export function CommandPalette() {
                   })
                 }
               >
-                <IconPlus size={16} /> New campaign
+                <IconPlus size={16} /> Новая кампания
               </CommandItem>
               {workspaces.map((w) => (
                 <CommandItem
@@ -163,7 +163,7 @@ export function CommandPalette() {
         {campaigns.length > 0 && (
           <>
             <CommandSeparator />
-            <CommandGroup heading="Saved campaign names">
+            <CommandGroup heading="Сохранённые названия кампаний">
               {campaigns.map((c) => (
                 <CommandItem
                   key={c.id}
@@ -176,7 +176,7 @@ export function CommandPalette() {
                 >
                   <IconCampaign size={16} />
                   <span className="font-mono truncate">{c.name}</span>
-                  <CommandShortcut>copy</CommandShortcut>
+                  <CommandShortcut>копия</CommandShortcut>
                 </CommandItem>
               ))}
             </CommandGroup>
@@ -186,7 +186,7 @@ export function CommandPalette() {
         {utm.length > 0 && (
           <>
             <CommandSeparator />
-            <CommandGroup heading="UTM links">
+            <CommandGroup heading="UTM-ссылки">
               {utm.map((u) => (
                 <CommandItem
                   key={u.id}
@@ -199,7 +199,7 @@ export function CommandPalette() {
                 >
                   <IconUtm size={16} />
                   <span className="truncate">{u.label}</span>
-                  <CommandShortcut>copy</CommandShortcut>
+                  <CommandShortcut>копия</CommandShortcut>
                 </CommandItem>
               ))}
             </CommandGroup>

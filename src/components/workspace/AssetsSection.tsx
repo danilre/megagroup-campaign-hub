@@ -169,7 +169,7 @@ export function AssetsSection({ workspaceId, orgId }: { workspaceId: string; org
   };
 
   const remove = async (a: Asset) => {
-    if (!confirm(`Delete "${a.label}"?`)) return;
+    if (!confirm(`Удалить «${a.label}»?`)) return;
     if (a.storage_path) await supabase.storage.from("workspace-assets").remove([a.storage_path]);
     await supabase.from("workspace_assets").delete().eq("id", a.id);
   };
@@ -209,20 +209,20 @@ export function AssetsSection({ workspaceId, orgId }: { workspaceId: string; org
     <div>
       <div className="mb-3 flex items-end justify-between gap-3">
         <div>
-          <h2 className="font-display text-xl">Assets &amp; approvals</h2>
+          <h2 className="font-display text-xl">Ассеты и утверждения</h2>
           <div className="mt-1 text-xs text-muted-foreground">
-            Upload creative, assign reviewers, drop pin comments. Workspace can&apos;t go live until every required reviewer approves.
+            Загружайте креативы, назначайте рецензентов, оставляйте пин-комментарии. Рабочее пространство нельзя запустить, пока все обязательные рецензенты не одобрят материалы.
           </div>
         </div>
         <label className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90">
-          <IconPlus size={14} /> {uploading ? "Uploading…" : "Upload"}
+          <IconPlus size={14} /> {uploading ? "Загрузка…" : "Загрузить"}
           <input ref={fileRef} type="file" multiple className="hidden" onChange={(e) => onUpload(e.target.files)} />
         </label>
       </div>
 
       {assets.length === 0 ? (
         <GlassPanel className="p-6 text-center text-sm text-muted-foreground">
-          No assets yet. Drop in creative once it&apos;s ready for review.
+          Пока нет ассетов. Загрузите креатив, когда он будет готов к проверке.
         </GlassPanel>
       ) : (
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -256,12 +256,12 @@ export function AssetsSection({ workspaceId, orgId }: { workspaceId: string; org
                       <span>v{a.version}</span>
                       <span>·</span>
                       <span className={cleared ? "text-primary" : "text-amber-500"}>
-                        {cleared ? "Approved" : `${assigned.length ? `${approved}/${assigned.filter((x) => x.required).length} req` : "Awaiting review"}`}
+                        {cleared ? "Одобрено" : `${assigned.length ? `${approved}/${assigned.filter((x) => x.required).length} треб.` : "Ожидает проверки"}`}
                       </span>
-                      {pinCount > 0 && <><span>·</span><span>{pinCount} pin{pinCount === 1 ? "" : "s"}</span></>}
+                      {pinCount > 0 && <><span>·</span><span>{pinCount} {pinCount === 1 ? "пин" : "пинов"}</span></>}
                     </div>
                   </div>
-                  <button onClick={() => remove(a)} className="text-muted-foreground/50 hover:text-destructive" aria-label="Delete">
+                  <button onClick={() => remove(a)} className="text-muted-foreground/50 hover:text-destructive" aria-label="Удалить">
                     <IconClose size={14} />
                   </button>
                 </div>
@@ -273,11 +273,11 @@ export function AssetsSection({ workspaceId, orgId }: { workspaceId: string; org
                       approved > 0 ? "bg-primary/20 text-primary" : "bg-glass/40 text-muted-foreground hover:text-foreground",
                     )}
                   >
-                    <IconCheck size={11} /> Approve ({approved})
+                    <IconCheck size={11} /> Одобрить ({approved})
                   </button>
                   <button
                     onClick={() => {
-                      const c = prompt("What needs to change?");
+                      const c = prompt("Что нужно изменить?");
                       if (c !== null) review(a.id, "changes_requested", c);
                     }}
                     className={cn(
@@ -285,7 +285,7 @@ export function AssetsSection({ workspaceId, orgId }: { workspaceId: string; org
                       changes > 0 ? "bg-destructive/20 text-destructive" : "bg-glass/40 text-muted-foreground hover:text-foreground",
                     )}
                   >
-                    Changes ({changes})
+                    Изменения ({changes})
                   </button>
                 </div>
               </GlassPanel>
@@ -297,7 +297,7 @@ export function AssetsSection({ workspaceId, orgId }: { workspaceId: string; org
       <Dialog open={!!openAsset} onOpenChange={(o) => !o && setOpenAssetId(null)}>
         <DialogContent className="max-w-5xl">
           <DialogHeader className="sr-only">
-            <DialogTitle>{openAsset?.label ?? "Asset"}</DialogTitle>
+            <DialogTitle>{openAsset?.label ?? "Ассет"}</DialogTitle>
           </DialogHeader>
           {openAsset && (
             <AssetDetail
@@ -381,7 +381,7 @@ function AssetDetail({
     await supabase.from("asset_pin_comments").delete().eq("id", id);
   };
 
-  const memberName = (id: string) => members.find((m) => m.user_id === id)?.full_name ?? "Member";
+  const memberName = (id: string) => members.find((m) => m.user_id === id)?.full_name ?? "Участник";
 
   const sortedPins = useMemo(() => pins.slice().sort((a, b) => a.created_at.localeCompare(b.created_at)), [pins]);
 
@@ -404,11 +404,11 @@ function AssetDetail({
               className="flex h-full w-full items-center justify-center text-xs text-muted-foreground"
               onClick={(e) => e.stopPropagation()}
             >
-              Open {asset.mime_type ?? "file"}
+              Открыть {asset.mime_type ?? "файл"}
             </a>
           ) : (
             <div className="flex h-full w-full items-center justify-center text-xs text-muted-foreground">
-              Preview unavailable
+              Предпросмотр недоступен
             </div>
           )}
           {sortedPins.map((p, i) => (
@@ -439,18 +439,18 @@ function AssetDetail({
           )}
         </div>
         <div className="mt-1 text-[10px] text-muted-foreground">
-          Click anywhere on the asset to drop a pin comment.
+          Нажмите в любом месте ассета, чтобы оставить пин-комментарий.
         </div>
 
         {draftPin && (
           <div className="mt-3 rounded-lg border border-glass-border bg-background/40 p-3">
-            <div className="mb-2 text-xs text-muted-foreground">New pin comment</div>
+            <div className="mb-2 text-xs text-muted-foreground">Новый пин-комментарий</div>
             <textarea
               value={draftBody}
               onChange={(e) => setDraftBody(e.target.value)}
               autoFocus
               rows={2}
-              placeholder="Describe the issue or suggestion…"
+              placeholder="Опишите проблему или предложение…"
               className="w-full rounded-md border border-glass-border bg-background/40 p-2 text-sm outline-none focus:border-primary/50"
             />
             <div className="mt-2 flex justify-end gap-2">
@@ -458,14 +458,14 @@ function AssetDetail({
                 onClick={() => { setDraftPin(null); setDraftBody(""); }}
                 className="rounded-md px-3 py-1 text-xs text-muted-foreground hover:text-foreground"
               >
-                Cancel
+                Отмена
               </button>
               <button
                 onClick={savePin}
                 disabled={!draftBody.trim()}
                 className="rounded-md bg-primary px-3 py-1 text-xs font-medium text-primary-foreground disabled:opacity-50"
               >
-                Save pin
+                Сохранить пин
               </button>
             </div>
           </div>
@@ -474,10 +474,10 @@ function AssetDetail({
 
       <div className="space-y-4">
         <div>
-          <div className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">Reviewers</div>
+          <div className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">Рецензенты</div>
           <div className="max-h-44 overflow-y-auto rounded-lg border border-glass-border bg-background/40 p-2">
             {members.length === 0 ? (
-              <div className="p-2 text-xs text-muted-foreground">No org members.</div>
+              <div className="p-2 text-xs text-muted-foreground">Нет участников организации.</div>
             ) : (
               members.map((m) => {
                 const assigned = assignments.some((a) => a.reviewer_id === m.user_id);
@@ -490,13 +490,13 @@ function AssetDetail({
                       onChange={() => onToggleReviewer(m.user_id)}
                       className="size-3.5 accent-primary"
                     />
-                    <span className="flex-1 truncate">{m.full_name ?? "Member"}</span>
+                    <span className="flex-1 truncate">{m.full_name ?? "Участник"}</span>
                     {r && (
                       <span className={cn(
                         "rounded-full px-1.5 py-0.5 text-[10px]",
                         r.status === "approved" ? "bg-primary/20 text-primary" : r.status === "changes_requested" ? "bg-destructive/20 text-destructive" : "bg-muted text-muted-foreground",
                       )}>
-                        {r.status === "approved" ? "Approved" : r.status === "changes_requested" ? "Changes" : "Pending"}
+                        {r.status === "approved" ? "Одобрено" : r.status === "changes_requested" ? "Изменения" : "Ожидание"}
                       </span>
                     )}
                   </label>
@@ -507,34 +507,34 @@ function AssetDetail({
         </div>
 
         <div>
-          <div className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">Your decision</div>
+          <div className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">Ваше решение</div>
           <div className="flex gap-2">
             <button
               onClick={() => onReview("approved")}
               className="flex-1 rounded-md bg-primary/15 px-3 py-1.5 text-xs text-primary hover:bg-primary/25"
             >
-              Approve
+              Одобрить
             </button>
             <button
               onClick={() => {
-                const c = prompt("What needs to change?");
+                const c = prompt("Что нужно изменить?");
                 if (c !== null) onReview("changes_requested", c);
               }}
               className="flex-1 rounded-md bg-destructive/15 px-3 py-1.5 text-xs text-destructive hover:bg-destructive/25"
             >
-              Request changes
+              Запросить изменения
             </button>
           </div>
         </div>
 
         <div>
           <div className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">
-            Pins ({sortedPins.length})
+            Пины ({sortedPins.length})
           </div>
           <div className="max-h-72 space-y-2 overflow-y-auto pr-1">
             {sortedPins.length === 0 ? (
               <div className="rounded border border-dashed border-glass-border p-3 text-center text-xs text-muted-foreground">
-                No pin comments yet.
+                Пока нет пин-комментариев.
               </div>
             ) : (
               sortedPins.map((p, i) => (
@@ -555,14 +555,14 @@ function AssetDetail({
                         onClick={() => resolvePin(p.id, !p.resolved)}
                         className="rounded px-1.5 py-0.5 text-[10px] text-muted-foreground hover:text-foreground"
                       >
-                        {p.resolved ? "Reopen" : "Resolve"}
+                        {p.resolved ? "Открыть снова" : "Решено"}
                       </button>
                       {p.author_id === userId && (
                         <button
                           onClick={() => deletePin(p.id)}
                           className="rounded px-1.5 py-0.5 text-[10px] text-muted-foreground hover:text-destructive"
                         >
-                          Delete
+                          Удалить
                         </button>
                       )}
                     </div>
