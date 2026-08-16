@@ -53,7 +53,7 @@ export function ShareSection({ workspaceId, orgId }: { workspaceId: string; orgI
       return;
     }
     setLabel("");
-    toast.success("Share link created");
+    toast.success("Ссылка для доступа создана");
     load();
   };
 
@@ -61,7 +61,7 @@ export function ShareSection({ workspaceId, orgId }: { workspaceId: string; orgI
     const { error } = await supabase.from("workspace_share_links").delete().eq("id", id);
     if (error) toast.error(error.message);
     else {
-      toast.success("Revoked");
+      toast.success("Отозвано");
       load();
     }
   };
@@ -69,22 +69,22 @@ export function ShareSection({ workspaceId, orgId }: { workspaceId: string; orgI
   const copy = (token: string) => {
     const url = `${window.location.origin}/w/${token}`;
     copyToClipboard(url);
-    toast.success("Link copied");
+    toast.success("Ссылка скопирована");
   };
 
   return (
     <GlassPanel className="space-y-4 p-5">
       <div>
-        <div className="font-display text-lg">Share read-only</div>
+        <div className="font-display text-lg">Доступ только для чтения</div>
         <div className="mt-1 text-xs text-muted-foreground">
-          Generate a link anyone can open without signing in. Shows goal, status, KPIs — no internal data.
+          Создайте ссылку, которую можно открыть без входа в систему. Показывает цель, статус, KPI — без внутренних данных.
         </div>
       </div>
       <div className="flex gap-2">
         <input
           value={label}
           onChange={(e) => setLabel(e.target.value)}
-          placeholder="Label (e.g. exec readout)"
+          placeholder="Название (например, отчёт для руководства)"
           className="flex-1 rounded-full border border-glass-border bg-glass/30 px-4 py-1.5 text-sm outline-none focus:border-primary/60"
         />
         <button
@@ -92,32 +92,32 @@ export function ShareSection({ workspaceId, orgId }: { workspaceId: string; orgI
           disabled={busy}
           className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
         >
-          <IconPlus size={14} /> New link
+          <IconPlus size={14} /> Новая ссылка
         </button>
       </div>
       {links.length === 0 ? (
         <div className="rounded-lg border border-dashed border-glass-border p-4 text-center text-xs text-muted-foreground">
-          No share links yet.
+          Пока нет ссылок для доступа.
         </div>
       ) : (
         <ul className="space-y-2">
           {links.map((l) => (
             <li key={l.id} className="flex items-center gap-3 rounded-lg border border-glass-border bg-glass/30 px-3 py-2">
               <div className="min-w-0 flex-1">
-                <div className="truncate text-sm">{l.label || "Untitled"}</div>
+                <div className="truncate text-sm">{l.label || "Без названия"}</div>
                 <div className="font-mono text-[11px] text-muted-foreground">/w/{l.token}</div>
               </div>
-              <div className="text-[11px] text-muted-foreground">{l.click_count} views</div>
+              <div className="text-[11px] text-muted-foreground">{l.click_count} просмотров</div>
               <button
                 onClick={() => copy(l.token)}
                 className="inline-flex items-center gap-1 rounded-full border border-glass-border px-2 py-1 text-[11px] hover:bg-glass-strong"
               >
-                <IconCopy size={11} /> Copy
+                <IconCopy size={11} /> Копировать
               </button>
               <button
                 onClick={() => revoke(l.id)}
                 className="rounded-full border border-glass-border p-1.5 text-muted-foreground hover:text-foreground"
-                title="Revoke"
+                title="Отозвать"
               >
                 <IconClose size={12} />
               </button>

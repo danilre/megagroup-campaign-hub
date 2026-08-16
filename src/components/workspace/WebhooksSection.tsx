@@ -65,7 +65,7 @@ export function WebhooksSection({ workspaceId, orgId }: { workspaceId: string; o
     }
     setHooks((cur) => [...cur, data as Hook]);
     setUrl("");
-    toast.success("Webhook added");
+    toast.success("Вебхук добавлен");
   };
 
   const remove = async (id: string) => {
@@ -76,9 +76,9 @@ export function WebhooksSection({ workspaceId, orgId }: { workspaceId: string; o
   return (
     <div>
       <div className="mb-3">
-        <h2 className="font-display text-xl">Outbound webhooks</h2>
+        <h2 className="font-display text-xl">Исходящие вебхуки</h2>
         <div className="mt-1 text-xs text-muted-foreground">
-          Notify Slack, Zapier, n8n, or your own service when this workspace changes.
+          Уведомляйте Slack, Zapier, n8n или собственный сервис при изменениях в этом рабочем пространстве.
         </div>
       </div>
 
@@ -87,7 +87,7 @@ export function WebhooksSection({ workspaceId, orgId }: { workspaceId: string; o
           <div key={h.id} className="flex items-center gap-3 px-4 py-2.5 text-xs">
             <span className={`size-2 shrink-0 rounded-full ${h.active ? "bg-primary" : "bg-muted-foreground/30"}`} />
             <span className="min-w-0 flex-1 truncate font-mono">{h.url}</span>
-            <span className="hidden text-muted-foreground sm:inline">{h.events.length} events</span>
+            <span className="hidden text-muted-foreground sm:inline">{h.events.length} событий</span>
             <button onClick={() => remove(h.id)} className="text-muted-foreground/50 hover:text-destructive">
               <IconClose size={14} />
             </button>
@@ -104,7 +104,7 @@ export function WebhooksSection({ workspaceId, orgId }: { workspaceId: string; o
           />
           {url.trim() && (
             <button onClick={add} className="rounded-md bg-primary px-3 py-1 text-xs text-primary-foreground">
-              Add
+              Добавить
             </button>
           )}
         </div>

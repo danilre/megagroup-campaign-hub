@@ -73,14 +73,14 @@ export function UtmTemplatesMenu({ orgId, userId, current, onApply, onDefaultLoa
     await supabase.from("utm_templates").update({ is_default: false }).eq("org_id", orgId).eq("is_default", true);
     const { error } = await supabase.from("utm_templates").update({ is_default: true }).eq("id", id);
     if (error) return toast.error(error.message);
-    toast.success("Default template set");
+    toast.success("Шаблон по умолчанию установлен");
     load();
   };
 
   const remove = async (id: string) => {
     const { error } = await supabase.from("utm_templates").delete().eq("id", id);
     if (error) return toast.error(error.message);
-    toast.success("Template deleted");
+    toast.success("Шаблон удалён");
     load();
   };
 
@@ -102,7 +102,7 @@ export function UtmTemplatesMenu({ orgId, userId, current, onApply, onDefaultLoa
       is_default: makeDefault,
     });
     if (error) return toast.error(error.message);
-    toast.success("Template saved");
+    toast.success("Шаблон сохранён");
     setSaveOpen(false);
     setName("");
     setMakeDefault(false);
@@ -115,7 +115,7 @@ export function UtmTemplatesMenu({ orgId, userId, current, onApply, onDefaultLoa
         <PopoverTrigger asChild>
           <button className="inline-flex items-center gap-1.5 rounded-full glass border border-glass-border px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-glass-strong">
             <Bookmark className="size-3.5" />
-            Templates
+            Шаблоны
             {items.length > 0 && (
               <span className="ml-1 rounded-full bg-glass-strong px-1.5 text-[10px]">{items.length}</span>
             )}
@@ -123,7 +123,7 @@ export function UtmTemplatesMenu({ orgId, userId, current, onApply, onDefaultLoa
         </PopoverTrigger>
         <PopoverContent align="end" className="w-80 p-0 glass border-glass-border">
           <div className="flex items-center justify-between border-b border-glass-border px-3 py-2">
-            <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Saved templates</div>
+            <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Сохранённые шаблоны</div>
             <button
               onClick={() => {
                 setOpen(false);
@@ -131,13 +131,13 @@ export function UtmTemplatesMenu({ orgId, userId, current, onApply, onDefaultLoa
               }}
               className="inline-flex items-center gap-1 rounded-full bg-primary px-2.5 py-1 text-[11px] font-medium text-primary-foreground hover:opacity-90"
             >
-              <Plus className="size-3" /> Save current
+              <Plus className="size-3" /> Сохранить текущее
             </button>
           </div>
           <div className="max-h-80 overflow-y-auto py-1">
             {items.length === 0 ? (
               <div className="px-3 py-6 text-center text-xs text-muted-foreground">
-                No templates yet. Save your current settings to reuse them later.
+                Пока нет шаблонов. Сохраните текущие настройки, чтобы использовать их позже.
               </div>
             ) : (
               items.map((t) => (
@@ -146,7 +146,7 @@ export function UtmTemplatesMenu({ orgId, userId, current, onApply, onDefaultLoa
                     onClick={() => {
                       onApply(t);
                       setOpen(false);
-                      toast.success(`Applied "${t.name}"`);
+                      toast.success(`Применён «${t.name}»`);
                     }}
                     className="min-w-0 flex-1 text-left"
                   >
@@ -160,14 +160,14 @@ export function UtmTemplatesMenu({ orgId, userId, current, onApply, onDefaultLoa
                   </button>
                   <button
                     onClick={() => setDefault(t.id)}
-                    title={t.is_default ? "Default" : "Set as default"}
+                    title={t.is_default ? "По умолчанию" : "Сделать по умолчанию"}
                     className="shrink-0 rounded p-1 text-muted-foreground opacity-0 hover:text-amber-300 group-hover:opacity-100"
                   >
                     <Star className={`size-3.5 ${t.is_default ? "fill-amber-300 text-amber-300 opacity-100" : ""}`} />
                   </button>
                   <button
                     onClick={() => remove(t.id)}
-                    title="Delete"
+                    title="Удалить"
                     className="shrink-0 rounded p-1 text-muted-foreground opacity-0 hover:text-rose-400 group-hover:opacity-100"
                   >
                     <Trash2 className="size-3.5" />
@@ -182,16 +182,16 @@ export function UtmTemplatesMenu({ orgId, userId, current, onApply, onDefaultLoa
       <Dialog open={saveOpen} onOpenChange={setSaveOpen}>
         <DialogContent className="glass border-glass-border">
           <DialogHeader>
-            <DialogTitle>Save UTM template</DialogTitle>
+            <DialogTitle>Сохранить UTM-шаблон</DialogTitle>
           </DialogHeader>
           <div className="space-y-3">
             <div>
-              <label className="text-xs text-muted-foreground">Template name</label>
+              <label className="text-xs text-muted-foreground">Название шаблона</label>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 autoFocus
-                placeholder="Paid search — Google"
+                placeholder="Платный поиск — Google"
                 className="mt-1 w-full rounded-full border border-glass-border bg-glass/30 px-4 py-2 text-sm outline-none focus:border-primary/60"
               />
             </div>
@@ -209,7 +209,7 @@ export function UtmTemplatesMenu({ orgId, userId, current, onApply, onDefaultLoa
                 onChange={(e) => setMakeDefault(e.target.checked)}
                 className="size-4 accent-primary"
               />
-              Set as default (auto-fills on page load)
+              Сделать по умолчанию (автозаполнение при загрузке страницы)
             </label>
           </div>
           <DialogFooter>
@@ -217,14 +217,14 @@ export function UtmTemplatesMenu({ orgId, userId, current, onApply, onDefaultLoa
               onClick={() => setSaveOpen(false)}
               className="rounded-full border border-glass-border bg-glass/30 px-4 py-2 text-sm hover:bg-glass-strong"
             >
-              Cancel
+              Отмена
             </button>
             <button
               onClick={save}
               disabled={!name.trim()}
               className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
             >
-              <Check className="size-4" /> Save template
+              <Check className="size-4" /> Сохранить шаблон
             </button>
           </DialogFooter>
         </DialogContent>

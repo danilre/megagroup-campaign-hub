@@ -19,16 +19,16 @@ function NotFoundComponent() {
     <div className="relative flex min-h-screen items-center justify-center px-4">
       <div className="relative z-10 max-w-md text-center">
         <h1 className="font-display text-8xl text-gradient">404</h1>
-        <h2 className="mt-4 text-xl text-foreground">Off the map</h2>
+        <h2 className="mt-4 text-xl text-foreground">За пределами карты</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          That page isn't part of {BRAND.name}.
+          Такой страницы нет в {BRAND.name}.
         </p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition hover:opacity-90"
           >
-            Back to base
+            Вернуться на базу
           </Link>
         </div>
       </div>
@@ -42,7 +42,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="relative flex min-h-screen items-center justify-center px-4">
       <div className="relative z-10 max-w-md text-center">
-        <h1 className="font-display text-3xl text-foreground">Something snapped</h1>
+        <h1 className="font-display text-3xl text-foreground">Что-то пошло не так</h1>
         <p className="mt-2 text-sm text-muted-foreground">{error.message}</p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -52,13 +52,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             }}
             className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
-            Try again
+            Повторить попытку
           </button>
           <a
             href="/"
             className="rounded-full border border-glass-border bg-glass px-5 py-2.5 text-sm font-medium text-foreground hover:bg-glass-strong"
           >
-            Home
+            На главную
           </a>
         </div>
       </div>

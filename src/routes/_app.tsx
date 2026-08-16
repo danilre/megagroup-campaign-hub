@@ -52,13 +52,13 @@ export const Route = createFileRoute("/_app")({
 });
 
 const PRIMARY_NAV = [
-  { to: "/dashboard", label: "This week", Icon: IconHome },
-  { to: "/campaigns", label: "Campaigns", Icon: IconWorkspace },
-  { to: "/leads", label: "Leads", Icon: IconAudience },
-  { to: "/tools", label: "Marketing tools", Icon: IconCampaign },
-  { to: "/calendar", label: "Calendar", Icon: IconCalendar },
-  { to: "/requests", label: "Requests", Icon: IconClock },
-  { to: "/templates", label: "Templates", Icon: IconTemplate },
+  { to: "/dashboard", label: "На этой неделе", Icon: IconHome },
+  { to: "/campaigns", label: "Кампании", Icon: IconWorkspace },
+  { to: "/leads", label: "Лиды", Icon: IconAudience },
+  { to: "/tools", label: "Маркетинговые инструменты", Icon: IconCampaign },
+  { to: "/calendar", label: "Календарь", Icon: IconCalendar },
+  { to: "/requests", label: "Запросы", Icon: IconClock },
+  { to: "/templates", label: "Шаблоны", Icon: IconTemplate },
 ] as const;
 
 type ToolChild = { to: string; label: string; Icon: typeof IconCampaign; search?: Record<string, string> };
@@ -69,35 +69,35 @@ const MARKETING_TOOLS: ToolItem[] = [
     id: "campaign",
     to: "/tools",
     search: { focus: "campaign" },
-    label: "Campaign-in-a-box",
+    label: "Кампания под ключ",
     Icon: IconCampaign,
     children: [
-      { to: "/tools", search: { focus: "campaign-creator" }, label: "Name Generator", Icon: IconCampaign },
-      { to: "/tools", search: { focus: "campaign-import" }, label: "List Import", Icon: IconImport },
-      { to: "/tools", search: { focus: "campaign-events" }, label: "Events", Icon: IconCalendar },
+      { to: "/tools", search: { focus: "campaign-creator" }, label: "Генератор названий", Icon: IconCampaign },
+      { to: "/tools", search: { focus: "campaign-import" }, label: "Импорт списка", Icon: IconImport },
+      { to: "/tools", search: { focus: "campaign-events" }, label: "Мероприятия", Icon: IconCalendar },
     ],
   },
   {
     id: "funnel",
     to: "/tools",
     search: { focus: "funnel" },
-    label: "Funnel targets",
+    label: "Цели воронки",
     Icon: IconFunnel,
     children: [
-      { to: "/tools", search: { focus: "funnel-targets" }, label: "Overview", Icon: IconSpark },
-      { to: "/tools", search: { focus: "funnel-performance" }, label: "Performance", Icon: IconChart },
+      { to: "/tools", search: { focus: "funnel-targets" }, label: "Обзор", Icon: IconSpark },
+      { to: "/tools", search: { focus: "funnel-performance" }, label: "Показатели", Icon: IconChart },
     ],
   },
   {
     id: "utm",
     to: "/tools",
     search: { focus: "utm" },
-    label: "UTM Builder",
+    label: "UTM-конструктор",
     Icon: IconUtm,
     children: [
-      { to: "/tools", search: { focus: "utm" }, label: "New UTM", Icon: IconSpark },
-      { to: "/tools", search: { focus: "utm-all" }, label: "All UTMs", Icon: IconSpark },
-      { to: "/tools", search: { focus: "utm-taxonomy" }, label: "Naming conventions", Icon: IconSpark },
+      { to: "/tools", search: { focus: "utm" }, label: "Новый UTM", Icon: IconSpark },
+      { to: "/tools", search: { focus: "utm-all" }, label: "Все UTM", Icon: IconSpark },
+      { to: "/tools", search: { focus: "utm-taxonomy" }, label: "Правила именования", Icon: IconSpark },
     ],
   },
 ];
@@ -266,7 +266,7 @@ function AppShell() {
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
             </span>
             <span className="font-display tracking-wide">
-              {loading ? `Booting ${BRAND.name}` : "Redirecting to sign in"}
+              {loading ? `Запуск ${BRAND.name}` : "Перенаправление на вход"}
             </span>
           </div>
         </motion.div>
@@ -293,7 +293,7 @@ function AppShell() {
             {!collapsed && (
               <button
                 onClick={() => setCollapsed(true)}
-                aria-label="Collapse sidebar"
+                aria-label="Свернуть боковую панель"
                 className="inline-flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition hover:bg-glass/60 hover:text-foreground"
               >
                 <IconChevronLeft size={16} />
@@ -304,7 +304,7 @@ function AppShell() {
             <div className="px-2 pb-2">
               <button
                 onClick={() => setCollapsed(false)}
-                aria-label="Expand sidebar"
+                aria-label="Развернуть боковую панель"
                 className="inline-flex h-7 w-full items-center justify-center rounded-md text-muted-foreground transition hover:bg-glass/60 hover:text-foreground"
               >
                 <IconChevronRight size={16} />
@@ -367,7 +367,7 @@ function AppShell() {
                               : { manualOpen: !prev.manualOpen, routeCollapsedFor: null },
                           );
                         }}
-                        aria-label={toolsOpen ? "Collapse tools" : "Expand tools"}
+                        aria-label={toolsOpen ? "Свернуть инструменты" : "Развернуть инструменты"}
                         className="relative z-10 -mr-1 inline-flex h-5 w-5 items-center justify-center rounded text-muted-foreground hover:text-foreground"
                       >
                         <motion.span animate={{ rotate: toolsOpen ? 0 : -90 }} transition={{ duration: 0.18 }}>
@@ -411,7 +411,7 @@ function AppShell() {
               <Link
                 to="/settings"
                 preload="render"
-                title={collapsed ? "Settings" : undefined}
+                title={collapsed ? "Настройки" : undefined}
                 data-tour="nav-settings"
                 className={`flex items-center ${collapsed ? "justify-center px-0" : "gap-3 px-3"} rounded-xl py-2.5 text-sm transition-colors ${
                   loc.pathname.startsWith("/settings")
@@ -420,12 +420,12 @@ function AppShell() {
                 }`}
               >
                 <IconSettings size={18} />
-                {!collapsed && <span>Settings</span>}
+                {!collapsed && <span>Настройки</span>}
               </Link>
               <Link
                 to="/integrations"
                 preload="render"
-                title={collapsed ? "Integrations" : undefined}
+                title={collapsed ? "Интеграции" : undefined}
                 data-tour="nav-integrations"
                 className={`flex items-center ${collapsed ? "justify-center px-0" : "gap-3 px-3"} rounded-xl py-2.5 text-sm transition-colors ${
                   loc.pathname.startsWith("/integrations") || loc.pathname.startsWith("/connectors")
@@ -434,7 +434,7 @@ function AppShell() {
                 }`}
               >
                 <IconBolt size={18} />
-                {!collapsed && <span>Integrations</span>}
+                {!collapsed && <span>Интеграции</span>}
               </Link>
             </div>
           </nav>
@@ -446,12 +446,12 @@ function AppShell() {
                   const ev = new KeyboardEvent("keydown", { key: "k", metaKey: true });
                   window.dispatchEvent(ev);
                 }}
-                title={collapsed ? `Ask ${BRAND.shortName} AI (⌘K)` : undefined}
+                title={collapsed ? `Спросить AI ${BRAND.shortName} (⌘K)` : undefined}
                 className={`group flex w-full items-center ${collapsed ? "justify-center px-0" : "justify-between gap-3 px-3"} rounded-xl border border-glass-border bg-glass/40 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-glass-strong hover:text-foreground`}
               >
                 <span className={`inline-flex items-center ${collapsed ? "" : "gap-2"}`}>
                   <CommanderOrb size={18} />
-                  {!collapsed && <span className="font-display">Ask {BRAND.shortName} AI</span>}
+                  {!collapsed && <span className="font-display">Спросить {BRAND.shortName} AI</span>}
 
                 </span>
                 {!collapsed && <kbd className="rounded bg-black/30 px-1.5 py-0.5 font-mono text-xs">⌘K</kbd>}
@@ -477,10 +477,10 @@ function AppShell() {
                   window.dispatchEvent(ev);
                 }}
                 className="inline-flex items-center gap-2 rounded-lg border border-glass-border bg-glass/40 px-2.5 py-1.5 text-xs text-muted-foreground"
-                aria-label="Open command palette"
+                aria-label="Открыть командную панель"
               >
                 <IconCommand size={14} />
-                <span>Search</span>
+                <span>Поиск</span>
               </button>
             </div>
           </header>
@@ -583,7 +583,7 @@ function SidebarSearch() {
               (e.target as HTMLInputElement).blur();
             }
           }}
-          placeholder="Search tools…"
+          placeholder="Поиск инструментов…"
           className="w-full bg-transparent outline-none placeholder:text-muted-foreground/60"
         />
         <kbd className="hidden rounded bg-black/30 px-1 py-0.5 font-mono text-[10px] text-muted-foreground/70 md:inline">
@@ -600,7 +600,7 @@ function SidebarSearch() {
             className="absolute left-0 right-0 top-full z-30 mt-1 max-h-72 overflow-auto rounded-lg border border-glass-border bg-black/80 p-1 backdrop-blur-xl"
           >
             {hits.length === 0 ? (
-              <div className="px-3 py-2 text-xs text-muted-foreground">No matches</div>
+              <div className="px-3 py-2 text-xs text-muted-foreground">Ничего не найдено</div>
             ) : (
               hits.map((h, i) => (
                 <button
@@ -669,7 +669,7 @@ function ToolBranch({
           <button
             type="button"
             onClick={() => setManualOpen((o) => (active ? false : !o))}
-            aria-label={open ? `Collapse ${tool.label}` : `Expand ${tool.label}`}
+            aria-label={open ? `Свернуть ${tool.label}` : `Развернуть ${tool.label}`}
             className="ml-1 inline-flex h-6 w-6 items-center justify-center rounded text-muted-foreground hover:bg-glass/40 hover:text-foreground"
           >
             <motion.span animate={{ rotate: open ? 0 : -90 }} transition={{ duration: 0.18 }}>

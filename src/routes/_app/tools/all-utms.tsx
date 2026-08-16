@@ -98,10 +98,10 @@ export function AllUtmsContent({ hideHeader = false }: { hideHeader?: boolean } 
     const ok = await copyToClipboard(url);
     if (ok) {
       setCopiedId(id);
-      toast.success("Link copied");
+      toast.success("Ссылка скопирована");
       setTimeout(() => setCopiedId((cur) => (cur === id ? null : cur)), 2000);
     } else {
-      toast.error("Couldn't copy");
+      toast.error("Не удалось скопировать");
     }
   };
 
@@ -110,27 +110,27 @@ export function AllUtmsContent({ hideHeader = false }: { hideHeader?: boolean } 
     <div className={hideHeader ? "focused-fill-canvas flex min-h-[calc(100vh-17rem)] flex-col gap-6" : "space-y-8"}>
       {!hideHeader && (
         <ToolHeader
-          eyebrow="UTM Builder"
-          title="All"
-          accent="UTMs"
+          eyebrow="UTM-конструктор"
+          title="Все"
+          accent="UTM"
           hue={275}
           icon={<IconUtm size={22} />}
-          description="Every tracked link you've generated. Click counts come from short-link redirects."
+          description="Все созданные вами отслеживаемые ссылки. Счётчики кликов основаны на переходах по коротким ссылкам."
         />
       )}
 
       <GlassPanel tier="strong" className="readable-glass-surface p-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <h2 className="font-display text-lg">Saved UTM links</h2>
+            <h2 className="font-display text-lg">Сохранённые UTM-ссылки</h2>
             <span className="text-xs text-muted-foreground">
-              {rows ? `${filtered?.length ?? 0} of ${rows.length}` : "—"}
+              {rows ? `${filtered?.length ?? 0} из ${rows.length}` : "—"}
             </span>
           </div>
           <div className="flex items-center gap-2">
             <input
               type="search"
-              placeholder="Filter by URL, campaign, channel…"
+              placeholder="Фильтр по URL, кампании, каналу…"
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
               className="w-64 max-w-full rounded-full border border-glass-border bg-background/40 px-4 py-1.5 text-sm placeholder:text-muted-foreground/60 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20"
@@ -140,7 +140,7 @@ export function AllUtmsContent({ hideHeader = false }: { hideHeader?: boolean } 
               search={{ focus: "utm-campaign-name" }}
               className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/15 px-3 py-1.5 text-xs font-medium text-primary transition hover:bg-primary/25"
             >
-              New UTM <IconArrowRight size={12} />
+              Новая UTM <IconArrowRight size={12} />
             </Link>
           </div>
         </div>
@@ -152,9 +152,9 @@ export function AllUtmsContent({ hideHeader = false }: { hideHeader?: boolean } 
             <div className="overflow-hidden rounded-xl border border-glass-border">
               <div className="grid grid-cols-[minmax(0,2.4fr)_minmax(0,1fr)_minmax(0,0.8fr)_auto_auto] gap-3 border-b border-glass-border bg-glass/30 px-4 py-2 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
                 <div>URL</div>
-                <div>Campaign</div>
-                <div>Channel</div>
-                <div className="text-right">Clicks</div>
+                <div>Кампания</div>
+                <div>Канал</div>
+                <div className="text-right">Клики</div>
                 <div />
               </div>
               <ul className="divide-y divide-glass-border">
@@ -198,14 +198,14 @@ export function AllUtmsContent({ hideHeader = false }: { hideHeader?: boolean } 
                         ) : (
                           <span className="inline-flex items-center gap-1 text-muted-foreground">
                             —
-                            <InfoTooltip>Connect tracking to enable. Generate a short link for this UTM to start counting clicks.</InfoTooltip>
+                            <InfoTooltip>Подключите отслеживание, чтобы включить эту функцию. Создайте короткую ссылку для этой UTM, чтобы начать считать клики.</InfoTooltip>
                           </span>
                         )}
                       </div>
                       <button
                         type="button"
                         onClick={() => copy(r.id, r.final_url)}
-                        aria-label="Copy URL"
+                        aria-label="Скопировать URL"
                         className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-glass-border bg-glass/40 text-muted-foreground transition hover:border-primary/40 hover:text-foreground"
                       >
                         {copiedId === r.id ? <IconCheck size={12} /> : <IconCopy size={12} />}
@@ -217,28 +217,28 @@ export function AllUtmsContent({ hideHeader = false }: { hideHeader?: boolean } 
             </div>
           ) : rows.length === 0 ? (
             <div className="rounded-xl border border-dashed border-glass-border bg-glass/20 p-10 text-center">
-              <div className="font-display text-base">No UTM links yet</div>
+              <div className="font-display text-base">Пока нет UTM-ссылок</div>
               <p className="mt-1 text-sm text-muted-foreground">
-                Mint your first tracked link from the UTM Builder.
+                Создайте свою первую отслеживаемую ссылку в UTM-конструкторе.
               </p>
               <Link
                 to="/tools"
                 search={{ focus: "utm-campaign-name" }}
                 className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/15 px-3 py-1.5 text-xs font-medium text-primary transition hover:bg-primary/25"
               >
-                New UTM <IconArrowRight size={12} />
+                Новая UTM <IconArrowRight size={12} />
               </Link>
             </div>
           ) : (
             <div className="rounded-xl border border-dashed border-glass-border bg-glass/20 p-6 text-center text-sm text-muted-foreground">
-              No links match "{filter}".
+              Нет ссылок, соответствующих "{filter}".
             </div>
           )}
         </div>
 
         {!hasTracking && rows && rows.length > 0 && (
           <p className="mt-3 text-xs text-muted-foreground/80">
-            Click counts show a dash until you generate short links — those redirects are what record the clicks.
+            Счётчик кликов показывает прочерк, пока вы не создадите короткие ссылки — именно переходы по ним фиксируются как клики.
           </p>
         )}
       </GlassPanel>

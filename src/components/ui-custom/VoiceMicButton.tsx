@@ -14,7 +14,7 @@ interface Props {
  * Single-button mic toggle that appends dictated speech to the bound input.
  * Hides itself entirely when the browser doesn't support Web Speech.
  */
-export function VoiceMicButton({ value, onChange, className, size = 16, label = "Dictate" }: Props) {
+export function VoiceMicButton({ value, onChange, className, size = 16, label = "Диктовка" }: Props) {
   const { listening, toggle, supported } = useVoiceDictation({
     onTranscript: onChange,
     getCurrentValue: () => value,
@@ -26,8 +26,8 @@ export function VoiceMicButton({ value, onChange, className, size = 16, label = 
     <button
       type="button"
       onClick={toggle}
-      aria-label={listening ? "Stop dictation" : label}
-      title={listening ? "Stop dictation" : "Hold to dictate (Web Speech)"}
+      aria-label={listening ? "Остановить диктовку" : label}
+      title={listening ? "Остановить диктовку" : "Удерживайте для диктовки (Web Speech)"}
       className={cn(
         "relative inline-flex size-9 items-center justify-center rounded-full border transition-colors",
         listening

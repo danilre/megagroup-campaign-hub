@@ -18,7 +18,7 @@ export const Route = createFileRoute("/_app/tools/campaign-in-a-box")({
       {
         name: "description",
         content:
-          "Create campaigns, import lists, and track performance in one ordered flow.",
+          "Создавайте кампании, импортируйте списки и отслеживайте эффективность в едином упорядоченном процессе.",
       },
     ],
   }),
@@ -29,8 +29,8 @@ const MODULES = [
     n: 1,
     to: "/tools",
     search: { focus: "campaign-creator" } as Record<string, string>,
-    label: "Campaign Creator",
-    desc: "Create and manage campaigns directly in your CRM with automated setup and tracking.",
+    label: "Создание кампании",
+    desc: "Создавайте и управляйте кампаниями прямо в вашей CRM с автоматической настройкой и отслеживанием.",
     Icon: IconCampaign,
     soon: false,
   },
@@ -38,8 +38,8 @@ const MODULES = [
     n: 2,
     to: "/tools",
     search: { focus: "campaign-import" } as Record<string, string>,
-    label: "List Import",
-    desc: "Upload post-event or campaign lists. Auto-parse, enrich, and import contacts with source attribution.",
+    label: "Импорт списка",
+    desc: "Загружайте списки после мероприятий или кампаний. Автоматический разбор, обогащение и импорт контактов с атрибуцией источника.",
     Icon: IconImport,
     soon: false,
   },
@@ -47,8 +47,8 @@ const MODULES = [
     n: 3,
     to: "/tools",
     search: { focus: "campaign-performance" } as Record<string, string>,
-    label: "Campaign Performance",
-    desc: "Track and analyze campaign performance metrics across all channels.",
+    label: "Эффективность кампании",
+    desc: "Отслеживайте и анализируйте метрики эффективности кампаний по всем каналам.",
     Icon: IconCampaign,
     soon: false,
   },
@@ -62,7 +62,7 @@ export function CampaignInABoxContent({ hideHeader = false }: { hideHeader?: boo
           to="/tools"
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
         >
-          <IconChevronLeft size={14} /> Back to tools
+          <IconChevronLeft size={14} /> Назад к инструментам
         </Link>
       )}
 
@@ -72,8 +72,8 @@ export function CampaignInABoxContent({ hideHeader = false }: { hideHeader?: boo
           <div>
             <h1 className="font-display text-3xl md:text-4xl">Campaign-in-a-box</h1>
             <p className="mt-2 max-w-2xl text-muted-foreground">
-              End-to-end campaign workflow — from creation through list import and performance
-              tracking.
+              Сквозной рабочий процесс кампании — от создания до импорта списков и отслеживания
+              эффективности.
             </p>
           </div>
         </header>
@@ -98,7 +98,7 @@ export function CampaignInABoxContent({ hideHeader = false }: { hideHeader?: boo
                   {m.label}
                   {m.soon && (
                     <span className="rounded border border-glass-border px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                      In progress
+                      В процессе
                     </span>
                   )}
                 </div>
@@ -130,7 +130,7 @@ export function CampaignInABoxContent({ hideHeader = false }: { hideHeader?: boo
           search={{ focus: "campaign-list-cleaner" }}
           className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
         >
-          <IconSpark size={12} /> List cleaner
+          <IconSpark size={12} /> Очистка списка
         </Link>
       </div>
     </div>

@@ -100,18 +100,18 @@ export function CampaignCreatorContent({ hideHeader = false }: { hideHeader?: bo
 
   const errors = useMemo(() => {
     const e: string[] = [];
-    if (!type) e.push("Pick a campaign type.");
-    if (!briefName.trim()) e.push("Enter a brief name.");
-    if (briefName.length > MAX_BRIEF) e.push(`Brief name max ${MAX_BRIEF} characters.`);
-    if (!promotionStart || !promotionEnd) e.push("Promotion dates are required.");
+    if (!type) e.push("Выберите тип кампании.");
+    if (!briefName.trim()) e.push("Введите краткое название.");
+    if (briefName.length > MAX_BRIEF) e.push(`Краткое название — не более ${MAX_BRIEF} символов.`);
+    if (!promotionStart || !promotionEnd) e.push("Даты продвижения обязательны.");
     if (promotionStart && promotionEnd && promotionStart > promotionEnd)
-      e.push("Promotion end must be on or after promotion start.");
+      e.push("Дата окончания продвижения должна быть не раньше даты начала.");
     if (category !== "other") {
-      if (!eventStart || !eventEnd) e.push("Event dates are required for events and webinars.");
+      if (!eventStart || !eventEnd) e.push("Даты мероприятия обязательны для событий и вебинаров.");
       if (eventStart && eventEnd && eventStart > eventEnd)
-        e.push("Event end must be on or after event start.");
+        e.push("Дата окончания мероприятия должна быть не раньше даты начала.");
       if (eventStart && promotionStart && eventStart < promotionStart)
-        e.push("Event start cannot be before promotion start.");
+        e.push("Начало мероприятия не может быть раньше начала продвижения.");
     }
     return e;
   }, [type, briefName, promotionStart, promotionEnd, eventStart, eventEnd, category]);
@@ -175,12 +175,12 @@ export function CampaignCreatorContent({ hideHeader = false }: { hideHeader?: bo
         name: generatedName,
         crm_campaign_id: bundle.campaign_id,
       });
-      toast.success(crm?.connected ? "Campaign created in CRM" : "Saved locally — connect a CRM to sync");
+      toast.success(crm?.connected ? "Кампания создана в CRM" : "Сохранено локально — подключите CRM для синхронизации");
       setBriefName("");
       setNotes("");
       clearDraft();
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Could not create");
+      toast.error(e instanceof Error ? e.message : "Не удалось создать");
     } finally {
       setBusy(false);
     }
@@ -190,12 +190,12 @@ export function CampaignCreatorContent({ hideHeader = false }: { hideHeader?: bo
     <div className="space-y-5">
       {!hideHeader && (
         <div className="flex items-center gap-4">
-          <PageHexBadge hue={150} icon={<IconCampaign size={26} />} aria-label="Campaign Name Generator" />
+          <PageHexBadge hue={150} icon={<IconCampaign size={26} />} aria-label="Генератор названий кампаний" />
           <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground/70">Campaign</div>
-            <h1 className="font-display text-3xl">Campaign Name Generator</h1>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground/70">Кампания</div>
+            <h1 className="font-display text-3xl">Генератор названий кампаний</h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              Structured brief → standardized campaign name. Saves locally; syncs to your CRM when connected.
+              Структурированный бриф → стандартизированное название кампании. Сохраняется локально; синхронизируется с CRM при подключении.
             </p>
           </div>
         </div>
@@ -228,10 +228,10 @@ export function CampaignCreatorContent({ hideHeader = false }: { hideHeader?: bo
             <IconWarning size={14} style={{ color: "oklch(0.85 0.16 75)" }} />
           </span>
           <div className="flex-1 leading-tight">
-            <span className="font-medium" style={{ color: "oklch(0.92 0.06 80)" }}>CRM not connected</span>
-            <span className="text-muted-foreground"> — bundles save locally only. </span>
+            <span className="font-medium" style={{ color: "oklch(0.92 0.06 80)" }}>CRM не подключена</span>
+            <span className="text-muted-foreground"> — пакеты сохраняются только локально. </span>
             <Link to="/connectors" className="text-primary hover:underline">
-              Connect your CRM →
+              Подключить CRM →
             </Link>
           </div>
         </GlassPanel>
@@ -240,18 +240,18 @@ export function CampaignCreatorContent({ hideHeader = false }: { hideHeader?: bo
       <GlassPanel tier="strong" className="px-6 py-5 md:px-7">
         <div className="flex items-baseline justify-between gap-4">
           <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-foreground/55">
-            Generated name
+            Сгенерированное название
           </div>
           {generatedName && (
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
-              preview
+              предпросмотр
             </span>
           )}
         </div>
         <div className="mt-1.5 font-display text-2xl leading-tight text-foreground md:text-[28px]">
           {generatedName || (
             <span className="font-sans text-base italic text-muted-foreground/70">
-              Fill the brief — your standardized name appears here.
+              Заполните бриф — здесь появится стандартизированное название.
             </span>
           )}
         </div>
@@ -261,19 +261,19 @@ export function CampaignCreatorContent({ hideHeader = false }: { hideHeader?: bo
       <GlassPanel className="p-5 md:p-6">
         <div className="grid gap-4 md:grid-cols-[1fr_auto]">
           <div>
-            <Label>Category</Label>
+            <Label>Категория</Label>
             <SegmentedToggle
               options={[
-                { value: "event", label: "Event" },
-                { value: "webinar", label: "Webinar" },
-                { value: "other", label: "Other" },
+                { value: "event", label: "Мероприятие" },
+                { value: "webinar", label: "Вебинар" },
+                { value: "other", label: "Другое" },
               ]}
               value={category}
               onChange={(v) => setCategory(v as typeof category)}
             />
           </div>
           <div>
-            <Label>Audience</Label>
+            <Label>Аудитория</Label>
             <SegmentedToggle
               options={[
                 { value: "b2b", label: "B2B" },
@@ -287,7 +287,7 @@ export function CampaignCreatorContent({ hideHeader = false }: { hideHeader?: bo
 
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           <div>
-            <Label>Campaign type</Label>
+            <Label>Тип кампании</Label>
             <div className="relative mt-1.5">
               <select
                 value={type}
@@ -309,16 +309,16 @@ export function CampaignCreatorContent({ hideHeader = false }: { hideHeader?: bo
               </svg>
             </div>
             <div className="mt-1 text-[11px] text-muted-foreground">
-              Edit options in{" "}
+              Изменить варианты можно в{" "}
               <Link to="/settings" className="text-primary hover:underline">
-                Settings → Campaign taxonomy
+                Настройки → Таксономия кампаний
               </Link>
               .
             </div>
           </div>
           <div>
             <div className="flex items-center justify-between">
-              <Label>Brief name</Label>
+              <Label>Краткое название</Label>
               <span className="text-[11px] tabular-nums text-muted-foreground">
                 {briefName.length}/{MAX_BRIEF}
               </span>
@@ -334,19 +334,19 @@ export function CampaignCreatorContent({ hideHeader = false }: { hideHeader?: bo
         </div>
 
         <div className="mt-4 grid gap-3 md:grid-cols-2">
-          <DateField label="Promotion start" value={promotionStart} onChange={setPromotionStart} />
-          <DateField label="Promotion end" value={promotionEnd} onChange={setPromotionEnd} />
+          <DateField label="Начало продвижения" value={promotionStart} onChange={setPromotionStart} />
+          <DateField label="Окончание продвижения" value={promotionEnd} onChange={setPromotionEnd} />
           {category !== "other" && (
             <>
-              <DateField label="Event start" value={eventStart} onChange={setEventStart} />
-              <DateField label="Event end" value={eventEnd} onChange={setEventEnd} />
+              <DateField label="Начало мероприятия" value={eventStart} onChange={setEventStart} />
+              <DateField label="Окончание мероприятия" value={eventEnd} onChange={setEventEnd} />
             </>
           )}
         </div>
 
         <div className="mt-4 grid gap-4 md:grid-cols-[2fr_1fr]">
           <div>
-            <Label>Notes</Label>
+            <Label>Заметки</Label>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
@@ -355,7 +355,7 @@ export function CampaignCreatorContent({ hideHeader = false }: { hideHeader?: bo
             />
           </div>
           <div>
-            <Label>Budget (USD)</Label>
+            <Label>Бюджет (USD)</Label>
             <input
               type="number"
               min={0}
@@ -377,7 +377,7 @@ export function CampaignCreatorContent({ hideHeader = false }: { hideHeader?: bo
 
         <div className="mt-5 flex justify-end">
           <Button onClick={submit} disabled={busy} className="btn-keystone gap-2">
-            <IconCheck size={14} /> {busy ? "Creating…" : "Create campaign"}
+            <IconCheck size={14} /> {busy ? "Создание…" : "Создать кампанию"}
           </Button>
         </div>
       </GlassPanel>

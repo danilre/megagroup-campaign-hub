@@ -31,6 +31,12 @@ type Ws = CalCampaign & { updated_at: string };
 const calendarCampaignCache = new Map<string, Ws[]>();
 const calendarOverlayCache = new Map<string, CalItem[]>();
 
+const VIEW_LABEL: Record<"month" | "list" | "timeline", string> = {
+  month: "Месяц",
+  list: "Список",
+  timeline: "Таймлайн",
+};
+
 const STATUS_DOT: Record<string, string> = {
   draft: "bg-muted-foreground/40",
   planning: "bg-accent",
@@ -47,7 +53,7 @@ function addMonths(d: Date, n: number) {
 }
 function displayName(n: string | null | undefined) {
   const t = (n ?? "").trim();
-  if (!t || t === "Untitled workspace" || t === "Untitled campaign") return "Untitled campaign";
+  if (!t || t === "Untitled workspace" || t === "Untitled campaign") return "Без названия";
   return t;
 }
 
@@ -176,12 +182,12 @@ function CalendarPage() {
         requestor_name: string | null;
         requestor_email: string | null;
       }>).map((r) => {
-        const who = r.requestor_name?.trim() || r.requestor_email || "Request";
+        const who = r.requestor_name?.trim() || r.requestor_email || "Запрос";
         const briefSnip = (r.brief ?? "").trim().split(/\s+/).slice(0, 6).join(" ");
         return {
           id: `req-${r.id}`,
           workspace_id: r.workspace_id ?? "",
-          title: `Request · ${who}${briefSnip ? ` — ${briefSnip}` : ""}`,
+          title: `Запрос · ${who}${briefSnip ? ` — ${briefSnip}` : ""}`,
           due_at: `${r.desired_due_date}T12:00:00.000Z`,
           done: r.status === "converted" || r.status === "declined",
         } satisfies CalItem;
@@ -196,7 +202,7 @@ function CalendarPage() {
       }>).map((l) => ({
         id: `list-${l.id}`,
         workspace_id: l.workspace_id ?? "",
-        title: `Event · ${l.source_label}${l.row_count ? ` (${l.row_count})` : ""}`,
+        title: `Событие · ${l.source_label}${l.row_count ? ` (${l.row_count})` : ""}`,
         due_at: `${l.event_date}T12:00:00.000Z`,
         done: false,
       }));
@@ -262,19 +268,19 @@ function CalendarPage() {
     });
   }, [checklistItems, filters, filteredCampaigns]);
 
-  const monthLabel = cursor.toLocaleDateString(undefined, { month: "long", year: "numeric" });
+  const monthLabel = cursor.toLocaleDateString("ru-RU", { month: "long", year: "numeric" });
 
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="flex items-start gap-4 min-w-0">
-          <PageHexBadge hue={200} size={26} icon={<IconCalendar size={22} />} aria-label="Calendar" />
+          <PageHexBadge hue={200} size={26} icon={<IconCalendar size={22} />} aria-label="Календарь" />
           <div className="min-w-0">
-            <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Calendar</div>
-            <h1 className="mt-1 font-display text-4xl tracking-tight">When everything ships</h1>
+            <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Календарь</div>
+            <h1 className="mt-1 font-display text-4xl tracking-tight">Когда всё выходит в свет</h1>
             <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-              Campaigns span their full date range. Posts &amp; tasks dot the days they're due.
-              Color stays with the campaign across views.
+              Кампании отображаются на весь период проведения. Посты и задачи отмечают дни, когда они должны быть выполнены.
+              Цвет кампании сохраняется во всех представлениях.
             </p>
           </div>
         </div>
@@ -288,7 +294,7 @@ function CalendarPage() {
                 view === v ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground",
               )}
             >
-              {v}
+              {VIEW_LABEL[v]}
             </button>
           ))}
         </div>
@@ -303,15 +309,15 @@ function CalendarPage() {
           <span className="inline-flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
             <IconCalendar size={24} />
           </span>
-          <h2 className="font-display text-2xl">Your calendar is waiting</h2>
+          <h2 className="font-display text-2xl">Ваш календарь ждёт наполнения</h2>
           <p className="max-w-md text-sm text-muted-foreground">
-            Once you create a campaign with a start and end date, it'll span the days here — with posts and tasks dotting their due days.
+            Как только вы создадите кампанию с датой начала и окончания, она отобразится здесь на нужные дни — вместе с постами и задачами в дни их выполнения.
           </p>
           <Link
             to="/campaigns"
             className="mt-2 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
-            Create your first campaign <IconArrowRight size={14} />
+            Создать первую кампанию <IconArrowRight size={14} />
           </Link>
         </GlassPanel>
       ) : (
@@ -336,19 +342,19 @@ function CalendarPage() {
                     onClick={() => setCursor(startOfMonth(new Date()))}
                     className="rounded-md px-3 py-1 text-xs text-muted-foreground transition hover:bg-muted/40 hover:text-foreground"
                   >
-                    Today
+                    Сегодня
                   </button>
                   <button
                     onClick={() => setCursor(addMonths(cursor, -1))}
                     className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition hover:bg-muted/40 hover:text-foreground"
-                    aria-label="Previous month"
+                    aria-label="Предыдущий месяц"
                   >
                     <IconChevronLeft size={16} />
                   </button>
                   <button
                     onClick={() => setCursor(addMonths(cursor, 1))}
                     className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition hover:bg-muted/40 hover:text-foreground"
-                    aria-label="Next month"
+                    aria-label="Следующий месяц"
                   >
                     <IconChevronRight size={16} />
                   </button>
@@ -370,7 +376,7 @@ function CalendarPage() {
               {filteredCampaigns.length > 0 && (
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-glass-border bg-background/20 px-5 py-3">
                   <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-                    Legend
+                    Легенда
                   </span>
                   {filteredCampaigns.slice(0, 8).map((c) => {
                     const color = colorForCampaign(c.id);
@@ -391,7 +397,7 @@ function CalendarPage() {
                   })}
                   {filteredCampaigns.length > 8 && (
                     <span className="text-xs text-muted-foreground">
-                      +{filteredCampaigns.length - 8} more
+                      +{filteredCampaigns.length - 8} ещё
                     </span>
                   )}
                 </div>
@@ -399,11 +405,11 @@ function CalendarPage() {
             </GlassPanel>
           ) : filteredCampaigns.length === 0 ? (
             <GlassPanel className="p-10 text-center text-sm text-muted-foreground">
-              No campaigns match.{" "}
+              Нет подходящих кампаний.{" "}
               <Link to="/campaigns" className="text-primary underline-offset-4 hover:underline">
-                Create one
+                Создайте кампанию
               </Link>{" "}
-              to populate the calendar.
+              чтобы заполнить календарь.
             </GlassPanel>
           ) : (
             <ListView items={filteredCampaigns as Ws[]} />
@@ -434,11 +440,11 @@ function ListView({ items }: { items: Ws[] }) {
         <GlassPanel key={week} className="p-5">
           <div className="mb-3 flex items-center justify-between">
             <div className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
-              Week of{" "}
-              {new Date(week).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+              Неделя с{" "}
+              {new Date(week).toLocaleDateString("ru-RU", { month: "short", day: "numeric" })}
             </div>
             <span className="text-xs text-muted-foreground">
-              {ws.length} campaign{ws.length === 1 ? "" : "s"}
+              {ws.length} {ws.length === 1 ? "кампания" : "кампаний"}
             </span>
           </div>
           <div className="divide-y divide-glass-border">

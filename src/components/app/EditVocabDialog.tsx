@@ -88,7 +88,7 @@ export function EditVocabDialog({
     // Reject if it would duplicate another entry
     const dupAt = draft.findIndex((x, i) => i !== editingIdx && x === v);
     if (dupAt !== -1) {
-      toast.error(`"${v}" already exists`);
+      toast.error(`«${v}» уже существует`);
       return;
     }
     const next = [...draft];
@@ -121,7 +121,7 @@ export function EditVocabDialog({
   };
 
   const save = async () => {
-    if (!orgId) { toast.error("No organization"); return; }
+    if (!orgId) { toast.error("Нет организации"); return; }
     // Compute the final list inline so an in-progress rename is included
     // (setState from commitEdit doesn't update `draft` in this closure).
     let finalDraft = draft;
@@ -130,7 +130,7 @@ export function EditVocabDialog({
       if (v) {
         const dupAt = draft.findIndex((x, i) => i !== editingIdx && x === v);
         if (dupAt !== -1) {
-          toast.error(`"${v}" already exists`);
+          toast.error(`«${v}» уже существует`);
           return;
         }
         finalDraft = draft.map((x, i) => (i === editingIdx ? v : x));
@@ -147,7 +147,7 @@ export function EditVocabDialog({
     setSaving(false);
     if (error) { toast.error(error.message); return; }
     onSaved(finalDraft);
-    toast.success(`${label} updated`);
+    toast.success(`${label} обновлено`);
     setOpen(false);
   };
 
@@ -161,13 +161,13 @@ export function EditVocabDialog({
             type="button"
             className="inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.14em] text-muted-foreground/80 transition hover:text-foreground"
           >
-            <IconSettings size={10} /> Manage
+            <IconSettings size={10} /> Управление
           </button>
         )}
       </DialogTrigger>
       <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle>Manage {label.toLowerCase()}</DialogTitle>
+          <DialogTitle>Управление: {label.toLowerCase()}</DialogTitle>
           {help && <DialogDescription>{help}</DialogDescription>}
         </DialogHeader>
 
@@ -180,7 +180,7 @@ export function EditVocabDialog({
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={onAddKey}
             onBlur={() => input && add(input)}
-            placeholder={`Add ${label.toLowerCase().replace(/s$/, "")}…`}
+            placeholder={`Добавить ${label.toLowerCase().replace(/s$/, "")}…`}
             className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
           />
           {input.trim() && (
@@ -189,7 +189,7 @@ export function EditVocabDialog({
               onClick={() => add(input)}
               className="rounded-md bg-primary/15 px-2 py-0.5 text-[11px] font-medium text-primary hover:bg-primary/25"
             >
-              Add
+              Добавить
             </button>
           )}
         </div>
@@ -198,7 +198,7 @@ export function EditVocabDialog({
         <div className="max-h-72 space-y-1 overflow-y-auto rounded-xl border border-glass-border/60 bg-glass/20 p-1.5">
           {draft.length === 0 ? (
             <div className="px-3 py-6 text-center text-xs text-muted-foreground">
-              No {label.toLowerCase()} yet. Add one above.
+              Пока нет {label.toLowerCase()}. Добавьте выше.
             </div>
           ) : (
             draft.map((v, i) => {
@@ -221,7 +221,7 @@ export function EditVocabDialog({
                     <button
                       type="button"
                       onClick={() => startEdit(i)}
-                      title="Click to rename"
+                      title="Нажмите, чтобы переименовать"
                       className="flex-1 text-left font-mono text-xs text-foreground/90"
                     >
                       {v}
@@ -232,7 +232,7 @@ export function EditVocabDialog({
                       <button
                         type="button"
                         onClick={() => startEdit(i)}
-                        aria-label={`Rename ${v}`}
+                        aria-label={`Переименовать ${v}`}
                         className="rounded-md p-1.5 text-muted-foreground opacity-0 transition hover:bg-glass-strong hover:text-foreground group-hover:opacity-100 focus:opacity-100"
                       >
                         <IconEdit size={12} />
@@ -240,7 +240,7 @@ export function EditVocabDialog({
                       <button
                         type="button"
                         onClick={() => remove(i)}
-                        aria-label={`Delete ${v}`}
+                        aria-label={`Удалить ${v}`}
                         className="rounded-md p-1.5 text-muted-foreground opacity-0 transition hover:bg-destructive/15 hover:text-destructive group-hover:opacity-100 focus:opacity-100"
                       >
                         <Trash2 size={12} />
@@ -255,7 +255,7 @@ export function EditVocabDialog({
 
         {missing.length > 0 && (
           <div className="text-xs text-muted-foreground">
-            Suggestions:{" "}
+            Предложения:{" "}
             {missing.map((d) => (
               <button
                 key={d}
@@ -273,14 +273,14 @@ export function EditVocabDialog({
             onClick={() => setOpen(false)}
             className="rounded-full border border-glass-border bg-glass px-4 py-2 text-sm hover:bg-glass-strong"
           >
-            Cancel
+            Отмена
           </button>
           <button
             onClick={save}
             disabled={saving}
             className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-60"
           >
-            <IconCheck size={14} /> {saving ? "Saving…" : "Save"}
+            <IconCheck size={14} /> {saving ? "Сохранение…" : "Сохранить"}
           </button>
         </DialogFooter>
       </DialogContent>

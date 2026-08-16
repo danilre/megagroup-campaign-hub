@@ -9,12 +9,12 @@ export function AutosaveStatus({ className = "" }: { className?: string }) {
 
   const label =
     status === "saving"
-      ? "Saving…"
+      ? "Сохранение…"
       : status === "saved"
-        ? "All changes saved"
+        ? "Все изменения сохранены"
         : status === "local"
-          ? "Saved locally"
-          : message || "Save failed";
+          ? "Сохранено локально"
+          : message || "Не удалось сохранить";
 
   const Icon = status === "saved" ? IconCheck : status === "saving" ? IconSpark : IconClock;
 

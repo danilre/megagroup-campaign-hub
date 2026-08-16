@@ -34,8 +34,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { generateHexSpec, type HexField } from "@/lib/custom-hex.functions";
 
 const PRIMARY_LABEL: Record<string, string> = {
-  utm: "UTM Builder",
-  funnel: "Funnel",
+  utm: "UTM-конструктор",
+  funnel: "Воронка",
   campaign: "Campaign-in-a-box",
 };
 
@@ -215,7 +215,7 @@ export function AddCustomHexDialog({ open, primaryId, onClose }: Props) {
 
   const handleGenerate = async () => {
     if (!primaryId || !name.trim() || !purpose.trim()) {
-      toast.error("Give it a name and describe what it should do.");
+      toast.error("Укажите название и опишите, что он должен делать.");
       return;
     }
     setLoading(true);
@@ -224,7 +224,7 @@ export function AddCustomHexDialog({ open, primaryId, onClose }: Props) {
       setFields(spec.fields);
       setPrompt(buildPrompt(spec.fields));
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Couldn't generate. Try again.");
+      toast.error(e instanceof Error ? e.message : "Не удалось сгенерировать. Попробуйте ещё раз.");
     } finally {
       setLoading(false);
     }
@@ -259,13 +259,13 @@ export function AddCustomHexDialog({ open, primaryId, onClose }: Props) {
     setPrompt(finalPrompt);
 
     if (await copyText(finalPrompt)) {
-      toast.success("Prompt copied — paste it back into Lovable chat");
+      toast.success("Промпт скопирован — вставьте его обратно в чат Lovable");
       return;
     }
 
     promptTextareaRef.current?.focus();
     promptTextareaRef.current?.select();
-    toast.error("Copy blocked by the browser — the prompt is selected now.");
+    toast.error("Браузер заблокировал копирование — промпт сейчас выделен.");
   };
 
   const reset = () => {
@@ -295,13 +295,13 @@ export function AddCustomHexDialog({ open, primaryId, onClose }: Props) {
           <DialogHeader className="shrink-0 border-b border-glass-border/60 p-6 pb-4">
             <DialogTitle className="flex items-center gap-2 font-display text-2xl">
               <IconSpark size={20} className="text-primary" />
-              Add a custom hex
+              Добавить свой раздел
             </DialogTitle>
             <DialogDescription>
-              Describe the sub-tool you want under{" "}
-              <span className="text-foreground">{parentLabel || "this section"}</span>. Lovable AI
-              designs the form fields and the build prompt — tweak anything, then paste back into
-              chat.
+              Опишите подраздел, который вы хотите добавить в{" "}
+              <span className="text-foreground">{parentLabel || "этот раздел"}</span>. Lovable AI
+              спроектирует поля формы и промпт для сборки — измените что угодно, затем вставьте его
+              обратно в чат.
             </DialogDescription>
           </DialogHeader>
 
@@ -310,7 +310,7 @@ export function AddCustomHexDialog({ open, primaryId, onClose }: Props) {
             className="min-h-0 flex-1 overflow-y-scroll overscroll-contain px-6 py-5 space-y-5"
           >
             <div className="space-y-1.5">
-              <Label className="text-xs text-muted-foreground">Name it</Label>
+              <Label className="text-xs text-muted-foreground">Название</Label>
               <Input
                 value={name}
                 onChange={(e) => {
@@ -321,12 +321,12 @@ export function AddCustomHexDialog({ open, primaryId, onClose }: Props) {
                       syncPromptWithCurrentState(draft, fields, nextName, purpose),
                     );
                 }}
-                placeholder="e.g. Webinar request, Booth scan upload, Partner MDF…"
+                placeholder="например: заявка на вебинар, загрузка сканов со стенда, партнёрский MDF…"
                 className="glass border-glass-border"
               />
             </div>
             <div className="space-y-1.5">
-              <Label className="text-xs text-muted-foreground">What should it do?</Label>
+              <Label className="text-xs text-muted-foreground">Что он должен делать?</Label>
               <Textarea
                 rows={3}
                 value={purpose}
@@ -338,7 +338,7 @@ export function AddCustomHexDialog({ open, primaryId, onClose }: Props) {
                       syncPromptWithCurrentState(draft, fields, name, nextPurpose),
                     );
                 }}
-                placeholder="In plain English: who fills it out, what info matters (uploads, photos, business cards, CSVs all OK), what happens on submit. Lovable AI takes it from there."
+                placeholder="Простыми словами: кто это заполняет, какая информация важна (загрузки, фото, визитки, CSV — всё подходит), что происходит после отправки. Дальше Lovable AI возьмёт это на себя."
                 className="glass border-glass-border"
               />
             </div>
@@ -349,7 +349,7 @@ export function AddCustomHexDialog({ open, primaryId, onClose }: Props) {
               className="w-full gap-1.5"
             >
               <IconSpark size={14} />
-              {loading ? "Designing…" : fields ? "Regenerate with AI" : "Design with AI"}
+              {loading ? "Проектирование…" : fields ? "Пересоздать с помощью AI" : "Спроектировать с помощью AI"}
             </Button>
 
             {fields && (
@@ -357,14 +357,14 @@ export function AddCustomHexDialog({ open, primaryId, onClose }: Props) {
                 <div className="space-y-2 rounded-lg border border-glass-border bg-black/20 p-3">
                   <div className="flex items-center justify-between">
                     <Label className="text-xs uppercase tracking-wider text-muted-foreground">
-                      Form preview · edit inline
+                      Предпросмотр формы · редактирование на месте
                     </Label>
                     <button
                       type="button"
                       onClick={addField}
                       className="inline-flex items-center gap-1 text-xs text-primary hover:text-primary/80"
                     >
-                      <IconPlus size={12} /> Add field
+                      <IconPlus size={12} /> Добавить поле
                     </button>
                   </div>
 
@@ -398,12 +398,12 @@ export function AddCustomHexDialog({ open, primaryId, onClose }: Props) {
                           checked={f.required}
                           onCheckedChange={(c) => updateField(i, { required: c === true })}
                         />
-                        required
+                        обязательное
                       </label>
                       <button
                         type="button"
                         onClick={() => removeField(i)}
-                        aria-label="Remove field"
+                        aria-label="Удалить поле"
                         className="inline-flex h-7 w-7 items-center justify-center rounded text-muted-foreground hover:bg-glass-strong hover:text-foreground"
                       >
                         <IconClose size={12} />
@@ -414,7 +414,7 @@ export function AddCustomHexDialog({ open, primaryId, onClose }: Props) {
 
                 <div className="space-y-1.5">
                   <Label className="text-xs text-muted-foreground">
-                    Generated prompt <span className="opacity-60">· editable</span>
+                    Сгенерированный промпт <span className="opacity-60">· можно редактировать</span>
                   </Label>
                   <Textarea
                     ref={promptTextareaRef}
@@ -430,10 +430,10 @@ export function AddCustomHexDialog({ open, primaryId, onClose }: Props) {
 
           <div className="shrink-0 flex items-center justify-end gap-2 border-t border-glass-border/60 p-4">
             <Button variant="ghost" onClick={onClose}>
-              Cancel
+              Отмена
             </Button>
             <Button onClick={copy} disabled={!fields} className="gap-1.5">
-              Copy prompt <IconArrowRight size={14} />
+              Скопировать промпт <IconArrowRight size={14} />
             </Button>
           </div>
         </div>

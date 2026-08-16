@@ -444,7 +444,7 @@ export function GuidedTour() {
                 }}
                 className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80"
               >
-                Open this page →
+                Открыть эту страницу →
               </button>
             )}
 
@@ -469,20 +469,20 @@ export function GuidedTour() {
                     onClick={back}
                     className="rounded-full px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground"
                   >
-                    Back
+                    Назад
                   </button>
                 )}
                 <button
                   onClick={() => void finish("skipped")}
                   className="rounded-full px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground"
                 >
-                  Skip
+                  Пропустить
                 </button>
                 <button
                   onClick={next}
                   className="rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90"
                 >
-                  {isLast ? "Finish" : "Next"}
+                  {isLast ? "Готово" : "Далее"}
                 </button>
               </div>
             </div>

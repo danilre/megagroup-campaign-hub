@@ -2,9 +2,9 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { IconHome, IconWorkspace, IconCalendar, IconCommand } from "@/components/ui-custom/CustomIcon";
 
 const items = [
-  { to: "/dashboard", label: "Home", Icon: IconHome },
-  { to: "/campaigns", label: "Campaigns", Icon: IconWorkspace },
-  { to: "/calendar", label: "Calendar", Icon: IconCalendar },
+  { to: "/dashboard", label: "Главная", Icon: IconHome },
+  { to: "/campaigns", label: "Кампании", Icon: IconWorkspace },
+  { to: "/calendar", label: "Календарь", Icon: IconCalendar },
 ] as const;
 
 export function BottomNav() {

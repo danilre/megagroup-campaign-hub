@@ -47,15 +47,15 @@ function newId() {
 }
 
 function describePage(pathname: string): string {
-  if (pathname.startsWith("/campaigns/")) return "Campaign detail page";
-  if (pathname.startsWith("/campaigns")) return "Campaigns list";
-  if (pathname.startsWith("/dashboard")) return "This week dashboard";
-  if (pathname.startsWith("/calendar")) return "Calendar";
-  if (pathname.startsWith("/funnel")) return "Funnel";
-  if (pathname.startsWith("/requests")) return "Requests";
-  if (pathname.startsWith("/templates")) return "Templates";
-  if (pathname.startsWith("/settings")) return "Settings";
-  if (pathname.startsWith("/tools")) return `Tool: ${pathname.replace("/tools/", "") || "tools hub"}`;
+  if (pathname.startsWith("/campaigns/")) return "Страница деталей кампании";
+  if (pathname.startsWith("/campaigns")) return "Список кампаний";
+  if (pathname.startsWith("/dashboard")) return "Дашборд «на этой неделе»";
+  if (pathname.startsWith("/calendar")) return "Календарь";
+  if (pathname.startsWith("/funnel")) return "Воронка";
+  if (pathname.startsWith("/requests")) return "Запросы";
+  if (pathname.startsWith("/templates")) return "Шаблоны";
+  if (pathname.startsWith("/settings")) return "Настройки";
+  if (pathname.startsWith("/tools")) return `Инструмент: ${pathname.replace("/tools/", "") || "раздел инструментов"}`;
   return pathname;
 }
 
@@ -112,14 +112,14 @@ export function CommanderAI() {
       if ("executed" in b) {
         return [{
           role: "assistant",
-          content: `Executed: ${b.executed.map((e) => e.summary + (e.error ? ` (failed: ${e.error})` : "")).join("; ")}`,
+          content: `Выполнено: ${b.executed.map((e) => e.summary + (e.error ? ` (ошибка: ${e.error})` : "")).join("; ")}`,
         }];
       }
       const t = b.turn;
       if (t.kind === "text" || t.kind === "read") return [{ role: "assistant", content: t.text }];
-      if (t.kind === "navigate") return [{ role: "assistant", content: t.text ?? `(Navigated to ${t.path})` }];
-      if (t.kind === "clarify") return [{ role: "assistant", content: `${t.intro} — asked: ${t.questions.map((q: ClarificationQuestion) => q.question).join(" | ")}` }];
-      if (t.kind === "propose") return [{ role: "assistant", content: `${t.intro} — proposed: ${t.actions.map((a: ProposedAction) => a.summary).join("; ")}` }];
+      if (t.kind === "navigate") return [{ role: "assistant", content: t.text ?? `(Переход на ${t.path})` }];
+      if (t.kind === "clarify") return [{ role: "assistant", content: `${t.intro} — спросил: ${t.questions.map((q: ClarificationQuestion) => q.question).join(" | ")}` }];
+      if (t.kind === "propose") return [{ role: "assistant", content: `${t.intro} — предложено: ${t.actions.map((a: ProposedAction) => a.summary).join("; ")}` }];
       return [];
     });
   }, [bubbles]);
@@ -148,7 +148,7 @@ export function CommanderAI() {
       setThinking(false);
       const ok = executed.filter((e) => !e.error).length;
       const failed = executed.filter((e) => e.error).length;
-      if (failed === 0 && ok > 0) toast.success(`${ok} action${ok === 1 ? "" : "s"} complete`);
+      if (failed === 0 && ok > 0) toast.success(`Выполнено действий: ${ok}`);
       if (navTarget) {
         setOpen(false);
         setTimeout(() => navigate({ to: navTarget as never }), 120);
@@ -194,7 +194,7 @@ export function CommanderAI() {
           setTimeout(() => navigate({ to: turn.path as never }), 120);
         }
       } catch (err) {
-        const msg = err instanceof Error ? err.message : "Commander hit an error.";
+        const msg = err instanceof Error ? err.message : "Командир столкнулся с ошибкой.";
         toast.error(msg);
         setBubbles((prev) => [...prev, { id: newId(), role: "commander", turn: { kind: "text", text: msg } }]);
       } finally {
@@ -250,7 +250,7 @@ export function CommanderAI() {
         <motion.button
           type="button"
           onClick={() => setOpen(true)}
-          aria-label={`Ask ${BRAND.shortName} AI`}
+          aria-label={`Спросить ИИ ${BRAND.shortName}`}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.06 }}
@@ -267,15 +267,15 @@ export function CommanderAI() {
         className="max-w-2xl gap-0 overflow-hidden border-glass-border bg-[color:var(--color-ink)]/95 p-0 backdrop-blur-2xl origin-bottom-right data-[state=open]:!slide-in-from-bottom-[60%] data-[state=open]:!slide-in-from-right-[60%] data-[state=closed]:!slide-out-to-bottom-[60%] data-[state=closed]:!slide-out-to-right-[60%] data-[state=open]:!zoom-in-90 data-[state=closed]:!zoom-out-90 [&>button.absolute]:hidden"
       >
         <DialogHeader className="sr-only">
-          <DialogTitle>Commander</DialogTitle>
+          <DialogTitle>Командир</DialogTitle>
         </DialogHeader>
         {/* Header */}
         <div className="flex items-center justify-between px-5 pt-5 pb-3">
           <div className="flex items-center gap-2.5">
             <CommanderOrb size={18} active={thinking} />
-            <span className="text-sm font-medium text-foreground">Commander</span>
+            <span className="text-sm font-medium text-foreground">Командир</span>
             {thinking && (
-              <span className="text-xs text-muted-foreground">thinking…</span>
+              <span className="text-xs text-muted-foreground">думает…</span>
             )}
           </div>
           <div className="flex items-center gap-1">
@@ -284,12 +284,12 @@ export function CommanderAI() {
                 onClick={reset}
                 className="rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-glass/40 hover:text-foreground"
               >
-                Clear
+                Очистить
               </button>
             )}
             <button
               onClick={() => setOpen(false)}
-              aria-label="Close"
+              aria-label="Закрыть"
               className="flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-glass/40 hover:text-foreground"
             >
               <X className="h-3.5 w-3.5" />
@@ -360,7 +360,7 @@ export function CommanderAI() {
                   void send(input);
                 }
               }}
-              placeholder="Ask anything…"
+              placeholder="Спросите что угодно…"
               className="min-h-[36px] max-h-[140px] resize-none border-0 bg-transparent px-1 py-1.5 text-sm shadow-none focus-visible:ring-0"
               rows={1}
             />
@@ -374,7 +374,7 @@ export function CommanderAI() {
                 disabled={!input.trim() || thinking}
                 className="h-8 rounded-lg px-3 text-xs"
               >
-                Send
+                Отправить
               </Button>
             </div>
           </div>
@@ -391,44 +391,44 @@ export function CommanderAI() {
 function suggestionsForPath(pathname: string): string[] {
   if (pathname.startsWith("/campaigns/"))
     return [
-      "Summarize this campaign",
-      "Add a checklist item here",
-      "Draft a launch email for this",
-      "What's blocking this campaign?",
+      "Кратко опиши эту кампанию",
+      "Добавь пункт чек-листа сюда",
+      "Напиши письмо о запуске для этого",
+      "Что мешает этой кампании?",
     ];
   if (pathname.startsWith("/campaigns"))
     return [
-      "Plan a launch campaign for next month",
-      "Show campaigns behind on MQLs",
-      "Spin up a webinar campaign",
+      "Спланируй кампанию запуска на следующий месяц",
+      "Покажи кампании, отстающие по MQL",
+      "Запусти кампанию вебинара",
     ];
   if (pathname.startsWith("/funnel"))
     return [
-      "Summarize last week's MQL pacing",
-      "Which stage is leaking the most?",
-      "Set Q3 SQO targets",
+      "Кратко опиши темп MQL за прошлую неделю",
+      "На каком этапе больше всего потерь?",
+      "Задай цели SQO на 3 квартал",
     ];
   if (pathname.startsWith("/calendar"))
     return [
-      "What's launching this week?",
-      "Find a gap to schedule a webinar",
-      "Move next week's campaign to the week after",
+      "Что запускается на этой неделе?",
+      "Найди окно, чтобы запланировать вебинар",
+      "Перенеси кампанию следующей недели на неделю позже",
     ];
   if (pathname.startsWith("/tools/utm"))
     return [
-      "Build a UTM for the spring webinar landing page",
-      "Audit utm_source values from last month",
+      "Создай UTM для лендинга весеннего вебинара",
+      "Проверь значения utm_source за прошлый месяц",
     ];
   if (pathname.startsWith("/dashboard"))
     return [
-      "What needs my attention today?",
-      "Summarize last week's MQL pacing",
-      "Plan a launch campaign for next month",
+      "Что требует моего внимания сегодня?",
+      "Кратко опиши темп MQL за прошлую неделю",
+      "Спланируй кампанию запуска на следующий месяц",
     ];
   return [
-    "Plan a launch campaign",
-    "Build a UTM link",
-    "Go to the funnel",
+    "Спланируй кампанию запуска",
+    "Создай UTM-ссылку",
+    "Перейди в воронку",
   ];
 }
 
@@ -470,7 +470,7 @@ function EmptyState({
   return (
     <div className="flex flex-col gap-4 py-10">
       <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-        Try
+        Попробуйте
       </div>
       <button
         type="button"
@@ -533,7 +533,7 @@ function CommanderBubble({
         )}
         {turn.kind === "navigate" && (
           <div className="text-sm text-muted-foreground">
-            {turn.text ?? `Taking you to ${turn.path}…`}
+            {turn.text ?? `Перехожу на ${turn.path}…`}
           </div>
         )}
         {turn.kind === "clarify" && (
@@ -542,7 +542,7 @@ function CommanderBubble({
             questions={turn.questions}
             disabled={resolved}
             onSubmit={(answers) => onClarify(turn.questions, answers)}
-            onSkip={() => onDismiss("Skipped clarification.")}
+            onSkip={() => onDismiss("Уточнение пропущено.")}
           />
         )}
         {turn.kind === "propose" && (
@@ -551,7 +551,7 @@ function CommanderBubble({
             actions={turn.actions}
             disabled={resolved}
             onConfirm={() => onConfirm(turn.actions)}
-            onCancel={() => onDismiss("Cancelled — nothing changed.")}
+            onCancel={() => onDismiss("Отменено — ничего не изменилось.")}
           />
         )}
       </div>
@@ -588,10 +588,10 @@ function ProposeCard({
       </ul>
       <div className="flex justify-end gap-2">
         <Button variant="ghost" size="sm" onClick={onCancel} disabled={disabled}>
-          Cancel
+          Отмена
         </Button>
         <Button size="sm" onClick={onConfirm} disabled={disabled}>
-          {disabled ? "Done" : `Confirm ${actions.length === 1 ? "" : `${actions.length} actions`}`.trim()}
+          {disabled ? "Готово" : `Подтвердить${actions.length === 1 ? "" : ` (${actions.length} действий)`}`.trim()}
         </Button>
       </div>
     </div>
@@ -608,30 +608,30 @@ function inferFieldKind(q: ClarificationQuestion): "url" | "email" | "number" | 
 
 function placeholderFor(q: ClarificationQuestion, kind: "url" | "email" | "number" | "text"): string {
   if (q.placeholder) return q.placeholder;
-  if (kind === "url") return `e.g. ${BRAND.domain}/spring-webinar`;
+  if (kind === "url") return `например, ${BRAND.domain}/spring-webinar`;
   if (kind === "email") return "name@company.com";
-  if (kind === "number") return "e.g. 250";
-  return "Type your answer…";
+  if (kind === "number") return "например, 250";
+  return "Введите ответ…";
 }
 
 function validateAnswer(value: string, kind: "url" | "email" | "number" | "text"): string | null {
   const v = value.trim();
-  if (!v) return "Required.";
+  if (!v) return "Обязательное поле.";
   if (kind === "url") {
     const candidate = /^https?:\/\//i.test(v) ? v : `https://${v}`;
     try {
       const u = new URL(candidate);
-      if (!u.hostname.includes(".")) return "That doesn't look like a real URL.";
+      if (!u.hostname.includes(".")) return "Похоже, это не настоящий URL.";
       return null;
     } catch {
-      return "That doesn't look like a real URL.";
+      return "Похоже, это не настоящий URL.";
     }
   }
   if (kind === "email") {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? null : "Enter a valid email.";
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? null : "Введите корректный email.";
   }
   if (kind === "number") {
-    return /^-?\d+(\.\d+)?$/.test(v) ? null : "Enter a number.";
+    return /^-?\d+(\.\d+)?$/.test(v) ? null : "Введите число.";
   }
   return null;
 }
@@ -741,7 +741,7 @@ function ClarifyCard({
                     advance();
                   }
                 }}
-                placeholder="Or type your own…"
+                placeholder="Или введите свой вариант…"
                 disabled={disabled}
                 className="w-full rounded-lg border border-glass-border bg-black/20 px-2.5 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none"
               />
@@ -771,7 +771,7 @@ function ClarifyCard({
           )}
           {!error && kind === "url" && current.trim() && !/^https?:\/\//i.test(current.trim()) && (
             <div className="mt-1.5 text-[11px] text-muted-foreground">
-              We'll add <span className="font-mono">https://</span> for you.
+              Мы добавим <span className="font-mono">https://</span> за вас.
             </div>
           )}
         </motion.div>
@@ -789,23 +789,23 @@ function ClarifyCard({
               }}
               disabled={disabled}
             >
-              Back
+              Назад
             </Button>
           ) : (
             !required && (
               <Button variant="ghost" size="sm" onClick={onSkip} disabled={disabled}>
-                Skip
+                Пропустить
               </Button>
             )
           )}
           {total > 1 && (
             <span className="text-[11px] text-muted-foreground">
-              {step + 1} of {total}
+              {step + 1} из {total}
             </span>
           )}
         </div>
         <Button size="sm" onClick={advance} disabled={disabled}>
-          {isLast ? "Done" : "Next"}
+          {isLast ? "Готово" : "Далее"}
         </Button>
       </div>
     </div>
@@ -829,7 +829,7 @@ function ResultRow({ item, onRetry }: { item: ExecutedAction; onRetry: () => voi
   if (item.error) {
     return (
       <div className="rounded-xl border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-foreground">
-        <div className="mb-0.5 text-[11px] uppercase tracking-wider text-destructive">Couldn't finish</div>
+        <div className="mb-0.5 text-[11px] uppercase tracking-wider text-destructive">Не удалось завершить</div>
         <div>{item.summary}</div>
         <div className="mb-2 text-xs text-muted-foreground">{item.error}</div>
         <div className="flex justify-end">
@@ -837,7 +837,7 @@ function ResultRow({ item, onRetry }: { item: ExecutedAction; onRetry: () => voi
             onClick={onRetry}
             className="rounded-md border border-glass-border bg-glass/40 px-2 py-1 text-[11px] text-foreground transition-colors hover:bg-glass/60"
           >
-            Try again
+            Повторить
           </button>
         </div>
       </div>
@@ -846,7 +846,7 @@ function ResultRow({ item, onRetry }: { item: ExecutedAction; onRetry: () => voi
 
   if (item.tool === "create_utm_link") {
     const finalUrl = (item.result?.final_url as string | undefined) ?? "";
-    const label = (item.result?.label as string | undefined) ?? "UTM link";
+    const label = (item.result?.label as string | undefined) ?? "UTM-ссылка";
     const copy = async () => {
       if (!finalUrl) return;
       try {
@@ -860,7 +860,7 @@ function ResultRow({ item, onRetry }: { item: ExecutedAction; onRetry: () => voi
     return (
       <div className="space-y-2 rounded-2xl border border-glass-border bg-glass/50 p-3 backdrop-blur-xl">
         <div className="flex items-center justify-between">
-          <span className="text-[11px] uppercase tracking-wider text-muted-foreground">UTM link ready</span>
+          <span className="text-[11px] uppercase tracking-wider text-muted-foreground">UTM-ссылка готова</span>
           <span className="text-xs text-foreground">{label}</span>
         </div>
         <div className="flex items-center gap-1.5 rounded-lg bg-black/30 px-2.5 py-2">
@@ -870,12 +870,12 @@ function ResultRow({ item, onRetry }: { item: ExecutedAction; onRetry: () => voi
             className="flex items-center gap-1 rounded-md border border-glass-border bg-glass/40 px-2 py-1 text-[11px] text-foreground transition-colors hover:bg-glass/60"
           >
             {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-            {copied ? "Copied" : "Copy"}
+            {copied ? "Скопировано" : "Копировать"}
           </button>
         </div>
         <div className="flex justify-end">
           <Link to="/tools" search={{ focus: "utm" }} className="text-[11px] text-primary hover:underline">
-            Open in UTM Builder →
+            Открыть в UTM Builder →
           </Link>
         </div>
       </div>

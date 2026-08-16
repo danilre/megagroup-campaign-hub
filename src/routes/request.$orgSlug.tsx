@@ -11,8 +11,8 @@ export const Route = createFileRoute("/request/$orgSlug")({
   component: RequestPage,
   head: () => ({
     meta: [
-      { title: "Request a campaign" },
-      { name: "description", content: "Submit a campaign brief — get a status link back." },
+      { title: "Запросить кампанию" },
+      { name: "description", content: "Отправьте бриф кампании — получите ссылку для отслеживания статуса." },
     ],
   }),
 });
@@ -33,7 +33,7 @@ function RequestPage() {
     return (
       <div className="relative flex min-h-screen items-center justify-center">
         <GradientMesh />
-        <div className="relative z-10 text-muted-foreground">Loading…</div>
+        <div className="relative z-10 text-muted-foreground">Загрузка…</div>
       </div>
     );
   }
@@ -43,8 +43,8 @@ function RequestPage() {
       <div className="relative flex min-h-screen items-center justify-center p-6">
         <GradientMesh />
         <GlassPanel tier="strong" className="relative z-10 max-w-md p-8 text-center">
-          <h1 className="font-display text-2xl">Workspace not found</h1>
-          <p className="mt-2 text-sm text-muted-foreground">Double-check the link with the team that sent it.</p>
+          <h1 className="font-display text-2xl">Рабочее пространство не найдено</h1>
+          <p className="mt-2 text-sm text-muted-foreground">Уточните ссылку у команды, которая её прислала.</p>
         </GlassPanel>
       </div>
     );
@@ -59,16 +59,16 @@ function RequestPage() {
             <span className="inline-flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
               <IconCheck size={24} />
             </span>
-            <h1 className="mt-4 font-display text-3xl">Request received</h1>
+            <h1 className="mt-4 font-display text-3xl">Запрос получен</h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              We saved your brief and pinged the team. Bookmark the status link below.
+              Мы сохранили ваш бриф и уведомили команду. Сохраните ссылку статуса ниже.
             </p>
             <Link
               to="/request/status/$token"
               params={{ token: submittedId }}
               className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
             >
-              View status <IconArrowRight size={14} />
+              Посмотреть статус <IconArrowRight size={14} />
             </Link>
           </GlassPanel>
         </div>
@@ -84,9 +84,9 @@ function RequestPage() {
           <IconLogo size={26} className="text-primary" />
           <span className="font-display text-lg">{BRAND.name}</span>
         </Link>
-        <h1 className="mt-8 font-display text-4xl">Request a campaign</h1>
+        <h1 className="mt-8 font-display text-4xl">Запросить кампанию</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          One sentence in, working campaign out. The team takes it from here.
+          Одно предложение на входе — готовая кампания на выходе. Дальше команда берёт всё на себя.
         </p>
 
         <GlassPanel tier="strong" className="mt-8 p-6">

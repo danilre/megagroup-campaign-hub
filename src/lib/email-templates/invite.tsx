@@ -45,7 +45,7 @@ export const InviteEmail = ({
   return (
     <Html lang="en" dir="ltr">
       <Head />
-      <Preview>You've been invited to join {workspaceLabel}</Preview>
+      <Preview>вас пригласили в {workspaceLabel}</Preview>
       <Body style={styles.main}>
         <Container style={styles.container}>
           <Section style={styles.brandRow}>
@@ -55,21 +55,21 @@ export const InviteEmail = ({
             </Link>
           </Section>
 
-          <Heading style={styles.h1}>You're invited</Heading>
+          <Heading style={styles.h1}>вас пригласили</Heading>
           <Text style={styles.text}>
-            {inviterName ? <strong>{inviterName}</strong> : 'A teammate'} has
-            invited you to collaborate on{' '}
+            {inviterName ? <strong>{inviterName}</strong> : 'Коллега'} пригласил
+            вас присоединиться к работе над{' '}
             <Link href={resolvedSiteUrl} style={styles.link}>
               <strong>{workspaceLabel}</strong>
             </Link>
-            . Accept the invitation to create your account and join the
-            workspace.
+            . Примите приглашение, чтобы создать аккаунт и присоединиться
+            к рабочему пространству.
           </Text>
           <Button style={styles.button} href={resolvedConfirmation}>
-            Accept invitation
+            Принять приглашение
           </Button>
           <Text style={styles.text}>
-            Or paste this link into your browser:
+            Или вставьте эту ссылку в браузер:
             <br />
             <Link href={resolvedConfirmation} style={styles.link}>
               {resolvedConfirmation}
@@ -81,7 +81,7 @@ export const InviteEmail = ({
               <span style={styles.footerStrong}>{siteName}</span> · {BRAND.tagline}
             </Text>
             <Text style={{ margin: '8px 0 0' }}>
-              Weren't expecting this? You can safely ignore this email.
+              Не ожидали этого письма? Просто проигнорируйте его.
             </Text>
           </Section>
         </Container>

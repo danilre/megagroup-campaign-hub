@@ -30,36 +30,36 @@ export const Route = createFileRoute("/")({
 const FEATURES = [
   {
     Icon: IconCampaign,
-    label: "Campaign workspaces",
-    desc: "Brief, plan, and ship every campaign in one shared workspace.",
+    label: "Рабочие пространства кампаний",
+    desc: "Брифуйте, планируйте и запускайте каждую кампанию в едином рабочем пространстве.",
     hue: 150,
     to: "/campaigns" as const,
   },
   {
     Icon: IconUtm,
-    label: "UTM builder",
-    desc: "Consistent, taxonomy-checked tracking links across every channel.",
+    label: "UTM-конструктор",
+    desc: "Единообразные и проверенные по таксономии трекинговые ссылки для всех каналов.",
     hue: 275,
     to: "/tools/utm" as const,
   },
   {
     Icon: IconCalendar,
-    label: "Calendar",
-    desc: "See every launch, event, and send in one calendar view.",
+    label: "Календарь",
+    desc: "Все запуски, мероприятия и рассылки — в едином календаре.",
     hue: 88,
     to: "/calendar" as const,
   },
   {
     Icon: IconFunnel,
-    label: "Funnel targets",
-    desc: "Set MQL and SQO targets and track pacing at a glance.",
+    label: "Цели воронки",
+    desc: "Задавайте цели по MQL и SQO и отслеживайте темп их достижения.",
     hue: 200,
     to: "/funnel" as const,
   },
   {
     Icon: IconBot,
-    label: "AI tools",
-    desc: "Copilot for naming and turning requests into campaigns.",
+    label: "AI-инструменты",
+    desc: "Копилот для нейминга и превращения запросов в кампании.",
     hue: 55,
     to: "/tools" as const,
   },
@@ -94,9 +94,10 @@ function LandingPage() {
         </Link>
         <Link
           to="/login"
+          search={{ redirect: "/dashboard", mode: "signin" }}
           className="rounded-full border border-glass-border bg-glass/40 px-4 py-2 text-sm text-foreground hover:bg-glass-strong"
         >
-          Sign in
+          Войти
         </Link>
       </header>
 
@@ -114,22 +115,24 @@ function LandingPage() {
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
             <Link
               to="/login"
+              search={{ redirect: "/dashboard", mode: "signup" }}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90"
             >
-              Create an account <IconArrowRight size={14} />
+              Создать аккаунт <IconArrowRight size={14} />
             </Link>
             <Link
               to="/login"
+              search={{ redirect: "/dashboard", mode: "signin" }}
               className="inline-flex items-center justify-center rounded-full border border-glass-border bg-glass/40 px-6 py-3 text-sm text-foreground hover:bg-glass-strong"
             >
-              Sign in
+              Войти
             </Link>
           </div>
         </section>
 
         <section className="mt-16 sm:mt-24">
           <h2 className="text-center text-xs uppercase tracking-[0.28em] text-muted-foreground">
-            What's inside
+            Что внутри
           </h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {FEATURES.map((f) => (

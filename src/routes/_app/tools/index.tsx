@@ -35,11 +35,11 @@ export const Route = createFileRoute("/_app/tools/")({
   validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: `Marketing tools — ${BRAND.name}` },
+      { title: `Маркетинговые инструменты — ${BRAND.name}` },
       {
         name: "description",
         content:
-          "Campaign-in-a-box, UTM Builder, Lead Referral, Funnel Dashboard, Agent Email Responder.",
+          "Campaign-in-a-box, UTM-конструктор, реферальные лиды, дашборд воронки, автоответчик агента.",
       },
     ],
   }),
@@ -102,23 +102,23 @@ function ToolsHub() {
 
       <header className="relative z-10 px-4 sm:px-6">
         {tool && (
-          <div className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">Tools</div>
+          <div className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">Инструменты</div>
         )}
 
         <div className="mt-3 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
           {!tool && (
             <div className="flex items-start gap-4">
-              <PageHexBadge hue={88} size={26} icon={<IconBolt size={22} />} aria-label="Marketing tools" />
+              <PageHexBadge hue={88} size={26} icon={<IconBolt size={22} />} aria-label="Маркетинговые инструменты" />
               <div>
                 <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  {BRAND.name} · Tools
+                  {BRAND.name} · Инструменты
                 </div>
                 <h1 className="mt-1 font-display text-4xl tracking-tight">
-                  Campaign toolkit.
+                  Набор инструментов кампаний.
                 </h1>
                 <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-                  One orbit for every move you make — campaign names, UTM links, imports,
-                  and events.
+                  Единая орбита для каждого вашего действия — названия кампаний, UTM-ссылки, импорты
+                  и события.
                 </p>
               </div>
             </div>
@@ -131,8 +131,8 @@ function ToolsHub() {
                 type="button"
                 onClick={() => setEditMode((v) => !v)}
                 aria-pressed={editMode}
-                aria-label={editMode ? "Done editing hexes" : "Edit hexes"}
-                title={editMode ? "Done" : "Edit hexes"}
+                aria-label={editMode ? "Готово, завершить редактирование" : "Редактировать разделы"}
+                title={editMode ? "Готово" : "Редактировать разделы"}
                 className={
                   editMode
                     ? "inline-flex items-center gap-1.5 rounded-full border border-primary/50 bg-primary/15 px-3 py-1.5 text-xs font-medium text-primary transition hover:bg-primary/25"
@@ -142,7 +142,7 @@ function ToolsHub() {
                 {editMode ? (
                   <>
                     <IconClose size={12} />
-                    Done
+                    Готово
                   </>
                 ) : (
                   <Cog size={16} strokeWidth={1.8} />
@@ -153,9 +153,9 @@ function ToolsHub() {
                   type="button"
                   onClick={restoreAllHexes}
                   className="rounded-full border border-glass-border bg-glass/40 px-3 py-1.5 text-xs text-muted-foreground transition hover:bg-glass-strong hover:text-foreground"
-                  title="Restore all hidden hexes"
+                  title="Восстановить все скрытые разделы"
                 >
-                  Restore {hiddenCount} hidden
+                  Восстановить скрытых: {hiddenCount}
                 </button>
               )}
             </div>
@@ -165,12 +165,12 @@ function ToolsHub() {
         {!tool && (
           <FadeInUp delay={0.7}>
             <p className="mt-5 max-w-[58ch] text-[15px] leading-relaxed text-muted-foreground">
-              One orbit for every move you make — campaign names, UTM links, imports,
-              and events. Every artifact lands on a{" "}
+              Единая орбита для каждого вашего действия — названия кампаний, UTM-ссылки, импорты
+              и события. Каждый артефакт попадает в{" "}
               <Link to="/campaigns" className="text-foreground underline decoration-primary/40 decoration-2 underline-offset-4 transition hover:decoration-primary">
-                campaign
+                кампанию
               </Link>
-              , wired straight to your CRM.
+              , напрямую подключённую к вашей CRM.
             </p>
           </FadeInUp>
         )}
@@ -184,7 +184,7 @@ function ToolsHub() {
 
               <div className="min-w-0 flex-1">
                 <div className="text-eyebrow !text-[10px] opacity-70">
-                  {subTitle ? (tool.parentTitle ?? "Sub-tool") : "Tool"}
+                  {subTitle ? (tool.parentTitle ?? "Подраздел") : "Инструмент"}
                 </div>
                 <h2 className="font-display text-lg sm:text-xl md:text-2xl leading-tight truncate">
                   {subTitle ? subTitle : mainTitle}
@@ -201,27 +201,27 @@ function ToolsHub() {
                     <button
                       type="button"
                       onClick={() => navigate({ to: "/tools", search: { focus: parent.slug, workspace }, replace: false })}
-                      title={`Back to ${tool.parentTitle}`}
-                      aria-label={`Back to ${tool.parentTitle}`}
+                      title={`Назад к ${tool.parentTitle}`}
+                      aria-label={`Назад к ${tool.parentTitle}`}
                       className="inline-flex items-center gap-1.5 rounded-full border border-glass-border bg-glass/40 px-3 py-1.5 text-xs text-muted-foreground transition hover:border-primary/40 hover:bg-glass-strong hover:text-foreground"
                     >
                       <IconArrowRight size={12} className="rotate-180" />
-                      <span className="hidden sm:inline">Back to {tool.parentTitle}</span>
-                      <span className="sm:hidden">Back</span>
+                      <span className="hidden sm:inline">Назад к {tool.parentTitle}</span>
+                      <span className="sm:hidden">Назад</span>
                     </button>
                   );
                 })()}
                 <Link
                   to={tool.fullRouteTo}
-                  title="Open as full page"
+                  title="Открыть как отдельную страницу"
                   className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-glass-border bg-glass/40 px-3 py-1.5 text-xs text-muted-foreground transition hover:border-primary/40 hover:bg-glass-strong hover:text-foreground"
                 >
-                  Open full <IconArrowRight size={12} />
+                  Открыть полностью <IconArrowRight size={12} />
                 </Link>
                 <button
                   type="button"
                   onClick={handleClose}
-                  aria-label="Close panel (Esc)"
+                  aria-label="Закрыть панель (Esc)"
                   className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-glass-border bg-glass/40 text-muted-foreground transition hover:bg-glass-strong hover:text-foreground"
                 >
                   <IconClose size={14} />
@@ -237,7 +237,7 @@ function ToolsHub() {
             onClick={handleClose}
             className="mt-2 inline-flex items-center gap-1 text-[11px] text-muted-foreground/70 transition hover:text-foreground"
           >
-            <span aria-hidden="true">←</span> Marketing Tools
+            <span aria-hidden="true">←</span> Маркетинговые инструменты
           </button>
         )}
       </header>
@@ -294,15 +294,15 @@ function ToolsHub() {
       {!tool && (
         <footer className="mt-auto flex flex-wrap items-center justify-between gap-x-5 gap-y-2 border-t border-glass-border/60 px-4 sm:px-6 pt-3 text-[11px] text-muted-foreground/80">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
-            <Link to="/tools" search={{ focus: "campaign-hackathon" }} className="hover:text-foreground">Event request</Link>
+            <Link to="/tools" search={{ focus: "campaign-hackathon" }} className="hover:text-foreground">Заявка на мероприятие</Link>
             <span className="opacity-30">·</span>
-            <Link to="/tools" search={{ focus: "campaign-list-cleaner" }} className="hover:text-foreground">List cleaner</Link>
+            <Link to="/tools" search={{ focus: "campaign-list-cleaner" }} className="hover:text-foreground">Очистка списка</Link>
             <span className="opacity-30">·</span>
-            <Link to="/tools" search={{ focus: "utm-taxonomy" }} className="hover:text-foreground">Naming conventions</Link>
+            <Link to="/tools" search={{ focus: "utm-taxonomy" }} className="hover:text-foreground">Правила именования</Link>
             <span className="opacity-30">·</span>
-            <Link to="/tools" search={{ focus: "funnel-targets" }} className="hover:text-foreground">MQL / SQO targets</Link>
+            <Link to="/tools" search={{ focus: "funnel-targets" }} className="hover:text-foreground">Цели MQL / SQO</Link>
           </div>
-          <Link to="/connectors" className="hover:text-foreground">Manage connectors →</Link>
+          <Link to="/connectors" className="hover:text-foreground">Управление коннекторами →</Link>
         </footer>
       )}
 

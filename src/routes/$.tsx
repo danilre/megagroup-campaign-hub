@@ -25,7 +25,7 @@ const LEGACY_REDIRECTS: Record<string, { to: string; search?: Record<string, str
 export const Route = createFileRoute("/$")({
   head: () => ({
     meta: [
-      { title: `Page not found — ${BRAND.name}` },
+      { title: `Страница не найдена — ${BRAND.name}` },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -48,23 +48,23 @@ function CatchAll() {
       <div className="relative z-10 mx-auto flex min-h-dvh max-w-xl flex-col items-center justify-center px-6 py-16">
         <GlassPanel className="w-full p-8 text-center">
           <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">404</p>
-          <h1 className="mt-3 font-display text-3xl tracking-tight">Page not found</h1>
+          <h1 className="mt-3 font-display text-3xl tracking-tight">Страница не найдена</h1>
           <p className="mt-3 text-sm text-muted-foreground">
-            We couldn't find <span className="font-mono text-foreground/80">/{_splat}</span>.
-            It may have moved or been retired.
+            Не удалось найти <span className="font-mono text-foreground/80">/{_splat}</span>.
+            Возможно, страница была перемещена или удалена.
           </p>
           <div className="mt-6 flex justify-center gap-3">
             <Link
               to="/dashboard"
               className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90"
             >
-              Back to dashboard
+              На дашборд
             </Link>
             <Link
               to="/tools"
               className="rounded-lg border border-glass-border bg-glass/40 px-4 py-2 text-sm transition hover:bg-glass/70"
             >
-              Browse tools
+              Инструменты
             </Link>
           </div>
         </GlassPanel>

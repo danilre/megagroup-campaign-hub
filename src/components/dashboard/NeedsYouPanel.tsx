@@ -45,11 +45,11 @@ function relTime(iso: string) {
   const d = new Date(iso).getTime();
   const diff = Date.now() - d;
   const mins = Math.round(diff / 60000);
-  if (mins < 60) return `${mins}m ago`;
+  if (mins < 60) return `${mins} мин назад`;
   const hrs = Math.round(mins / 60);
-  if (hrs < 24) return `${hrs}h ago`;
+  if (hrs < 24) return `${hrs} ч назад`;
   const days = Math.round(hrs / 24);
-  return `${days}d ago`;
+  return `${days} дн назад`;
 }
 
 export function NeedsYouPanel() {
@@ -142,7 +142,7 @@ export function NeedsYouPanel() {
           key: `o-${c.id}`,
           kind: "overdue",
           label: c.title,
-          meta: `Overdue · ${relTime(c.due_at)}`,
+          meta: `Просрочено · ${relTime(c.due_at)}`,
           workspaceId: c.workspace_id,
           to: "/campaigns/$id",
           params: { id: c.workspace_id },
@@ -155,7 +155,7 @@ export function NeedsYouPanel() {
         out.push({
           key: `m-${m.id}`,
           kind: "mention",
-          label: `Mentioned you: "${snip}${snip.length === 90 ? "…" : ""}"`,
+          label: `Упомянули вас: "${snip}${snip.length === 90 ? "…" : ""}"`,
           meta: relTime(m.created_at),
           workspaceId: m.workspace_id,
           to: "/campaigns/$id",
@@ -169,8 +169,8 @@ export function NeedsYouPanel() {
         out.push({
           key: `r-${r.id}`,
           kind: "request",
-          label: `Request needs triage: "${snip}${snip.length === 90 ? "…" : ""}"`,
-          meta: `New · ${relTime(r.created_at)}`,
+          label: `Запрос требует обработки: "${snip}${snip.length === 90 ? "…" : ""}"`,
+          meta: `Новый · ${relTime(r.created_at)}`,
           to: "/requests",
           weight: 60,
         });
@@ -181,8 +181,8 @@ export function NeedsYouPanel() {
         out.push({
           key: `rt-${w.id}`,
           kind: "retro",
-          label: `Retro missing for "${w.name}"`,
-          meta: `Ended ${new Date(w.end_date).toLocaleDateString()}`,
+          label: `Не хватает ретро для "${w.name}"`,
+          meta: `Завершено ${new Date(w.end_date).toLocaleDateString("ru-RU")}`,
           workspaceId: w.id,
           to: "/campaigns/$id",
           params: { id: w.id },
@@ -202,16 +202,16 @@ export function NeedsYouPanel() {
   const inviteCard = soloOrg ? (
     <GlassPanel tier="strong" className="mt-4 flex items-center justify-between gap-4 p-5">
       <div className="min-w-0">
-        <div className="font-display text-base">Bring your team in</div>
+        <div className="font-display text-base">Пригласите свою команду</div>
         <p className="mt-1 text-xs text-muted-foreground">
-          Campaigns are better with reviewers, assignees, and a shared retro. Send invites from Settings.
+          Кампании эффективнее с ревьюерами, исполнителями и общим ретро. Отправьте приглашения в настройках.
         </p>
       </div>
       <Link
         to="/settings"
         className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-medium text-primary-foreground hover:opacity-90"
       >
-        Invite team <IconArrowRight size={12} />
+        Пригласить команду <IconArrowRight size={12} />
       </Link>
     </GlassPanel>
   ) : null;
@@ -219,9 +219,9 @@ export function NeedsYouPanel() {
   return (
     <div>
       <div className="flex items-end justify-between">
-        <h2 className="font-display text-2xl">Needs you</h2>
+        <h2 className="font-display text-2xl">Требует внимания</h2>
         {items && items.length > 0 && (
-          <span className="text-xs text-muted-foreground">{items.length} item{items.length === 1 ? "" : "s"}</span>
+          <span className="text-xs text-muted-foreground">{items.length} {items.length === 1 ? "пункт" : "пунктов"}</span>
         )}
       </div>
       {inviteCard}
@@ -234,7 +234,7 @@ export function NeedsYouPanel() {
           <span className="inline-flex size-8 items-center justify-center rounded-full bg-primary/10 text-primary">
             <IconCheck size={16} />
           </span>
-          You're clear. Nice.
+          Всё в порядке. Отлично.
         </GlassPanel>
       ) : items.length === 0 && soloOrg ? null : (
         <GlassPanel tier="strong" className="mt-4 divide-y divide-glass-border">

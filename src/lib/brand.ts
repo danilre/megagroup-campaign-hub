@@ -11,10 +11,10 @@ export const BRAND = {
   /** Short label for tight spaces (mobile nav, collapsed sidebar tooltips). */
   shortName: "MC3",
   /** One-line tagline used in headers and email footers. */
-  tagline: "Digital Marketing Campaign Starter",
+  tagline: "Стартовый набор для цифровых маркетинговых кампаний",
   /** Short marketing description for meta tags and onboarding. */
   description:
-    "Plan, launch, and track digital marketing campaigns end to end — launch checklists, standardized campaign names, UTM tracking links, and performance dashboards in one shared workspace.",
+    "Планируйте, запускайте и отслеживайте цифровые маркетинговые кампании от начала до конца — чек-листы запуска, стандартизированные названия кампаний, UTM-ссылки для отслеживания и дашборды с показателями в едином рабочем пространстве.",
   /**
    * Placeholder domain used in example URLs (Commander AI input hints, etc.).
    * Keep this neutral — it should NOT match the email-sending domain.

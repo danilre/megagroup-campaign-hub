@@ -13,13 +13,13 @@ export type UtmWarning = {
 export function checkUtmField(field: UtmWarning["field"], value: string): UtmWarning | null {
   if (!value) return null;
   if (/\s/.test(value))
-    return { field, level: "error", message: `${field} contains spaces — convert to "-" or "_"` };
+    return { field, level: "error", message: `${field} содержит пробелы — замените на "-" или "_"` };
   if (value !== value.toLowerCase())
-    return { field, level: "warn", message: `${field} has uppercase — most analytics tools normalize to lower` };
+    return { field, level: "warn", message: `${field} содержит заглавные буквы — большинство систем аналитики приводят их к нижнему регистру` };
   if (!UTM_SAFE.test(value))
-    return { field, level: "error", message: `${field} has unsafe characters — use letters, numbers, "-", "_"` };
+    return { field, level: "error", message: `${field} содержит недопустимые символы — используйте буквы, цифры, "-", "_"` };
   if (value.length > 60)
-    return { field, level: "warn", message: `${field} is ${value.length} chars — long tags get truncated` };
+    return { field, level: "warn", message: `${field}: ${value.length} симв. — длинные теги могут быть обрезаны` };
   return null;
 }
 
@@ -30,7 +30,7 @@ export function checkDuplicate(name: string, existing: string[]): UtmWarning | n
     return {
       field: "name",
       level: "error",
-      message: "A campaign with this exact name already exists",
+      message: "Кампания с точно таким названием уже существует",
     };
   // near-duplicates
   const close = existing.find((e) => {
@@ -40,7 +40,7 @@ export function checkDuplicate(name: string, existing: string[]): UtmWarning | n
     const shorter = a.length > trimmed.length ? trimmed : a;
     return longer.includes(shorter);
   });
-  if (close) return { field: "name", level: "warn", message: `Very close to existing "${close}"` };
+  if (close) return { field: "name", level: "warn", message: `Очень похоже на существующее "${close}"` };
   return null;
 }
 
@@ -63,7 +63,7 @@ export function checkTaxonomyDrift(
       warnings.push({
         field: "name",
         level: "warn",
-        message: `${key} "${value}" is not in your taxonomy — drift detected`,
+        message: `${key} "${value}" отсутствует в вашей таксономии — обнаружено расхождение`,
       });
     }
   }

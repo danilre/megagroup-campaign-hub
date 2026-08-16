@@ -23,7 +23,7 @@ export const ReauthenticationEmail = ({
 }: ReauthenticationEmailProps) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Your {siteName} verification code</Preview>
+    <Preview>Ваш код подтверждения {siteName}</Preview>
     <Body style={styles.main}>
       <Container style={styles.container}>
         <Section style={styles.brandRow}>
@@ -33,9 +33,9 @@ export const ReauthenticationEmail = ({
           </Link>
         </Section>
 
-        <Heading style={styles.h1}>Confirm it's you</Heading>
+        <Heading style={styles.h1}>Подтвердите, что это вы</Heading>
         <Text style={styles.text}>
-          Use the code below to confirm your identity on {siteName}.
+          Используйте код ниже, чтобы подтвердить свою личность в {siteName}.
         </Text>
         <Section style={styles.codeCard}>
           <Text style={styles.code}>{token}</Text>
@@ -46,8 +46,8 @@ export const ReauthenticationEmail = ({
             <span style={styles.footerStrong}>{siteName}</span> · {BRAND.tagline}
           </Text>
           <Text style={{ margin: '8px 0 0' }}>
-            This code expires shortly. If you didn't request it, you can
-            safely ignore this email.
+            Срок действия кода скоро истечёт. Если вы не запрашивали его,
+            просто проигнорируйте это письмо.
           </Text>
         </Section>
       </Container>

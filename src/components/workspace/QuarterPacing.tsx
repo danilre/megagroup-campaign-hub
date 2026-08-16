@@ -33,12 +33,12 @@ const STATUS_COLOR: Record<string, string> = {
 };
 
 const STATUS_LABEL: Record<string, string> = {
-  draft: "Draft",
-  planning: "Planning",
-  in_review: "In review",
-  scheduled: "Scheduled",
-  live: "Live",
-  complete: "Complete",
+  draft: "Черновик",
+  planning: "Планирование",
+  in_review: "На проверке",
+  scheduled: "Запланировано",
+  live: "Активно",
+  complete: "Завершено",
 };
 
 export function QuarterPacing({ orgId }: { orgId: string }) {
@@ -90,7 +90,7 @@ export function QuarterPacing({ orgId }: { orgId: string }) {
       <div className="flex items-end justify-between gap-4">
         <div>
           <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-            Quarter pacing
+            Темп квартала
           </div>
           <div className="mt-1 font-display text-2xl">{label}</div>
         </div>
@@ -98,12 +98,12 @@ export function QuarterPacing({ orgId }: { orgId: string }) {
           <div className="font-display text-2xl tabular-nums text-foreground">
             {total}
             <span className="ml-1.5 text-xs font-normal uppercase tracking-wider text-muted-foreground">
-              in flight
+              в работе
             </span>
           </div>
           <div className="mt-1 text-xs text-muted-foreground tabular-nums">
-            <span className="text-foreground">{total > 0 ? `${completePct.toFixed(0)}%` : "—"}</span> done ·{" "}
-            <span className="text-foreground">{elapsedPct.toFixed(0)}%</span> time elapsed
+            <span className="text-foreground">{total > 0 ? `${completePct.toFixed(0)}%` : "—"}</span> выполнено ·{" "}
+            <span className="text-foreground">{elapsedPct.toFixed(0)}%</span> времени прошло
           </div>
         </div>
       </div>
@@ -125,18 +125,18 @@ export function QuarterPacing({ orgId }: { orgId: string }) {
         <div className="flex items-center gap-4 text-[10px] uppercase tracking-wider text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
             <span className="inline-block h-1.5 w-3 rounded-full bg-gradient-to-r from-[oklch(0.72_0.2_275)] to-[oklch(0.78_0.18_340)]" />
-            Complete
+            Завершено
           </span>
           <span className="inline-flex items-center gap-1.5">
             <span className="inline-block h-1.5 w-3 rounded-full bg-white/30" />
-            Time elapsed
+            Времени прошло
           </span>
         </div>
       </div>
 
       {total === 0 ? (
         <div className="mt-8 rounded-xl border border-dashed border-glass-border py-10 text-center text-sm text-muted-foreground">
-          No campaigns scheduled this quarter yet.
+          В этом квартале пока нет запланированных кампаний.
         </div>
       ) : (
         <div className="mt-6 h-52">
@@ -190,7 +190,7 @@ export function QuarterPacing({ orgId }: { orgId: string }) {
                 }}
                 labelStyle={{ color: "oklch(0.95 0 0)", fontWeight: 500, marginBottom: 2 }}
                 itemStyle={{ color: "oklch(0.85 0.01 240)" }}
-                formatter={(value: number) => [`${value} campaign${value === 1 ? "" : "s"}`, ""]}
+                formatter={(value: number) => [`${value} ${value === 1 ? "кампания" : "кампаний"}`, ""]}
                 separator=""
               />
               <Bar dataKey="count" radius={[6, 6, 0, 0]} maxBarSize={56}>

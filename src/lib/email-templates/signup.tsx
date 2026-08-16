@@ -28,7 +28,7 @@ export const SignupEmail = ({
 }: SignupEmailProps) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Confirm your email to start using {siteName}</Preview>
+    <Preview>Подтвердите email, чтобы начать пользоваться {siteName}</Preview>
     <Body style={styles.main}>
       <Container style={styles.container}>
         <Section style={styles.brandRow}>
@@ -38,23 +38,23 @@ export const SignupEmail = ({
           </Link>
         </Section>
 
-        <Heading style={styles.h1}>Confirm your email</Heading>
+        <Heading style={styles.h1}>Подтвердите email</Heading>
         <Text style={styles.text}>
-          Welcome to {siteName} — your marketing command center. Confirm{' '}
+          Добро пожаловать в {siteName} — ваш маркетинговый центр управления. Подтвердите{' '}
           {recipient ? (
             <Link href={`mailto:${recipient}`} style={styles.link}>
               {recipient}
             </Link>
           ) : (
-            'your email address'
+            'адрес электронной почты'
           )}{' '}
-          to activate your workspace.
+          чтобы активировать рабочее пространство.
         </Text>
         <Button style={styles.button} href={confirmationUrl}>
-          Verify email
+          Подтвердить email
         </Button>
         <Text style={styles.text}>
-          Or paste this link into your browser:
+          Или вставьте эту ссылку в браузер:
           <br />
           <Link href={confirmationUrl} style={styles.link}>
             {confirmationUrl}
@@ -66,7 +66,7 @@ export const SignupEmail = ({
             <span style={styles.footerStrong}>{siteName}</span> · {BRAND.tagline}
           </Text>
           <Text style={{ margin: '8px 0 0' }}>
-            If you didn't create an account, you can safely ignore this email.
+            Если вы не создавали аккаунт, просто проигнорируйте это письмо.
           </Text>
         </Section>
       </Container>

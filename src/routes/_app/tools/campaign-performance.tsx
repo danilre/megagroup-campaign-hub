@@ -22,16 +22,16 @@ type Asset = Awaited<ReturnType<typeof listCrmCampaignAssets>>["assets"][number]
 
 const ASSET_LABEL: Record<string, string> = {
   MARKETING_EMAIL: "Email",
-  MARKETING_EVENT: "Event",
-  AD_CAMPAIGN: "Ad",
-  SOCIAL_POST: "Social",
+  MARKETING_EVENT: "Мероприятие",
+  AD_CAMPAIGN: "Реклама",
+  SOCIAL_POST: "Соцсети",
   CTA: "CTA",
-  FORM: "Form",
-  LANDING_PAGE: "Landing page",
-  BLOG_POST: "Blog",
-  WORKFLOW: "Workflow",
-  SEQUENCE: "Sequence",
-  LIST: "List",
+  FORM: "Форма",
+  LANDING_PAGE: "Лендинг",
+  BLOG_POST: "Блог",
+  WORKFLOW: "Воркфлоу",
+  SEQUENCE: "Последовательность",
+  LIST: "Список",
 };
 
 function money(cents: number): string {
@@ -71,7 +71,7 @@ export function CampaignPerformanceSummary() {
         <GlassPanel tier="strong" className="relative p-5">
           <div className="flex items-center justify-between gap-3">
             <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-              Influenced revenue
+              Влияние на выручку
             </div>
             {status && !status.connected && (
               <DemoDataBanner variant="chip" />
@@ -81,12 +81,12 @@ export function CampaignPerformanceSummary() {
             {money(totals.revenue_cents)}
           </div>
           <div className="mt-2 text-xs text-muted-foreground">
-            Across {campaigns.length} {campaigns.length === 1 ? "campaign" : "campaigns"}
+            По {campaigns.length} {campaigns.length === 1 ? "кампании" : "кампаниям"}
           </div>
         </GlassPanel>
-        <Kpi label="Sessions" value={totals.sessions} />
-        <Kpi label="First-touch" value={totals.first} />
-        <Kpi label="Influenced contacts" value={totals.influenced} />
+        <Kpi label="Сессии" value={totals.sessions} />
+        <Kpi label="Первое касание" value={totals.first} />
+        <Kpi label="Затронутые контакты" value={totals.influenced} />
       </div>
     </div>
   );
@@ -151,10 +151,10 @@ export function CampaignPerformanceContent({ hideHeader = false, hideSummary = f
       {!hideHeader && (
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <PageHexBadge hue={200} icon={<IconChart size={26} />} aria-label="Performance" />
+            <PageHexBadge hue={200} icon={<IconChart size={26} />} aria-label="Эффективность" />
             <div>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground/70">Performance</div>
-              <h1 className="font-display text-3xl">Campaign performance</h1>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground/70">Эффективность</div>
+              <h1 className="font-display text-3xl">Эффективность кампании</h1>
             </div>
           </div>
           {status && !status.connected && <DemoDataBanner variant="chip" />}
@@ -167,14 +167,14 @@ export function CampaignPerformanceContent({ hideHeader = false, hideSummary = f
         <GlassPanel tier="strong" className="overflow-hidden p-0">
           <div className="grid divide-y divide-glass-border sm:grid-cols-4 sm:divide-x sm:divide-y-0">
             <SummaryStat
-              label="Influenced revenue"
+              label="Влияние на выручку"
               value={money(totals.revenue_cents)}
-              hint={`${campaigns.length} ${campaigns.length === 1 ? "campaign" : "campaigns"}`}
+              hint={`${campaigns.length} ${campaigns.length === 1 ? "кампания" : "кампаний"}`}
               accent
             />
-            <SummaryStat label="Sessions" value={totals.sessions.toLocaleString()} />
-            <SummaryStat label="First-touch" value={totals.first.toLocaleString()} />
-            <SummaryStat label="Influenced contacts" value={totals.influenced.toLocaleString()} />
+            <SummaryStat label="Сессии" value={totals.sessions.toLocaleString()} />
+            <SummaryStat label="Первое касание" value={totals.first.toLocaleString()} />
+            <SummaryStat label="Затронутые контакты" value={totals.influenced.toLocaleString()} />
           </div>
         </GlassPanel>
       )}
@@ -183,14 +183,14 @@ export function CampaignPerformanceContent({ hideHeader = false, hideSummary = f
         <GlassPanel className="max-h-[640px] overflow-hidden p-0">
           <div className="border-b border-glass-border px-4 py-3">
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Campaigns · {campaigns.length}
+Кампании · {campaigns.length}
             </div>
           </div>
           <div className="max-h-[580px] overflow-auto p-2">
             {loading ? (
-              <div className="p-4 text-sm text-muted-foreground">Loading…</div>
+              <div className="p-4 text-sm text-muted-foreground">Загрузка…</div>
             ) : campaigns.length === 0 ? (
-              <div className="p-4 text-sm text-muted-foreground">No campaigns.</div>
+              <div className="p-4 text-sm text-muted-foreground">Нет кампаний.</div>
             ) : (
               <ul className="space-y-0.5">
                 {campaigns.map((c) => {
@@ -232,7 +232,7 @@ export function CampaignPerformanceContent({ hideHeader = false, hideSummary = f
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/80">
-                      {current.type ?? "Campaign"}
+                      {current.type ?? "Кампания"}
                     </div>
                     <h2 className="mt-1 font-display text-2xl leading-tight">{current.name}</h2>
                     <div className="mt-1.5 text-xs text-muted-foreground">
@@ -247,16 +247,16 @@ export function CampaignPerformanceContent({ hideHeader = false, hideSummary = f
                 </div>
 
                 <div className="mt-5 grid gap-px overflow-hidden rounded-xl bg-glass-border sm:grid-cols-3">
-                  <MiniKpi label="Sessions" value={current.sessions} />
-                  <MiniKpi label="First-touch" value={current.new_contacts_first_touch} />
-                  <MiniKpi label="Last-touch" value={current.new_contacts_last_touch} />
-                  <MiniKpi label="Influenced contacts" value={current.influenced_contacts} />
-                  <MiniKpi label="Influenced deals" value={current.influenced_deals} />
-                  <MiniKpi label="Influenced revenue" value={money(current.influenced_revenue_cents)} highlight />
+                  <MiniKpi label="Сессии" value={current.sessions} />
+                  <MiniKpi label="Первое касание" value={current.new_contacts_first_touch} />
+                  <MiniKpi label="Последнее касание" value={current.new_contacts_last_touch} />
+                  <MiniKpi label="Затронутые контакты" value={current.influenced_contacts} />
+                  <MiniKpi label="Затронутые сделки" value={current.influenced_deals} />
+                  <MiniKpi label="Влияние на выручку" value={money(current.influenced_revenue_cents)} highlight />
                   {(current.attendees > 0 || current.no_shows > 0) && (
                     <>
-                      <MiniKpi label="Attendees" value={current.attendees} />
-                      <MiniKpi label="No-shows" value={current.no_shows} />
+                      <MiniKpi label="Участники" value={current.attendees} />
+                      <MiniKpi label="Неявки" value={current.no_shows} />
                     </>
                   )}
                 </div>
@@ -265,16 +265,16 @@ export function CampaignPerformanceContent({ hideHeader = false, hideSummary = f
               <GlassPanel className="p-5">
                 <div className="flex items-center justify-between gap-2">
                   <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                    Linked assets{assets.length ? ` · ${assets.length}` : ""}
+Связанные материалы{assets.length ? ` · ${assets.length}` : ""}
                   </div>
                   <div className="flex items-center gap-2">
                     {assetsMocked && <DemoDataBanner variant="chip" />}
-                    {assetsLoading && <div className="text-xs text-muted-foreground">Loading…</div>}
+{assetsLoading && <div className="text-xs text-muted-foreground">Загрузка…</div>}
                   </div>
                 </div>
                 <div className="mt-3 divide-y divide-glass-border">
                   {assets.length === 0 && !assetsLoading ? (
-                    <div className="py-6 text-center text-xs text-muted-foreground">No linked assets.</div>
+                    <div className="py-6 text-center text-xs text-muted-foreground">Нет связанных материалов.</div>
                   ) : (
                     assets.map((a) => (
                       <div key={a.id} className="flex items-center gap-3 py-2.5">
@@ -289,7 +289,7 @@ export function CampaignPerformanceContent({ hideHeader = false, hideSummary = f
                             rel="noreferrer"
                             className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
                           >
-                            Open <IconArrowRight size={12} />
+Открыть <IconArrowRight size={12} />
                           </a>
                         )}
                       </div>
@@ -300,7 +300,7 @@ export function CampaignPerformanceContent({ hideHeader = false, hideSummary = f
             </>
           ) : (
             <GlassPanel className="p-8 text-center text-sm text-muted-foreground">
-              Select a campaign on the left.
+Выберите кампанию слева.
             </GlassPanel>
           )}
         </div>
