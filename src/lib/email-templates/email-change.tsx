@@ -48,7 +48,7 @@ export const EmailChangeEmail = ({
               <Link href={`mailto:${oldEmail}`} style={styles.link}>
                 {oldEmail}
               </Link>{' '}
-              to{' '}
+              на{' '}
               <Link href={`mailto:${newEmail}`} style={styles.link}>
                 {newEmail}
               </Link>
