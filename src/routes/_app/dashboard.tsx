@@ -51,22 +51,22 @@ const STATUS_DOT: Record<string, string> = {
 };
 
 const ACTIVITY_LABEL: Record<string, string> = {
-  "workspace.created": "Created a campaign",
-  "workspace.created_from_template": "Spun up from a template",
-  "workspace.status_changed": "Changed campaign status",
-  "workspace.archived": "Archived a campaign",
-  "workspace.shared": "Shared a campaign",
-  "workspace.drafted_by_ai": "Drafted a campaign with AI",
-  "campaign.named": "Generated a campaign name",
-  "utm.minted": "Minted a UTM link",
-  "list.imported": "Imported a contact list",
-  "list.cleaned": "Cleaned a contact list",
-  "retro.added": "Added a retro",
-  "comment.added": "Left a comment",
-  "asset.added": "Attached an asset",
-  "webhook.dispatched": "Dispatched a webhook",
-  "request.created": "Submitted a request",
-  "request.promoted": "Promoted a request",
+  "workspace.created": "Создал(а) кампанию",
+  "workspace.created_from_template": "Создал(а) из шаблона",
+  "workspace.status_changed": "Изменил(а) статус кампании",
+  "workspace.archived": "Архивировал(а) кампанию",
+  "workspace.shared": "Поделился(-ась) кампанией",
+  "workspace.drafted_by_ai": "Создал(а) черновик кампании с помощью ИИ",
+  "campaign.named": "Сгенерировал(а) название кампании",
+  "utm.minted": "Создал(а) UTM-ссылку",
+  "list.imported": "Импортировал(а) список контактов",
+  "list.cleaned": "Очистил(а) список контактов",
+  "retro.added": "Добавил(а) ретро",
+  "comment.added": "Оставил(а) комментарий",
+  "asset.added": "Прикрепил(а) материал",
+  "webhook.dispatched": "Отправил(а) вебхук",
+  "request.created": "Отправил(а) запрос",
+  "request.promoted": "Продвинул(а) запрос",
 };
 
 // Activity kinds we hide from the dashboard feed (too noisy)
@@ -209,24 +209,24 @@ function Dashboard() {
   return (
     <div className="space-y-10">
       <div className="flex items-start gap-4" data-tour="dashboard-hero">
-        <PageHexBadge hue={88} size={26} icon={<IconHome size={22} />} aria-label="Dashboard" />
+        <PageHexBadge hue={88} size={26} icon={<IconHome size={22} />} aria-label="Дашборд" />
         <div className="min-w-0">
           <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {isFirstVisit ? "First visit" : "This week"}
+            {isFirstVisit ? "Первый визит" : "На этой неделе"}
           </div>
           <h1 className="mt-1 font-display text-4xl tracking-tight">
             {isFirstVisit
               ? firstName
-                ? `Welcome, ${firstName}.`
-                : "Welcome."
+                ? `Добро пожаловать, ${firstName}.`
+                : "Добро пожаловать."
               : firstName
-                ? `Welcome back, ${firstName}.`
-                : "Welcome back."}
+                ? `С возвращением, ${firstName}.`
+                : "С возвращением."}
           </h1>
           <p className="mt-2 max-w-xl text-sm text-muted-foreground">
             {isFirstVisit
-              ? "Quick tour: load a sample campaign, then poke at the tools below."
-              : "What needs you, how you're pacing, and what's coming up."}
+              ? "Краткий тур: загрузите пример кампании, а затем изучите инструменты ниже."
+              : "Что требует внимания, как идёт темп и что впереди."}
           </p>
         </div>
       </div>
@@ -242,9 +242,9 @@ function Dashboard() {
 
       <div>
         <div className="flex items-end justify-between">
-          <h2 className="font-display text-2xl">In flight</h2>
+          <h2 className="font-display text-2xl">В процессе</h2>
           <Link to="/campaigns" className="text-xs text-muted-foreground hover:text-foreground">
-            All campaigns →
+            Все кампании →
           </Link>
         </div>
         {wsError ? (
@@ -254,11 +254,11 @@ function Dashboard() {
         ) : activeWs.length === 0 ? (
           <div className="mt-4 space-y-4">
             <GlassPanel className="honeycomb-ghost p-6 text-sm text-muted-foreground">
-              Nothing in planning or live right now. Pick a template or load a sample to see a real campaign wired up.
+              Сейчас нет кампаний в планировании или в работе. Выберите шаблон или загрузите пример, чтобы увидеть настроенную кампанию.
             </GlassPanel>
             <LoadSampleCTA
-              headline="Load a sample campaign"
-              body="Workspace + checklist + budget + KPI, all seeded so you can poke around. Remove it any time."
+              headline="Загрузить пример кампании"
+              body="Рабочее пространство + чек-лист + бюджет + KPI — всё готово, чтобы вы могли всё изучить. Удалить можно в любой момент."
               compact
             />
           </div>
@@ -293,14 +293,14 @@ function Dashboard() {
 
       {/* Activity — trimmed + grouped */}
       <div>
-        <h2 className="font-display text-2xl">Recent activity</h2>
+        <h2 className="font-display text-2xl">Недавняя активность</h2>
         {actError ? (
           <PanelError className="mt-4" onRetry={() => setReloadKey((k) => k + 1)} />
         ) : recentActivity === null ? (
           <PanelSkeleton className="mt-4" lines={4} />
         ) : recentActivity.length === 0 ? (
           <GlassPanel className="honeycomb-ghost mt-4 p-8 text-sm text-muted-foreground">
-            Nothing yet. Saving a campaign name, list, or UTM will show up here.
+            Пока пусто. Здесь появится сохранение названия кампании, списка или UTM-ссылки.
           </GlassPanel>
 
         ) : (
