@@ -86,31 +86,31 @@ export const METHOD_META: Record<
   { label: string; short: string; description: string; tone: string }
 > = {
   connector: {
-    label: "One-click connectors",
-    short: "1-click",
+    label: "Коннекторы в один клик",
+    short: "1 клик",
     description:
-      "Lovable handles the OAuth handshake — no API keys, no developer console. Best for connecting your own workspace account to power features.",
+      "Lovable сам выполняет OAuth-рукопожатие — без API-ключей и консоли разработчика. Лучше всего для подключения собственного аккаунта рабочего пространства.",
     tone: "from-primary/30 to-primary/0 text-primary",
   },
   "api-key": {
-    label: "API key",
-    short: "API key",
+    label: "API-ключ",
+    short: "API-ключ",
     description:
-      "Paste a long-lived API key once, stored as a Lovable secret. Best for server-to-server calls where a single account is fine.",
+      "Один раз вставьте долгоживущий API-ключ, который сохранится как секрет Lovable. Лучше всего для запросов сервер-сервер, когда достаточно одного аккаунта.",
     tone: "from-amber-400/30 to-amber-400/0 text-amber-300",
   },
   "oauth-app": {
-    label: "Per-user OAuth",
+    label: "OAuth для каждого пользователя",
     short: "OAuth",
     description:
-      "Each end-user signs in with their own account. Requires a real OAuth app in the provider's developer console — heavier setup but unavoidable when users need their own data.",
+      "Каждый пользователь входит под своим аккаунтом. Требует настоящего OAuth-приложения в консоли разработчика провайдера — настройка сложнее, но неизбежна, когда пользователям нужны собственные данные.",
     tone: "from-sky-400/30 to-sky-400/0 text-sky-300",
   },
   webhook: {
-    label: "Webhooks",
-    short: "Webhook",
+    label: "Вебхуки",
+    short: "Вебхук",
     description:
-      "Inbound events from external services. A public, signed endpoint in your app receives and verifies the payload.",
+      "Входящие события от внешних сервисов. Публичная подписанная конечная точка в вашем приложении получает и проверяет полезную нагрузку.",
     tone: "from-emerald-400/30 to-emerald-400/0 text-emerald-300",
   },
 };
