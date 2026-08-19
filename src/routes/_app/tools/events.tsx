@@ -12,11 +12,11 @@ export const Route = createFileRoute("/_app/tools/events")({
   component: () => <EventsContent />,
   head: () => ({
     meta: [
-      { title: "Events — Campaign-in-a-box" },
+      { title: "Мероприятия — Campaign-in-a-box" },
       {
         name: "description",
         content:
-          "Request a conference booth, hackathon, or meetup. We turn the event into a campaign with the right attribution.",
+          "Запросите стенд на конференции, хакатон или митап. Мы превратим мероприятие в кампанию с правильной атрибуцией.",
       },
     ],
   }),
@@ -34,8 +34,8 @@ const KINDS: EventKind[] = [
   {
     to: "/tools",
     search: { focus: "campaign-hackathon" },
-    label: "Event request",
-    desc: "Sponsor or host an event — conference, hackathon, or meetup.",
+    label: "Заявка на мероприятие",
+    desc: "Спонсируйте или проведите мероприятие — конференцию, хакатон или митап.",
     Icon: IconTrophy,
   },
 ];
@@ -48,29 +48,29 @@ export function EventsContent({ hideHeader = false }: { hideHeader?: boolean } =
           to="/tools"
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
         >
-          <IconChevronLeft size={14} /> Back to tools
+          <IconChevronLeft size={14} /> Назад к инструментам
         </Link>
       )}
 
       {!hideHeader && (
         <header className="flex items-start gap-4">
-          <PageHexBadge hue={150} icon={<IconCalendar size={26} />} aria-label="Events" />
+          <PageHexBadge hue={150} icon={<IconCalendar size={26} />} aria-label="Мероприятия" />
           <div>
-            <h1 className="font-display text-3xl md:text-4xl">Events</h1>
+            <h1 className="font-display text-3xl md:text-4xl">Мероприятия</h1>
             <p className="mt-2 max-w-2xl text-muted-foreground">
-              Submit an event request and turn it into a campaign with its own
-              audience, landing page, and post-event list import.
+              Отправьте заявку на мероприятие и превратите его в кампанию с собственной
+              аудиторией, целевой страницей и импортом списка после мероприятия.
             </p>
           </div>
         </header>
       )}
 
       <p className="text-sm text-muted-foreground">
-        Submitted requests land in your{" "}
-        <Link to="/requests" className="text-primary hover:underline">Requests queue</Link>{" "}
-        for triage, and appear on the{" "}
-        <Link to="/calendar" className="text-primary hover:underline">Calendar</Link>{" "}
-        on their due date.
+        Отправленные заявки попадают в вашу{" "}
+        <Link to="/requests" className="text-primary hover:underline">очередь заявок</Link>{" "}
+        для обработки и отображаются в{" "}
+        <Link to="/calendar" className="text-primary hover:underline">календаре</Link>{" "}
+        на дату исполнения.
       </p>
 
 
