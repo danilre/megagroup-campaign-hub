@@ -85,18 +85,18 @@ export function TaxonomyContent({ hideHeader = false }: { hideHeader?: boolean }
     <div className="space-y-8">
       {!hideHeader && (
         <ToolHeader
-          eyebrow="Settings · vocabulary"
-          title="Campaign type"
-          accent="taxonomy."
+          eyebrow="Настройки · словарь"
+          title="Тип кампании"
+          accent="таксономия."
           hue={275}
           icon={<IconSettings size={24} />}
-          ariaLabel="Naming conventions"
-          description="The list of campaign types available in the Campaign Creator. Edits affect everyone in this organization."
+          ariaLabel="Правила именования"
+          description="Список типов кампаний, доступных в конструкторе кампаний. Изменения затрагивают всех в этой организации."
         />
       )}
 
       <GlassPanel className="p-5">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70">Add a type</div>
+        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70">Добавить тип</div>
         <div className="mt-3 flex flex-wrap gap-2">
           <select
             value={newCategory}
@@ -113,14 +113,14 @@ export function TaxonomyContent({ hideHeader = false }: { hideHeader?: boolean }
             value={newLabel}
             onChange={(e) => setNewLabel(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter") add(); }}
-            placeholder="Partner Webinar"
+            placeholder="Партнёрский вебинар"
             className="min-w-[240px] flex-1 rounded-xl glass border border-glass-border px-3 py-2 text-sm outline-none focus:border-primary/60"
           />
           <button
             onClick={add}
             className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
-            <IconPlus size={14} /> Add
+            <IconPlus size={14} /> Добавить
           </button>
         </div>
       </GlassPanel>
@@ -135,7 +135,7 @@ export function TaxonomyContent({ hideHeader = false }: { hideHeader?: boolean }
               <GlassPanel key={cat} className="p-5">
                 <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70">{cat}</div>
                 <ul className="mt-3 space-y-2">
-                  {items.length === 0 && <li className="text-sm font-medium text-foreground/85">No types yet.</li>}
+                  {items.length === 0 && <li className="text-sm font-medium text-foreground/85">Пока нет типов.</li>}
                   {items.map((r) => (
                     <li
                       key={r.id}
@@ -150,9 +150,9 @@ export function TaxonomyContent({ hideHeader = false }: { hideHeader?: boolean }
                       <button
                         onClick={() => toggleArchive(r)}
                         className="text-xs text-muted-foreground hover:text-foreground"
-                        title={r.archived ? "Restore" : "Archive"}
+                        title={r.archived ? "Восстановить" : "Архивировать"}
                       >
-                        {r.archived ? "Restore" : <IconClose size={14} />}
+                        {r.archived ? "Восстановить" : <IconClose size={14} />}
                       </button>
                     </li>
                   ))}

@@ -310,7 +310,7 @@ export function UtmBuilderContent({ hideHeader = false }: { hideHeader?: boolean
                     mode === m ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  {m}
+                  {m === "single" ? "Одна ссылка" : "Пакетно"}
                 </button>
               ))}
             </div>
@@ -534,7 +534,7 @@ function UtmLint({ form }: { form: { utm_source: string; utm_medium: string; utm
   if (!warnings.length) return null;
   return (
     <GlassPanel className="p-4">
-      <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground/70">Lint</div>
+      <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground/70">Проверка</div>
       <ul className="mt-2 space-y-1 text-sm">
         {warnings.map((w, i) => (
           <li key={i} className="flex items-start gap-2">
