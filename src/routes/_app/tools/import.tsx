@@ -143,8 +143,8 @@ export function ListImportContent({ hideHeader = false }: { hideHeader?: boolean
 
   const submit = async () => {
     if (!orgId || !user || valid.length === 0) return;
-    if (!sourceLabel.trim()) return toast.error("Give it a source label");
-    if (!map.email) return toast.error("Map the email column");
+    if (!sourceLabel.trim()) return toast.error("Укажите метку источника");
+    if (!map.email) return toast.error("Сопоставьте столбец с email");
     setBusy(true);
     const { data: list, error: listErr } = await supabase
       .from("imported_lists")
@@ -159,7 +159,7 @@ export function ListImportContent({ hideHeader = false }: { hideHeader?: boolean
       .single();
     if (listErr || !list) {
       setBusy(false);
-      return toast.error(listErr?.message ?? "Could not create list");
+      return toast.error(listErr?.message ?? "Не удалось создать список");
     }
     const payload = valid.map((r) => ({
       list_id: list.id,
@@ -180,7 +180,7 @@ export function ListImportContent({ hideHeader = false }: { hideHeader?: boolean
       }
     }
     setBusy(false);
-    toast.success(`Imported ${valid.length} contacts`);
+    toast.success(`Импортировано контактов: ${valid.length}`);
     setRows([]);
     setHeaders([]);
     setFilename("");
@@ -202,10 +202,10 @@ export function ListImportContent({ hideHeader = false }: { hideHeader?: boolean
     <div className="space-y-8">
       {!hideHeader && (
         <div className="flex items-center gap-4">
-          <PageHexBadge hue={150} icon={<IconImport size={26} />} aria-label="List import" />
+          <PageHexBadge hue={150} icon={<IconImport size={26} />} aria-label="Импорт списка" />
           <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground/70">List</div>
-            <h1 className="font-display text-3xl">List import</h1>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground/70">Список</div>
+            <h1 className="font-display text-3xl">Импорт списка</h1>
           </div>
         </div>
       )}
@@ -213,9 +213,9 @@ export function ListImportContent({ hideHeader = false }: { hideHeader?: boolean
       <div className="glass flex items-start gap-3 rounded-xl border border-glass-border px-4 py-3 text-sm text-muted-foreground">
         <span className="mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary text-[10px] font-semibold">i</span>
         <span>
-          CSV / XLSX upload works out of the box.{" "}
-          <Link to="/connectors" className="text-primary hover:underline">Connect a CRM</Link>{" "}
-          to import lists directly from it.
+          Загрузка CSV / XLSX работает сразу.{" "}
+          <Link to="/connectors" className="text-primary hover:underline">Подключите CRM</Link>{" "}
+          чтобы импортировать списки напрямую из неё.
         </span>
       </div>
 
@@ -227,25 +227,25 @@ export function ListImportContent({ hideHeader = false }: { hideHeader?: boolean
       >
         <input {...getInputProps()} />
         <div className="font-display text-2xl">
-          {filename || (isDragActive ? "Drop it." : "Drop a CSV or XLSX, or click to browse")}
+          {filename || (isDragActive ? "Отпустите файл." : "Перетащите CSV или XLSX, или нажмите, чтобы выбрать файл")}
         </div>
         <div className="mt-2 text-sm text-muted-foreground">
-          Post-event lists, partner exports, anything with emails.
+          Списки после мероприятий, выгрузки от партнёров — всё, что содержит email-адреса.
         </div>
       </div>
 
       {rows.length > 0 && (
         <>
           <div className="space-y-2">
-            <div className="text-sm font-medium text-foreground/85">Source attribution label</div>
+            <div className="text-sm font-medium text-foreground/85">Метка источника</div>
             <div className="flex items-center gap-2 rounded-2xl glass border border-glass-border px-3 py-2 focus-within:border-primary/60 transition-colors">
               <input
                 value={sourceLabel}
                 onChange={(e) => setSourceLabel(e.target.value)}
-                placeholder="SaaStr 2025 booth scans"
+                placeholder="Сканы со стенда SaaStr 2025"
                 className="flex-1 bg-transparent px-2 py-1.5 text-foreground outline-none placeholder:text-muted-foreground/70"
               />
-              <VoiceMicButton value={sourceLabel} onChange={setSourceLabel} label="Dictate source label" />
+              <VoiceMicButton value={sourceLabel} onChange={setSourceLabel} label="Продиктовать метку источника" />
             </div>
           </div>
 
@@ -258,7 +258,7 @@ export function ListImportContent({ hideHeader = false }: { hideHeader?: boolean
                   onChange={(e) => setMap({ ...map, [k]: e.target.value })}
                   className="field-glass mt-2 w-full rounded-xl px-3 py-2 font-mono text-sm"
                 >
-                  <option value="" className="bg-card">— skip —</option>
+                  <option value="" className="bg-card">— пропустить —</option>
                   {headers.map((h) => (
                     <option key={h} value={h} className="bg-card">{h}</option>
                   ))}
@@ -270,15 +270,15 @@ export function ListImportContent({ hideHeader = false }: { hideHeader?: boolean
           {/* Stats */}
           <div className="grid gap-4 md:grid-cols-3">
             <GlassPanel className="p-5">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground/70">Total</div>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground/70">Всего</div>
               <div className="mt-1 font-display text-3xl">{rows.length.toLocaleString()}</div>
             </GlassPanel>
             <GlassPanel className="p-5">
-              <div className="text-xs uppercase tracking-[0.2em] text-emerald-400">Valid</div>
+              <div className="text-xs uppercase tracking-[0.2em] text-emerald-400">Корректные</div>
               <div className="mt-1 font-display text-3xl text-emerald-400">{valid.length.toLocaleString()}</div>
             </GlassPanel>
             <GlassPanel className="p-5">
-              <div className="text-xs uppercase tracking-[0.2em] text-amber-400">Needs fixing</div>
+              <div className="text-xs uppercase tracking-[0.2em] text-amber-400">Требуют исправления</div>
               <div className="mt-1 font-display text-3xl text-amber-400">{failed.length.toLocaleString()}</div>
             </GlassPanel>
           </div>
@@ -288,9 +288,9 @@ export function ListImportContent({ hideHeader = false }: { hideHeader?: boolean
             <GlassPanel className="p-5">
               <div className="mb-3 flex items-center justify-between">
                 <div>
-                  <div className="font-display text-xl">Fix failed rows</div>
+                  <div className="font-display text-xl">Исправить ошибочные строки</div>
                   <div className="text-sm text-muted-foreground">
-                    Bad / missing emails. Edit in place or drop the row.
+                    Некорректные / отсутствующие email-адреса. Отредактируйте на месте или удалите строку.
                   </div>
                 </div>
               </div>
@@ -299,8 +299,8 @@ export function ListImportContent({ hideHeader = false }: { hideHeader?: boolean
                   <thead className="sticky top-0 bg-glass/80 backdrop-blur">
                     <tr className="text-left text-xs uppercase tracking-wider text-muted-foreground">
                       <th className="px-3 py-2">Email</th>
-                      <th className="px-3 py-2">Other fields</th>
-                      <th className="px-3 py-2 text-right">Action</th>
+                      <th className="px-3 py-2">Прочие поля</th>
+                      <th className="px-3 py-2 text-right">Действие</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -325,7 +325,7 @@ export function ListImportContent({ hideHeader = false }: { hideHeader?: boolean
                             onClick={() => removeFailed(i)}
                             className="inline-flex items-center gap-1 rounded-full border border-glass-border px-2 py-1 text-xs hover:bg-glass-strong"
                           >
-                            <IconClose size={12} /> Drop
+                            <IconClose size={12} /> Удалить
                           </button>
                         </td>
                       </tr>
@@ -340,11 +340,11 @@ export function ListImportContent({ hideHeader = false }: { hideHeader?: boolean
           {valid.length > 0 && (
             <GlassPanel className="p-5">
               <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-                <div className="font-display text-xl">Cleaned rows</div>
+                <div className="font-display text-xl">Очищенные строки</div>
                 <input
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search…"
+                  placeholder="Поиск…"
                   className="w-56 rounded-full border border-glass-border bg-glass/30 px-4 py-1.5 text-sm outline-none focus:border-primary/60"
                 />
               </div>
@@ -377,7 +377,7 @@ export function ListImportContent({ hideHeader = false }: { hideHeader?: boolean
               </div>
               {filteredValid.length > 100 && (
                 <div className="mt-2 text-xs text-muted-foreground">
-                  Showing first 100 of {filteredValid.length.toLocaleString()}
+                  Показаны первые 100 из {filteredValid.length.toLocaleString()}
                 </div>
               )}
             </GlassPanel>
@@ -386,7 +386,7 @@ export function ListImportContent({ hideHeader = false }: { hideHeader?: boolean
           <GlassPanel className="p-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <div className="font-display text-xl">{valid.length.toLocaleString()} ready to import</div>
+                <div className="font-display text-xl">{valid.length.toLocaleString()} готово к импорту</div>
                 <div className="text-sm text-muted-foreground">{filename}</div>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -395,14 +395,14 @@ export function ListImportContent({ hideHeader = false }: { hideHeader?: boolean
                   disabled={valid.length === 0 && failed.length === 0}
                   className="inline-flex items-center gap-2 rounded-full border border-glass-border bg-glass px-5 py-2.5 text-sm hover:bg-glass-strong disabled:opacity-50"
                 >
-                  Export XLSX
+                  Экспорт в XLSX
                 </button>
                 <button
                   onClick={submit}
                   disabled={busy || valid.length === 0}
                   className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
                 >
-                  <IconCheck size={14} /> {busy ? "Importing…" : "Import contacts"}
+                  <IconCheck size={14} /> {busy ? "Импортируем…" : "Импортировать контакты"}
                 </button>
               </div>
             </div>

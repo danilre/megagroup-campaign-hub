@@ -28,30 +28,30 @@ export const Route = createFileRoute("/_app/tools/event-intake")({
   component: () => <HackathonRequestContent />,
   head: () => ({
     meta: [
-      { title: `Event request — ${BRAND.name}` },
+      { title: `Заявка на мероприятие — ${BRAND.name}` },
       {
         name: "description",
         content:
-          "Submit an event sponsorship or hosting request. Marketing will follow up.",
+          "Отправьте заявку на спонсорство или проведение мероприятия. Отдел маркетинга свяжется с вами.",
       },
     ],
   }),
 });
 
 const EVENT_TYPES = [
-  { value: "conference", label: "Conference" },
-  { value: "hackathon", label: "Hackathon" },
-  { value: "meetup", label: "Meetup" },
-  { value: "webinar", label: "Webinar" },
-  { value: "other", label: "Other" },
+  { value: "conference", label: "Конференция" },
+  { value: "hackathon", label: "Хакатон" },
+  { value: "meetup", label: "Митап" },
+  { value: "webinar", label: "Вебинар" },
+  { value: "other", label: "Другое" },
 ] as const;
 
 const schema = z.object({
-  requesterEmail: z.string().trim().email("Valid email required").max(255),
+  requesterEmail: z.string().trim().email("Введите корректный email").max(255),
   company: z.string().trim().min(1).max(120),
   eventType: z.enum(["conference", "hackathon", "meetup", "webinar", "other"]).optional(),
   eventName: z.string().trim().min(1).max(160),
-  eventDate: z.string().trim().min(1, "Date required"),
+  eventDate: z.string().trim().min(1, "Укажите дату"),
   notes: z.string().trim().max(2000).optional().or(z.literal("")),
 });
 
@@ -83,13 +83,13 @@ export function HackathonRequestContent({ hideHeader = false }: { hideHeader?: b
       return;
     }
     if (!orgId) {
-      toast.error("Workspace not ready yet");
+      toast.error("Рабочее пространство ещё не готово");
       return;
     }
     setSubmitting(true);
     const typeLabel = parsed.data.eventType
-      ? EVENT_TYPES.find((t) => t.value === parsed.data.eventType)?.label ?? "Event"
-      : "Event";
+      ? EVENT_TYPES.find((t) => t.value === parsed.data.eventType)?.label ?? "Мероприятие"
+      : "Мероприятие";
     const brief = `${typeLabel}: ${parsed.data.eventName}\nCompany: ${parsed.data.company}\nDate: ${parsed.data.eventDate}\n\n${parsed.data.notes ?? ""}`;
     const { error } = await supabase.from("campaign_requests").insert({
       org_id: orgId,
@@ -100,7 +100,7 @@ export function HackathonRequestContent({ hideHeader = false }: { hideHeader?: b
     });
     setSubmitting(false);
     if (error) {
-      toast.error("Couldn't submit. Try again.");
+      toast.error("Не удалось отправить. Попробуйте ещё раз.");
       return;
     }
     setDone(true);
@@ -115,26 +115,26 @@ export function HackathonRequestContent({ hideHeader = false }: { hideHeader?: b
             to="/tools"
             className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
           >
-            <IconChevronLeft size={14} /> Back to tools
+            <IconChevronLeft size={14} /> Назад к инструментам
           </Link>
         )}
         <GlassPanel className="p-10 text-center">
-          <div className="font-display text-3xl">Request received</div>
+          <div className="font-display text-3xl">Заявка получена</div>
           <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-            We've added it to the requests queue. Marketing will follow up shortly.
+            Мы добавили её в очередь заявок. Отдел маркетинга скоро свяжется с вами.
           </p>
           <div className="mt-6 flex justify-center gap-2">
             <Link
               to="/requests"
               className="rounded-full border border-glass-border px-4 py-2 text-sm hover:bg-glass"
             >
-              View requests
+              Смотреть заявки
             </Link>
             <Link
               to="/tools"
               className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm text-primary-foreground hover:opacity-90"
             >
-              Back to tools <IconArrowRight size={14} />
+              Назад к инструментам <IconArrowRight size={14} />
             </Link>
           </div>
         </GlassPanel>
@@ -151,38 +151,38 @@ export function HackathonRequestContent({ hideHeader = false }: { hideHeader?: b
             to="/tools"
             className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
           >
-            <IconChevronLeft size={14} /> Back to tools
+            <IconChevronLeft size={14} /> Назад к инструментам
           </Link>
 
           <header className="flex items-start gap-4">
-            <PageHexBadge hue={340} icon={<IconTrophy size={26} />} aria-label="Event request" />
+            <PageHexBadge hue={340} icon={<IconTrophy size={26} />} aria-label="Заявка на мероприятие" />
             <div>
-              <h1 className="font-display text-3xl md:text-4xl">Event request</h1>
+              <h1 className="font-display text-3xl md:text-4xl">Заявка на мероприятие</h1>
               <p className="mt-2 max-w-2xl text-muted-foreground">
-                Submit an event sponsorship or hosting request — conference, hackathon,
-                meetup, webinar, or something else. The marketing team will triage it from
-                your Requests queue.
+                Отправьте заявку на спонсорство или проведение мероприятия — конференции, хакатона,
+                митапа, вебинара или чего-то ещё. Команда маркетинга рассмотрит её из
+                вашей очереди заявок.
               </p>
             </div>
           </header>
         </>
       )}
       <p className="-mt-3 text-sm text-muted-foreground">
-        Submitted requests land in your{" "}
-        <Link to="/requests" className="text-primary hover:underline">Requests queue</Link>{" "}
-        for triage, and appear on the{" "}
-        <Link to="/calendar" className="text-primary hover:underline">Calendar</Link>{" "}
-        on their due date.
+        Отправленные заявки попадают в вашу{" "}
+        <Link to="/requests" className="text-primary hover:underline">очередь заявок</Link>{" "}
+        для обработки и отображаются в{" "}
+        <Link to="/calendar" className="text-primary hover:underline">календаре</Link>{" "}
+        на дату исполнения.
       </p>
 
       <GlassPanel className="p-6">
         <form onSubmit={submit} className="space-y-7">
           <fieldset className="space-y-4">
             <legend className="mb-2 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              Your contact
+              Ваши контакты
             </legend>
             <div className="space-y-1.5">
-              <Label className="text-sm font-medium text-foreground/85">Your email *</Label>
+              <Label className="text-sm font-medium text-foreground/85">Ваш email *</Label>
               <Input
                 type="email"
                 value={form.requesterEmail}
@@ -191,7 +191,7 @@ export function HackathonRequestContent({ hideHeader = false }: { hideHeader?: b
               />
             </div>
             <div className="space-y-1.5">
-              <Label className="text-sm font-medium text-foreground/85">Company / organization *</Label>
+              <Label className="text-sm font-medium text-foreground/85">Компания / организация *</Label>
               <Input
                 value={form.company}
                 onChange={set("company")}
@@ -202,10 +202,10 @@ export function HackathonRequestContent({ hideHeader = false }: { hideHeader?: b
 
           <fieldset className="space-y-4">
             <legend className="mb-2 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              Event details
+              Детали мероприятия
             </legend>
             <div className="space-y-1.5">
-              <Label className="text-sm font-medium text-foreground/85">Event type</Label>
+              <Label className="text-sm font-medium text-foreground/85">Тип мероприятия</Label>
               <Select
                 value={form.eventType || undefined}
                 onValueChange={(v) =>
@@ -213,7 +213,7 @@ export function HackathonRequestContent({ hideHeader = false }: { hideHeader?: b
                 }
               >
                 <SelectTrigger className="glass border-glass-border">
-                  <SelectValue placeholder="Select an event type" />
+                  <SelectValue placeholder="Выберите тип мероприятия" />
                 </SelectTrigger>
                 <SelectContent>
                   {EVENT_TYPES.map((t) => (
@@ -226,7 +226,7 @@ export function HackathonRequestContent({ hideHeader = false }: { hideHeader?: b
             </div>
             <div className="grid gap-4 sm:grid-cols-[1fr_180px]">
               <div className="space-y-1.5">
-                <Label className="text-sm font-medium text-foreground/85">Event name *</Label>
+                <Label className="text-sm font-medium text-foreground/85">Название мероприятия *</Label>
                 <Input
                   value={form.eventName}
                   onChange={set("eventName")}
@@ -234,7 +234,7 @@ export function HackathonRequestContent({ hideHeader = false }: { hideHeader?: b
                 />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-sm font-medium text-foreground/85">Event date *</Label>
+                <Label className="text-sm font-medium text-foreground/85">Дата мероприятия *</Label>
                 <Input
                   type="date"
                   value={form.eventDate}
@@ -244,10 +244,10 @@ export function HackathonRequestContent({ hideHeader = false }: { hideHeader?: b
               </div>
             </div>
             <div className="space-y-1.5">
-              <Label className="text-sm font-medium text-foreground/85">Notes</Label>
+              <Label className="text-sm font-medium text-foreground/85">Заметки</Label>
               <Textarea
                 rows={4}
-                placeholder="Format, audience size, what you're asking for, etc."
+                placeholder="Формат, размер аудитории, что вы запрашиваете и т.д."
                 value={form.notes}
                 onChange={set("notes")}
                 className="glass border-glass-border"
@@ -260,7 +260,7 @@ export function HackathonRequestContent({ hideHeader = false }: { hideHeader?: b
             disabled={submitting}
             className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
           >
-            {submitting ? "Submitting…" : "Submit request"}
+            {submitting ? "Отправка…" : "Отправить заявку"}
             <IconArrowRight size={14} />
           </button>
         </form>

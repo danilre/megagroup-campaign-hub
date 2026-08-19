@@ -23,10 +23,10 @@ export const Route = createFileRoute("/_app/tools/list-cleaner")({
 });
 
 const REASON_LABELS: Record<FailureReason, string> = {
-  missing_email: "Missing email",
-  invalid_email_format: "Bad email format",
-  duplicate_in_file: "Duplicate in this file",
-  missing_required: "Email column not mapped",
+  missing_email: "Отсутствует email",
+  invalid_email_format: "Неверный формат email",
+  duplicate_in_file: "Дубликат в этом файле",
+  missing_required: "Столбец email не сопоставлен",
 };
 
 export function ListCleanerContent({ hideHeader = false }: { hideHeader?: boolean } = {}) {
@@ -46,7 +46,7 @@ export function ListCleanerContent({ hideHeader = false }: { hideHeader?: boolea
       setFilename(f.name);
       setMap(guessMap(h));
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Could not parse file");
+      toast.error(e instanceof Error ? e.message : "Не удалось разобрать файл");
     }
   }, []);
 
@@ -91,7 +91,7 @@ export function ListCleanerContent({ hideHeader = false }: { hideHeader?: boolea
     a.href = URL.createObjectURL(blob);
     a.download = `${filename.replace(/\.[^.]+$/, "") || "cleaned"}.csv`;
     a.click();
-    toast.success(`Exported ${valid.length} contacts`);
+    toast.success(`Экспортировано контактов: ${valid.length}`);
   };
 
   const reasonCounts: Record<FailureReason, number> = {
@@ -106,14 +106,14 @@ export function ListCleanerContent({ hideHeader = false }: { hideHeader?: boolea
     <div className="space-y-8">
       {!hideHeader && <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-4">
-          <PageHexBadge hue={150} icon={<IconSpark size={26} />} aria-label="List cleaner" />
+          <PageHexBadge hue={150} icon={<IconSpark size={26} />} aria-label="Очистка списка" />
           <div>
-            <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">List</div>
-            <h1 className="font-display text-3xl">List cleaner</h1>
+            <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Список</div>
+            <h1 className="font-display text-3xl">Очистка списка</h1>
           </div>
         </div>
         <Button variant="outline" size="sm" onClick={downloadTemplate}>
-          Download template
+          Скачать шаблон
         </Button>
       </div>}
 
@@ -125,10 +125,10 @@ export function ListCleanerContent({ hideHeader = false }: { hideHeader?: boolea
       >
         <input {...getInputProps()} />
         <div className="font-display text-2xl">
-          {filename || (isDragActive ? "Drop it." : "Drop a CSV or XLSX, or click to browse")}
+          {filename || (isDragActive ? "Отпустите файл." : "Перетащите CSV или XLSX, или нажмите, чтобы выбрать файл")}
         </div>
         <div className="mt-2 text-sm text-muted-foreground">
-          Standalone validation — nothing is written to your CRM.
+          Автономная проверка — в вашу CRM ничего не записывается.
         </div>
       </div>
 
@@ -159,18 +159,18 @@ export function ListCleanerContent({ hideHeader = false }: { hideHeader?: boolea
           </div>
 
           <div className="grid gap-4 md:grid-cols-3">
-            <Stat label="Total" value={rows.length} />
-            <Stat label="Valid" value={valid.length} tone="success" />
-            <Stat label="Needs fixing" value={failed.length} tone="warn" />
+            <Stat label="Всего" value={rows.length} />
+            <Stat label="Корректные" value={valid.length} tone="success" />
+            <Stat label="Требуют исправления" value={failed.length} tone="warn" />
           </div>
 
           {failed.length > 0 && (
             <GlassPanel className="p-5">
               <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                <div className="font-display text-xl">Failed rows</div>
+                <div className="font-display text-xl">Ошибочные строки</div>
                 <div className="flex flex-wrap gap-1.5">
                   <ReasonChip
-                    label="All"
+                    label="Все"
                     count={failed.length}
                     active={reasonFilter === "all"}
                     onClick={() => setReasonFilter("all")}
@@ -193,9 +193,9 @@ export function ListCleanerContent({ hideHeader = false }: { hideHeader?: boolea
                   <thead className="sticky top-0 bg-glass/80 backdrop-blur">
                     <tr className="text-left text-xs uppercase tracking-wider text-muted-foreground">
                       <th className="px-3 py-2">Email</th>
-                      <th className="px-3 py-2">Reasons</th>
-                      <th className="px-3 py-2">Other</th>
-                      <th className="px-3 py-2 text-right">Action</th>
+                      <th className="px-3 py-2">Причины</th>
+                      <th className="px-3 py-2">Прочее</th>
+                      <th className="px-3 py-2 text-right">Действие</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -232,7 +232,7 @@ export function ListCleanerContent({ hideHeader = false }: { hideHeader?: boolea
                             onClick={() => dropRow(f.index)}
                             className="inline-flex items-center gap-1 rounded-full border border-glass-border px-2 py-1 text-xs hover:bg-glass-strong"
                           >
-                            <IconClose size={12} /> Drop
+                            <IconClose size={12} /> Удалить
                           </button>
                         </td>
                       </tr>
@@ -247,14 +247,14 @@ export function ListCleanerContent({ hideHeader = false }: { hideHeader?: boolea
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <div className="font-display text-xl">
-                  {valid.length.toLocaleString()} ready to export
+                  {valid.length.toLocaleString()} готово к экспорту
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  Will produce a CSV with headers: {CANONICAL_HEADERS.join(", ")}.
+                  Будет создан CSV со следующими заголовками: {CANONICAL_HEADERS.join(", ")}.
                 </div>
               </div>
               <Button onClick={exportCsv} disabled={valid.length === 0} className="gap-2">
-                <IconCheck size={14} /> Export cleaned CSV
+                <IconCheck size={14} /> Экспортировать очищенный CSV
               </Button>
             </div>
           </GlassPanel>
