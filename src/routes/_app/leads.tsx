@@ -51,6 +51,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
+import {
+  PushToMailchimpDialog,
+  type MailchimpMember,
+} from "@/components/integrations/PushToMailchimpDialog";
 
 
 type SearchParams = {
@@ -268,6 +272,20 @@ function LeadsPage() {
     }
   };
 
+  const mailchimpMembers = useMemo<MailchimpMember[]>(() => {
+    return (rows ?? [])
+      .filter((r) => (r.email ?? "").includes("@"))
+      .map((r) => {
+        const [first, ...rest] = r.full_name.trim().split(/\s+/);
+        return {
+          email: (r.email ?? "").trim(),
+          firstName: first || undefined,
+          lastName: rest.join(" ") || undefined,
+          company: r.company ?? undefined,
+        };
+      });
+  }, [rows]);
+
   const hasFilter =
     stage !== "__all__" ||
     source !== "__all__" ||
@@ -300,6 +318,13 @@ function LeadsPage() {
           >
             ← Назад к воронке
           </Link>
+          <button
+            onClick={() => setPushOpen(true)}
+            disabled={mailchimpMembers.length === 0}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-glass-border bg-glass/30 px-2.5 py-1.5 text-xs text-foreground/80 hover:text-foreground disabled:opacity-40"
+          >
+            Отправить в Mailchimp
+          </button>
           <button
             onClick={() => setCreating(true)}
             className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90"
