@@ -70,6 +70,18 @@ export function ListCleanerContent({ hideHeader = false }: { hideHeader?: boolea
     return validateRows(rows, map);
   }, [rows, map]);
 
+  const mailchimpMembers = useMemo<MailchimpMember[]>(() => {
+    if (!map) return [];
+    return valid
+      .map((r) => ({
+        email: (r[map.email] ?? "").trim(),
+        firstName: (r[map.first_name] ?? "").trim() || undefined,
+        lastName: (r[map.last_name] ?? "").trim() || undefined,
+        company: (r[map.company] ?? "").trim() || undefined,
+      }))
+      .filter((m) => m.email.length > 0);
+  }, [valid, map]);
+
   const visibleFailed = useMemo(() => {
     if (reasonFilter === "all") return failed;
     return failed.filter((f) => f.reasons.includes(reasonFilter));
