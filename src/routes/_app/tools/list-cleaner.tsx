@@ -269,6 +269,8 @@ export function ListCleanerContent({ hideHeader = false }: { hideHeader?: boolea
           </GlassPanel>
         </>
       )}
+
+      <PushToMailchimpDialog open={pushOpen} onOpenChange={setPushOpen} members={mailchimpMembers} />
     </div>
   );
 }
