@@ -146,6 +146,14 @@ function IntegrationsPage() {
         </div>
       </div>
 
+      {/* ----- Подключённые интеграции ----- */}
+      <div className="space-y-3">
+        <div className="text-[10px] uppercase tracking-wider text-muted-foreground/70">Настроенные интеграции</div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <MailchimpCard />
+        </div>
+      </div>
+
       {/* ----- Primary: setup-method segmented tabs ----- */}
       <div className="space-y-3">
         <div className="overflow-x-auto">
