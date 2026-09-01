@@ -39,6 +39,7 @@ export function ListCleanerContent({ hideHeader = false }: { hideHeader?: boolea
   const [filename, setFilename] = useState("");
   const [map, setMap] = useState<ColumnMap | null>(null);
   const [reasonFilter, setReasonFilter] = useState<FailureReason | "all">("all");
+  const [pushOpen, setPushOpen] = useState(false);
 
   const onDrop = useCallback(async (files: File[]) => {
     const f = files[0];
