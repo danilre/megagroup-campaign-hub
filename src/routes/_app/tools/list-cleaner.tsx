@@ -253,9 +253,18 @@ export function ListCleanerContent({ hideHeader = false }: { hideHeader?: boolea
                   Будет создан CSV со следующими заголовками: {CANONICAL_HEADERS.join(", ")}.
                 </div>
               </div>
-              <Button onClick={exportCsv} disabled={valid.length === 0} className="gap-2">
-                <IconCheck size={14} /> Экспортировать очищенный CSV
-              </Button>
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  variant="outline"
+                  onClick={() => setPushOpen(true)}
+                  disabled={mailchimpMembers.length === 0}
+                >
+                  Отправить в Mailchimp
+                </Button>
+                <Button onClick={exportCsv} disabled={valid.length === 0} className="gap-2">
+                  <IconCheck size={14} /> Экспортировать очищенный CSV
+                </Button>
+              </div>
             </div>
           </GlassPanel>
         </>
