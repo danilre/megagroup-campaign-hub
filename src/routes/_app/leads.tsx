@@ -118,6 +118,7 @@ function LeadsPage() {
   const [selected, setSelected] = useState<Contact | null>(null);
   const [editing, setEditing] = useState<Contact | null>(null);
   const [creating, setCreating] = useState(false);
+  const [pushOpen, setPushOpen] = useState(false);
   const [reloadTick, setReloadTick] = useState(0);
   const [pendingDelete, setPendingDelete] = useState<Contact | null>(null);
   const reload = () => setReloadTick((t) => t + 1);
@@ -344,6 +345,8 @@ function LeadsPage() {
 
 
 
+
+      <PushToMailchimpDialog open={pushOpen} onOpenChange={setPushOpen} members={mailchimpMembers} />
 
       <StageTabBar
         active={stage}
