@@ -21,6 +21,7 @@ import {
 import { INTEGRATION_RECIPES } from "@/data/integration-recipes";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { BRAND } from "@/lib/brand";
+import { MailchimpCard } from "@/components/integrations/MailchimpCard";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/integrations")({
@@ -142,6 +143,14 @@ function IntegrationsPage() {
         <div className="rounded-2xl border border-glass-border bg-glass/40 px-4 py-3 text-right">
           <div className="text-[11px] uppercase tracking-wider text-muted-foreground">Available</div>
           <div className="font-display text-2xl tabular-nums">{INTEGRATIONS.length}</div>
+        </div>
+      </div>
+
+      {/* ----- Подключённые интеграции ----- */}
+      <div className="space-y-3">
+        <div className="text-[10px] uppercase tracking-wider text-muted-foreground/70">Настроенные интеграции</div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <MailchimpCard />
         </div>
       </div>
 

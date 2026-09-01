@@ -16,6 +16,10 @@ import {
   type FailureReason,
   CANONICAL_HEADERS,
 } from "@/lib/parse-list-file";
+import {
+  PushToMailchimpDialog,
+  type MailchimpMember,
+} from "@/components/integrations/PushToMailchimpDialog";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/tools/list-cleaner")({
@@ -35,6 +39,7 @@ export function ListCleanerContent({ hideHeader = false }: { hideHeader?: boolea
   const [filename, setFilename] = useState("");
   const [map, setMap] = useState<ColumnMap | null>(null);
   const [reasonFilter, setReasonFilter] = useState<FailureReason | "all">("all");
+  const [pushOpen, setPushOpen] = useState(false);
 
   const onDrop = useCallback(async (files: File[]) => {
     const f = files[0];
@@ -64,6 +69,18 @@ export function ListCleanerContent({ hideHeader = false }: { hideHeader?: boolea
     if (!map) return { valid: [] as ParsedRow[], failed: [] };
     return validateRows(rows, map);
   }, [rows, map]);
+
+  const mailchimpMembers = useMemo<MailchimpMember[]>(() => {
+    if (!map) return [];
+    return valid
+      .map((r) => ({
+        email: (r[map.email] ?? "").trim(),
+        firstName: (r[map.first_name] ?? "").trim() || undefined,
+        lastName: (r[map.last_name] ?? "").trim() || undefined,
+        company: (r[map.company] ?? "").trim() || undefined,
+      }))
+      .filter((m) => m.email.length > 0);
+  }, [valid, map]);
 
   const visibleFailed = useMemo(() => {
     if (reasonFilter === "all") return failed;
@@ -253,13 +270,24 @@ export function ListCleanerContent({ hideHeader = false }: { hideHeader?: boolea
                   Будет создан CSV со следующими заголовками: {CANONICAL_HEADERS.join(", ")}.
                 </div>
               </div>
-              <Button onClick={exportCsv} disabled={valid.length === 0} className="gap-2">
-                <IconCheck size={14} /> Экспортировать очищенный CSV
-              </Button>
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  variant="outline"
+                  onClick={() => setPushOpen(true)}
+                  disabled={mailchimpMembers.length === 0}
+                >
+                  Отправить в Mailchimp
+                </Button>
+                <Button onClick={exportCsv} disabled={valid.length === 0} className="gap-2">
+                  <IconCheck size={14} /> Экспортировать очищенный CSV
+                </Button>
+              </div>
             </div>
           </GlassPanel>
         </>
       )}
+
+      <PushToMailchimpDialog open={pushOpen} onOpenChange={setPushOpen} members={mailchimpMembers} />
     </div>
   );
 }
