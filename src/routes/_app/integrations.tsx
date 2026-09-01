@@ -21,6 +21,7 @@ import {
 import { INTEGRATION_RECIPES } from "@/data/integration-recipes";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { BRAND } from "@/lib/brand";
+import { MailchimpCard } from "@/components/integrations/MailchimpCard";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/integrations")({
