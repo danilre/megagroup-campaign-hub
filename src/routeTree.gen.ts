@@ -44,6 +44,7 @@ import { Route as AppToolsEventsRouteImport } from './routes/_app/tools/events'
 import { Route as AppToolsFunnelTargetsRouteImport } from './routes/_app/tools/funnel-targets'
 import { Route as AppToolsImportRouteImport } from './routes/_app/tools/import'
 import { Route as AppToolsListCleanerRouteImport } from './routes/_app/tools/list-cleaner'
+import { Route as AppToolsQrRouteImport } from './routes/_app/tools/qr'
 import { Route as AppToolsTaxonomyRouteImport } from './routes/_app/tools/taxonomy'
 import { Route as AppToolsUtmRouteImport } from './routes/_app/tools/utm'
 import { Route as AppWorkspacesIndexRouteImport } from './routes/_app/workspaces/index'
@@ -234,6 +235,11 @@ const AppToolsListCleanerRoute = AppToolsListCleanerRouteImport.update({
   path: '/tools/list-cleaner',
   getParentRoute: () => AppRoute,
 } as any)
+const AppToolsQrRoute = AppToolsQrRouteImport.update({
+  id: '/tools/qr',
+  path: '/tools/qr',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppToolsTaxonomyRoute = AppToolsTaxonomyRouteImport.update({
   id: '/tools/taxonomy',
   path: '/tools/taxonomy',
@@ -343,6 +349,7 @@ export interface FileRoutesByFullPath {
   '/tools/funnel-targets': typeof AppToolsFunnelTargetsRoute
   '/tools/import': typeof AppToolsImportRoute
   '/tools/list-cleaner': typeof AppToolsListCleanerRoute
+  '/tools/qr': typeof AppToolsQrRoute
   '/tools/taxonomy': typeof AppToolsTaxonomyRoute
   '/tools/utm': typeof AppToolsUtmRoute
   '/workspaces/$id': typeof AppWorkspacesIdRoute
@@ -393,6 +400,7 @@ export interface FileRoutesByTo {
   '/tools/funnel-targets': typeof AppToolsFunnelTargetsRoute
   '/tools/import': typeof AppToolsImportRoute
   '/tools/list-cleaner': typeof AppToolsListCleanerRoute
+  '/tools/qr': typeof AppToolsQrRoute
   '/tools/taxonomy': typeof AppToolsTaxonomyRoute
   '/tools/utm': typeof AppToolsUtmRoute
   '/workspaces/$id': typeof AppWorkspacesIdRoute
@@ -445,6 +453,7 @@ export interface FileRoutesById {
   '/_app/tools/funnel-targets': typeof AppToolsFunnelTargetsRoute
   '/_app/tools/import': typeof AppToolsImportRoute
   '/_app/tools/list-cleaner': typeof AppToolsListCleanerRoute
+  '/_app/tools/qr': typeof AppToolsQrRoute
   '/_app/tools/taxonomy': typeof AppToolsTaxonomyRoute
   '/_app/tools/utm': typeof AppToolsUtmRoute
   '/_app/workspaces/$id': typeof AppWorkspacesIdRoute
@@ -497,6 +506,7 @@ export interface FileRouteTypes {
     | '/tools/funnel-targets'
     | '/tools/import'
     | '/tools/list-cleaner'
+    | '/tools/qr'
     | '/tools/taxonomy'
     | '/tools/utm'
     | '/workspaces/$id'
@@ -547,6 +557,7 @@ export interface FileRouteTypes {
     | '/tools/funnel-targets'
     | '/tools/import'
     | '/tools/list-cleaner'
+    | '/tools/qr'
     | '/tools/taxonomy'
     | '/tools/utm'
     | '/workspaces/$id'
@@ -598,6 +609,7 @@ export interface FileRouteTypes {
     | '/_app/tools/funnel-targets'
     | '/_app/tools/import'
     | '/_app/tools/list-cleaner'
+    | '/_app/tools/qr'
     | '/_app/tools/taxonomy'
     | '/_app/tools/utm'
     | '/_app/workspaces/$id'
@@ -888,6 +900,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsListCleanerRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/tools/qr': {
+      id: '/_app/tools/qr'
+      path: '/tools/qr'
+      fullPath: '/tools/qr'
+      preLoaderRoute: typeof AppToolsQrRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/tools/taxonomy': {
       id: '/_app/tools/taxonomy'
       path: '/tools/taxonomy'
@@ -1011,6 +1030,7 @@ interface AppRouteChildren {
   AppToolsFunnelTargetsRoute: typeof AppToolsFunnelTargetsRoute
   AppToolsImportRoute: typeof AppToolsImportRoute
   AppToolsListCleanerRoute: typeof AppToolsListCleanerRoute
+  AppToolsQrRoute: typeof AppToolsQrRoute
   AppToolsTaxonomyRoute: typeof AppToolsTaxonomyRoute
   AppToolsUtmRoute: typeof AppToolsUtmRoute
   AppWorkspacesIdRoute: typeof AppWorkspacesIdRoute
@@ -1041,6 +1061,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppToolsFunnelTargetsRoute: AppToolsFunnelTargetsRoute,
   AppToolsImportRoute: AppToolsImportRoute,
   AppToolsListCleanerRoute: AppToolsListCleanerRoute,
+  AppToolsQrRoute: AppToolsQrRoute,
   AppToolsTaxonomyRoute: AppToolsTaxonomyRoute,
   AppToolsUtmRoute: AppToolsUtmRoute,
   AppWorkspacesIdRoute: AppWorkspacesIdRoute,
