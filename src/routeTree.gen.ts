@@ -36,14 +36,17 @@ import { Route as AppCampaignsIdRouteImport } from './routes/_app/campaigns/$id'
 import { Route as AppToolsIndexRouteImport } from './routes/_app/tools/index'
 import { Route as AppToolsSplatRouteImport } from './routes/_app/tools/$'
 import { Route as AppToolsAllUtmsRouteImport } from './routes/_app/tools/all-utms'
+import { Route as AppToolsBudgetRouteImport } from './routes/_app/tools/budget'
 import { Route as AppToolsCampaignCreatorRouteImport } from './routes/_app/tools/campaign-creator'
 import { Route as AppToolsCampaignInABoxRouteImport } from './routes/_app/tools/campaign-in-a-box'
 import { Route as AppToolsCampaignPerformanceRouteImport } from './routes/_app/tools/campaign-performance'
+import { Route as AppToolsContentPlanRouteImport } from './routes/_app/tools/content-plan'
 import { Route as AppToolsEventIntakeRouteImport } from './routes/_app/tools/event-intake'
 import { Route as AppToolsEventsRouteImport } from './routes/_app/tools/events'
 import { Route as AppToolsFunnelTargetsRouteImport } from './routes/_app/tools/funnel-targets'
 import { Route as AppToolsImportRouteImport } from './routes/_app/tools/import'
 import { Route as AppToolsListCleanerRouteImport } from './routes/_app/tools/list-cleaner'
+import { Route as AppToolsQrRouteImport } from './routes/_app/tools/qr'
 import { Route as AppToolsTaxonomyRouteImport } from './routes/_app/tools/taxonomy'
 import { Route as AppToolsUtmRouteImport } from './routes/_app/tools/utm'
 import { Route as AppWorkspacesIndexRouteImport } from './routes/_app/workspaces/index'
@@ -193,6 +196,11 @@ const AppToolsAllUtmsRoute = AppToolsAllUtmsRouteImport.update({
   path: '/tools/all-utms',
   getParentRoute: () => AppRoute,
 } as any)
+const AppToolsBudgetRoute = AppToolsBudgetRouteImport.update({
+  id: '/tools/budget',
+  path: '/tools/budget',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppToolsCampaignCreatorRoute = AppToolsCampaignCreatorRouteImport.update({
   id: '/tools/campaign-creator',
   path: '/tools/campaign-creator',
@@ -209,6 +217,11 @@ const AppToolsCampaignPerformanceRoute =
     path: '/tools/campaign-performance',
     getParentRoute: () => AppRoute,
   } as any)
+const AppToolsContentPlanRoute = AppToolsContentPlanRouteImport.update({
+  id: '/tools/content-plan',
+  path: '/tools/content-plan',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppToolsEventIntakeRoute = AppToolsEventIntakeRouteImport.update({
   id: '/tools/event-intake',
   path: '/tools/event-intake',
@@ -232,6 +245,11 @@ const AppToolsImportRoute = AppToolsImportRouteImport.update({
 const AppToolsListCleanerRoute = AppToolsListCleanerRouteImport.update({
   id: '/tools/list-cleaner',
   path: '/tools/list-cleaner',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppToolsQrRoute = AppToolsQrRouteImport.update({
+  id: '/tools/qr',
+  path: '/tools/qr',
   getParentRoute: () => AppRoute,
 } as any)
 const AppToolsTaxonomyRoute = AppToolsTaxonomyRouteImport.update({
@@ -335,14 +353,17 @@ export interface FileRoutesByFullPath {
   '/campaigns/$id': typeof AppCampaignsIdRoute
   '/tools/$': typeof AppToolsSplatRoute
   '/tools/all-utms': typeof AppToolsAllUtmsRoute
+  '/tools/budget': typeof AppToolsBudgetRoute
   '/tools/campaign-creator': typeof AppToolsCampaignCreatorRoute
   '/tools/campaign-in-a-box': typeof AppToolsCampaignInABoxRoute
   '/tools/campaign-performance': typeof AppToolsCampaignPerformanceRoute
+  '/tools/content-plan': typeof AppToolsContentPlanRoute
   '/tools/event-intake': typeof AppToolsEventIntakeRoute
   '/tools/events': typeof AppToolsEventsRoute
   '/tools/funnel-targets': typeof AppToolsFunnelTargetsRoute
   '/tools/import': typeof AppToolsImportRoute
   '/tools/list-cleaner': typeof AppToolsListCleanerRoute
+  '/tools/qr': typeof AppToolsQrRoute
   '/tools/taxonomy': typeof AppToolsTaxonomyRoute
   '/tools/utm': typeof AppToolsUtmRoute
   '/workspaces/$id': typeof AppWorkspacesIdRoute
@@ -385,14 +406,17 @@ export interface FileRoutesByTo {
   '/campaigns/$id': typeof AppCampaignsIdRoute
   '/tools/$': typeof AppToolsSplatRoute
   '/tools/all-utms': typeof AppToolsAllUtmsRoute
+  '/tools/budget': typeof AppToolsBudgetRoute
   '/tools/campaign-creator': typeof AppToolsCampaignCreatorRoute
   '/tools/campaign-in-a-box': typeof AppToolsCampaignInABoxRoute
   '/tools/campaign-performance': typeof AppToolsCampaignPerformanceRoute
+  '/tools/content-plan': typeof AppToolsContentPlanRoute
   '/tools/event-intake': typeof AppToolsEventIntakeRoute
   '/tools/events': typeof AppToolsEventsRoute
   '/tools/funnel-targets': typeof AppToolsFunnelTargetsRoute
   '/tools/import': typeof AppToolsImportRoute
   '/tools/list-cleaner': typeof AppToolsListCleanerRoute
+  '/tools/qr': typeof AppToolsQrRoute
   '/tools/taxonomy': typeof AppToolsTaxonomyRoute
   '/tools/utm': typeof AppToolsUtmRoute
   '/workspaces/$id': typeof AppWorkspacesIdRoute
@@ -437,14 +461,17 @@ export interface FileRoutesById {
   '/_app/campaigns/$id': typeof AppCampaignsIdRoute
   '/_app/tools/$': typeof AppToolsSplatRoute
   '/_app/tools/all-utms': typeof AppToolsAllUtmsRoute
+  '/_app/tools/budget': typeof AppToolsBudgetRoute
   '/_app/tools/campaign-creator': typeof AppToolsCampaignCreatorRoute
   '/_app/tools/campaign-in-a-box': typeof AppToolsCampaignInABoxRoute
   '/_app/tools/campaign-performance': typeof AppToolsCampaignPerformanceRoute
+  '/_app/tools/content-plan': typeof AppToolsContentPlanRoute
   '/_app/tools/event-intake': typeof AppToolsEventIntakeRoute
   '/_app/tools/events': typeof AppToolsEventsRoute
   '/_app/tools/funnel-targets': typeof AppToolsFunnelTargetsRoute
   '/_app/tools/import': typeof AppToolsImportRoute
   '/_app/tools/list-cleaner': typeof AppToolsListCleanerRoute
+  '/_app/tools/qr': typeof AppToolsQrRoute
   '/_app/tools/taxonomy': typeof AppToolsTaxonomyRoute
   '/_app/tools/utm': typeof AppToolsUtmRoute
   '/_app/workspaces/$id': typeof AppWorkspacesIdRoute
@@ -489,14 +516,17 @@ export interface FileRouteTypes {
     | '/campaigns/$id'
     | '/tools/$'
     | '/tools/all-utms'
+    | '/tools/budget'
     | '/tools/campaign-creator'
     | '/tools/campaign-in-a-box'
     | '/tools/campaign-performance'
+    | '/tools/content-plan'
     | '/tools/event-intake'
     | '/tools/events'
     | '/tools/funnel-targets'
     | '/tools/import'
     | '/tools/list-cleaner'
+    | '/tools/qr'
     | '/tools/taxonomy'
     | '/tools/utm'
     | '/workspaces/$id'
@@ -539,14 +569,17 @@ export interface FileRouteTypes {
     | '/campaigns/$id'
     | '/tools/$'
     | '/tools/all-utms'
+    | '/tools/budget'
     | '/tools/campaign-creator'
     | '/tools/campaign-in-a-box'
     | '/tools/campaign-performance'
+    | '/tools/content-plan'
     | '/tools/event-intake'
     | '/tools/events'
     | '/tools/funnel-targets'
     | '/tools/import'
     | '/tools/list-cleaner'
+    | '/tools/qr'
     | '/tools/taxonomy'
     | '/tools/utm'
     | '/workspaces/$id'
@@ -590,14 +623,17 @@ export interface FileRouteTypes {
     | '/_app/campaigns/$id'
     | '/_app/tools/$'
     | '/_app/tools/all-utms'
+    | '/_app/tools/budget'
     | '/_app/tools/campaign-creator'
     | '/_app/tools/campaign-in-a-box'
     | '/_app/tools/campaign-performance'
+    | '/_app/tools/content-plan'
     | '/_app/tools/event-intake'
     | '/_app/tools/events'
     | '/_app/tools/funnel-targets'
     | '/_app/tools/import'
     | '/_app/tools/list-cleaner'
+    | '/_app/tools/qr'
     | '/_app/tools/taxonomy'
     | '/_app/tools/utm'
     | '/_app/workspaces/$id'
@@ -832,6 +868,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsAllUtmsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/tools/budget': {
+      id: '/_app/tools/budget'
+      path: '/tools/budget'
+      fullPath: '/tools/budget'
+      preLoaderRoute: typeof AppToolsBudgetRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/tools/campaign-creator': {
       id: '/_app/tools/campaign-creator'
       path: '/tools/campaign-creator'
@@ -851,6 +894,13 @@ declare module '@tanstack/react-router' {
       path: '/tools/campaign-performance'
       fullPath: '/tools/campaign-performance'
       preLoaderRoute: typeof AppToolsCampaignPerformanceRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/tools/content-plan': {
+      id: '/_app/tools/content-plan'
+      path: '/tools/content-plan'
+      fullPath: '/tools/content-plan'
+      preLoaderRoute: typeof AppToolsContentPlanRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/tools/event-intake': {
@@ -886,6 +936,13 @@ declare module '@tanstack/react-router' {
       path: '/tools/list-cleaner'
       fullPath: '/tools/list-cleaner'
       preLoaderRoute: typeof AppToolsListCleanerRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/tools/qr': {
+      id: '/_app/tools/qr'
+      path: '/tools/qr'
+      fullPath: '/tools/qr'
+      preLoaderRoute: typeof AppToolsQrRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/tools/taxonomy': {
@@ -1003,14 +1060,17 @@ interface AppRouteChildren {
   AppCampaignsIdRoute: typeof AppCampaignsIdRoute
   AppToolsSplatRoute: typeof AppToolsSplatRoute
   AppToolsAllUtmsRoute: typeof AppToolsAllUtmsRoute
+  AppToolsBudgetRoute: typeof AppToolsBudgetRoute
   AppToolsCampaignCreatorRoute: typeof AppToolsCampaignCreatorRoute
   AppToolsCampaignInABoxRoute: typeof AppToolsCampaignInABoxRoute
   AppToolsCampaignPerformanceRoute: typeof AppToolsCampaignPerformanceRoute
+  AppToolsContentPlanRoute: typeof AppToolsContentPlanRoute
   AppToolsEventIntakeRoute: typeof AppToolsEventIntakeRoute
   AppToolsEventsRoute: typeof AppToolsEventsRoute
   AppToolsFunnelTargetsRoute: typeof AppToolsFunnelTargetsRoute
   AppToolsImportRoute: typeof AppToolsImportRoute
   AppToolsListCleanerRoute: typeof AppToolsListCleanerRoute
+  AppToolsQrRoute: typeof AppToolsQrRoute
   AppToolsTaxonomyRoute: typeof AppToolsTaxonomyRoute
   AppToolsUtmRoute: typeof AppToolsUtmRoute
   AppWorkspacesIdRoute: typeof AppWorkspacesIdRoute
@@ -1033,14 +1093,17 @@ const AppRouteChildren: AppRouteChildren = {
   AppCampaignsIdRoute: AppCampaignsIdRoute,
   AppToolsSplatRoute: AppToolsSplatRoute,
   AppToolsAllUtmsRoute: AppToolsAllUtmsRoute,
+  AppToolsBudgetRoute: AppToolsBudgetRoute,
   AppToolsCampaignCreatorRoute: AppToolsCampaignCreatorRoute,
   AppToolsCampaignInABoxRoute: AppToolsCampaignInABoxRoute,
   AppToolsCampaignPerformanceRoute: AppToolsCampaignPerformanceRoute,
+  AppToolsContentPlanRoute: AppToolsContentPlanRoute,
   AppToolsEventIntakeRoute: AppToolsEventIntakeRoute,
   AppToolsEventsRoute: AppToolsEventsRoute,
   AppToolsFunnelTargetsRoute: AppToolsFunnelTargetsRoute,
   AppToolsImportRoute: AppToolsImportRoute,
   AppToolsListCleanerRoute: AppToolsListCleanerRoute,
+  AppToolsQrRoute: AppToolsQrRoute,
   AppToolsTaxonomyRoute: AppToolsTaxonomyRoute,
   AppToolsUtmRoute: AppToolsUtmRoute,
   AppWorkspacesIdRoute: AppWorkspacesIdRoute,
