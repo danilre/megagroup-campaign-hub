@@ -40,6 +40,7 @@ import { Route as AppToolsBudgetRouteImport } from './routes/_app/tools/budget'
 import { Route as AppToolsCampaignCreatorRouteImport } from './routes/_app/tools/campaign-creator'
 import { Route as AppToolsCampaignInABoxRouteImport } from './routes/_app/tools/campaign-in-a-box'
 import { Route as AppToolsCampaignPerformanceRouteImport } from './routes/_app/tools/campaign-performance'
+import { Route as AppToolsContentPlanRouteImport } from './routes/_app/tools/content-plan'
 import { Route as AppToolsEventIntakeRouteImport } from './routes/_app/tools/event-intake'
 import { Route as AppToolsEventsRouteImport } from './routes/_app/tools/events'
 import { Route as AppToolsFunnelTargetsRouteImport } from './routes/_app/tools/funnel-targets'
@@ -216,6 +217,11 @@ const AppToolsCampaignPerformanceRoute =
     path: '/tools/campaign-performance',
     getParentRoute: () => AppRoute,
   } as any)
+const AppToolsContentPlanRoute = AppToolsContentPlanRouteImport.update({
+  id: '/tools/content-plan',
+  path: '/tools/content-plan',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppToolsEventIntakeRoute = AppToolsEventIntakeRouteImport.update({
   id: '/tools/event-intake',
   path: '/tools/event-intake',
@@ -351,6 +357,7 @@ export interface FileRoutesByFullPath {
   '/tools/campaign-creator': typeof AppToolsCampaignCreatorRoute
   '/tools/campaign-in-a-box': typeof AppToolsCampaignInABoxRoute
   '/tools/campaign-performance': typeof AppToolsCampaignPerformanceRoute
+  '/tools/content-plan': typeof AppToolsContentPlanRoute
   '/tools/event-intake': typeof AppToolsEventIntakeRoute
   '/tools/events': typeof AppToolsEventsRoute
   '/tools/funnel-targets': typeof AppToolsFunnelTargetsRoute
@@ -403,6 +410,7 @@ export interface FileRoutesByTo {
   '/tools/campaign-creator': typeof AppToolsCampaignCreatorRoute
   '/tools/campaign-in-a-box': typeof AppToolsCampaignInABoxRoute
   '/tools/campaign-performance': typeof AppToolsCampaignPerformanceRoute
+  '/tools/content-plan': typeof AppToolsContentPlanRoute
   '/tools/event-intake': typeof AppToolsEventIntakeRoute
   '/tools/events': typeof AppToolsEventsRoute
   '/tools/funnel-targets': typeof AppToolsFunnelTargetsRoute
@@ -457,6 +465,7 @@ export interface FileRoutesById {
   '/_app/tools/campaign-creator': typeof AppToolsCampaignCreatorRoute
   '/_app/tools/campaign-in-a-box': typeof AppToolsCampaignInABoxRoute
   '/_app/tools/campaign-performance': typeof AppToolsCampaignPerformanceRoute
+  '/_app/tools/content-plan': typeof AppToolsContentPlanRoute
   '/_app/tools/event-intake': typeof AppToolsEventIntakeRoute
   '/_app/tools/events': typeof AppToolsEventsRoute
   '/_app/tools/funnel-targets': typeof AppToolsFunnelTargetsRoute
@@ -511,6 +520,7 @@ export interface FileRouteTypes {
     | '/tools/campaign-creator'
     | '/tools/campaign-in-a-box'
     | '/tools/campaign-performance'
+    | '/tools/content-plan'
     | '/tools/event-intake'
     | '/tools/events'
     | '/tools/funnel-targets'
@@ -563,6 +573,7 @@ export interface FileRouteTypes {
     | '/tools/campaign-creator'
     | '/tools/campaign-in-a-box'
     | '/tools/campaign-performance'
+    | '/tools/content-plan'
     | '/tools/event-intake'
     | '/tools/events'
     | '/tools/funnel-targets'
@@ -616,6 +627,7 @@ export interface FileRouteTypes {
     | '/_app/tools/campaign-creator'
     | '/_app/tools/campaign-in-a-box'
     | '/_app/tools/campaign-performance'
+    | '/_app/tools/content-plan'
     | '/_app/tools/event-intake'
     | '/_app/tools/events'
     | '/_app/tools/funnel-targets'
@@ -884,6 +896,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsCampaignPerformanceRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/tools/content-plan': {
+      id: '/_app/tools/content-plan'
+      path: '/tools/content-plan'
+      fullPath: '/tools/content-plan'
+      preLoaderRoute: typeof AppToolsContentPlanRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/tools/event-intake': {
       id: '/_app/tools/event-intake'
       path: '/tools/event-intake'
@@ -1045,6 +1064,7 @@ interface AppRouteChildren {
   AppToolsCampaignCreatorRoute: typeof AppToolsCampaignCreatorRoute
   AppToolsCampaignInABoxRoute: typeof AppToolsCampaignInABoxRoute
   AppToolsCampaignPerformanceRoute: typeof AppToolsCampaignPerformanceRoute
+  AppToolsContentPlanRoute: typeof AppToolsContentPlanRoute
   AppToolsEventIntakeRoute: typeof AppToolsEventIntakeRoute
   AppToolsEventsRoute: typeof AppToolsEventsRoute
   AppToolsFunnelTargetsRoute: typeof AppToolsFunnelTargetsRoute
@@ -1077,6 +1097,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppToolsCampaignCreatorRoute: AppToolsCampaignCreatorRoute,
   AppToolsCampaignInABoxRoute: AppToolsCampaignInABoxRoute,
   AppToolsCampaignPerformanceRoute: AppToolsCampaignPerformanceRoute,
+  AppToolsContentPlanRoute: AppToolsContentPlanRoute,
   AppToolsEventIntakeRoute: AppToolsEventIntakeRoute,
   AppToolsEventsRoute: AppToolsEventsRoute,
   AppToolsFunnelTargetsRoute: AppToolsFunnelTargetsRoute,
