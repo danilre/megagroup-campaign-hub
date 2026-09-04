@@ -36,6 +36,7 @@ import { Route as AppCampaignsIdRouteImport } from './routes/_app/campaigns/$id'
 import { Route as AppToolsIndexRouteImport } from './routes/_app/tools/index'
 import { Route as AppToolsSplatRouteImport } from './routes/_app/tools/$'
 import { Route as AppToolsAllUtmsRouteImport } from './routes/_app/tools/all-utms'
+import { Route as AppToolsBudgetRouteImport } from './routes/_app/tools/budget'
 import { Route as AppToolsCampaignCreatorRouteImport } from './routes/_app/tools/campaign-creator'
 import { Route as AppToolsCampaignInABoxRouteImport } from './routes/_app/tools/campaign-in-a-box'
 import { Route as AppToolsCampaignPerformanceRouteImport } from './routes/_app/tools/campaign-performance'
@@ -194,6 +195,11 @@ const AppToolsAllUtmsRoute = AppToolsAllUtmsRouteImport.update({
   path: '/tools/all-utms',
   getParentRoute: () => AppRoute,
 } as any)
+const AppToolsBudgetRoute = AppToolsBudgetRouteImport.update({
+  id: '/tools/budget',
+  path: '/tools/budget',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppToolsCampaignCreatorRoute = AppToolsCampaignCreatorRouteImport.update({
   id: '/tools/campaign-creator',
   path: '/tools/campaign-creator',
@@ -341,6 +347,7 @@ export interface FileRoutesByFullPath {
   '/campaigns/$id': typeof AppCampaignsIdRoute
   '/tools/$': typeof AppToolsSplatRoute
   '/tools/all-utms': typeof AppToolsAllUtmsRoute
+  '/tools/budget': typeof AppToolsBudgetRoute
   '/tools/campaign-creator': typeof AppToolsCampaignCreatorRoute
   '/tools/campaign-in-a-box': typeof AppToolsCampaignInABoxRoute
   '/tools/campaign-performance': typeof AppToolsCampaignPerformanceRoute
@@ -392,6 +399,7 @@ export interface FileRoutesByTo {
   '/campaigns/$id': typeof AppCampaignsIdRoute
   '/tools/$': typeof AppToolsSplatRoute
   '/tools/all-utms': typeof AppToolsAllUtmsRoute
+  '/tools/budget': typeof AppToolsBudgetRoute
   '/tools/campaign-creator': typeof AppToolsCampaignCreatorRoute
   '/tools/campaign-in-a-box': typeof AppToolsCampaignInABoxRoute
   '/tools/campaign-performance': typeof AppToolsCampaignPerformanceRoute
@@ -445,6 +453,7 @@ export interface FileRoutesById {
   '/_app/campaigns/$id': typeof AppCampaignsIdRoute
   '/_app/tools/$': typeof AppToolsSplatRoute
   '/_app/tools/all-utms': typeof AppToolsAllUtmsRoute
+  '/_app/tools/budget': typeof AppToolsBudgetRoute
   '/_app/tools/campaign-creator': typeof AppToolsCampaignCreatorRoute
   '/_app/tools/campaign-in-a-box': typeof AppToolsCampaignInABoxRoute
   '/_app/tools/campaign-performance': typeof AppToolsCampaignPerformanceRoute
@@ -498,6 +507,7 @@ export interface FileRouteTypes {
     | '/campaigns/$id'
     | '/tools/$'
     | '/tools/all-utms'
+    | '/tools/budget'
     | '/tools/campaign-creator'
     | '/tools/campaign-in-a-box'
     | '/tools/campaign-performance'
@@ -549,6 +559,7 @@ export interface FileRouteTypes {
     | '/campaigns/$id'
     | '/tools/$'
     | '/tools/all-utms'
+    | '/tools/budget'
     | '/tools/campaign-creator'
     | '/tools/campaign-in-a-box'
     | '/tools/campaign-performance'
@@ -601,6 +612,7 @@ export interface FileRouteTypes {
     | '/_app/campaigns/$id'
     | '/_app/tools/$'
     | '/_app/tools/all-utms'
+    | '/_app/tools/budget'
     | '/_app/tools/campaign-creator'
     | '/_app/tools/campaign-in-a-box'
     | '/_app/tools/campaign-performance'
@@ -844,6 +856,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsAllUtmsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/tools/budget': {
+      id: '/_app/tools/budget'
+      path: '/tools/budget'
+      fullPath: '/tools/budget'
+      preLoaderRoute: typeof AppToolsBudgetRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/tools/campaign-creator': {
       id: '/_app/tools/campaign-creator'
       path: '/tools/campaign-creator'
@@ -1022,6 +1041,7 @@ interface AppRouteChildren {
   AppCampaignsIdRoute: typeof AppCampaignsIdRoute
   AppToolsSplatRoute: typeof AppToolsSplatRoute
   AppToolsAllUtmsRoute: typeof AppToolsAllUtmsRoute
+  AppToolsBudgetRoute: typeof AppToolsBudgetRoute
   AppToolsCampaignCreatorRoute: typeof AppToolsCampaignCreatorRoute
   AppToolsCampaignInABoxRoute: typeof AppToolsCampaignInABoxRoute
   AppToolsCampaignPerformanceRoute: typeof AppToolsCampaignPerformanceRoute
@@ -1053,6 +1073,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppCampaignsIdRoute: AppCampaignsIdRoute,
   AppToolsSplatRoute: AppToolsSplatRoute,
   AppToolsAllUtmsRoute: AppToolsAllUtmsRoute,
+  AppToolsBudgetRoute: AppToolsBudgetRoute,
   AppToolsCampaignCreatorRoute: AppToolsCampaignCreatorRoute,
   AppToolsCampaignInABoxRoute: AppToolsCampaignInABoxRoute,
   AppToolsCampaignPerformanceRoute: AppToolsCampaignPerformanceRoute,
