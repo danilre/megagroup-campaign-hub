@@ -25,6 +25,9 @@ import { CampaignPerformanceContent, CampaignPerformanceSummary } from "@/routes
 import { EventsContent } from "@/routes/_app/tools/events";
 import { HackathonRequestContent } from "@/routes/_app/tools/event-intake";
 import { ListCleanerContent } from "@/routes/_app/tools/list-cleaner";
+import { QrCodeContent } from "@/routes/_app/tools/qr";
+import { BudgetRoiContent } from "@/routes/_app/tools/budget";
+import { ContentPlanContent } from "@/routes/_app/tools/content-plan";
 import {
   IconUtm,
   IconSpark,
@@ -213,6 +216,42 @@ export const FOCUSED_TOOLS: Record<string, FocusedTool> = {
     parentHue: 150,
     parentIcon: <IconCampaign size={22} />,
   },
+  "utm-qr": {
+    slug: "utm-qr",
+    primaryId: "utm",
+    title: "QR-коды",
+    hue: 275,
+    icon: <IconUtm size={22} />,
+    fullRouteTo: "/tools/qr",
+    Component: QrCodeContent,
+    parentTitle: "UTM-конструктор",
+    parentHue: 275,
+    parentIcon: <IconUtm size={22} />,
+  },
+  "funnel-budget": {
+    slug: "funnel-budget",
+    primaryId: "funnel",
+    title: "Бюджет и окупаемость",
+    hue: 200,
+    icon: <IconChart size={22} />,
+    fullRouteTo: "/tools/budget",
+    Component: BudgetRoiContent,
+    parentTitle: "Воронка",
+    parentHue: 200,
+    parentIcon: <IconFunnel size={22} />,
+  },
+  "campaign-content-plan": {
+    slug: "campaign-content-plan",
+    primaryId: "campaign",
+    title: "План контента",
+    hue: 150,
+    icon: <IconCalendar size={22} />,
+    fullRouteTo: "/tools/content-plan",
+    Component: ContentPlanContent,
+    parentTitle: "Campaign-in-a-box",
+    parentHue: 150,
+    parentIcon: <IconCampaign size={22} />,
+  },
   "campaign-list-cleaner": {
     slug: "campaign-list-cleaner",
     primaryId: "campaign",
@@ -242,6 +281,9 @@ export const SATELLITE_TO_FOCUS_SLUG: Record<string, string> = {
   events: "campaign-events",
   creator: "campaign-creator",
   import: "campaign-import",
+  qr: "utm-qr",
+  budget: "funnel-budget",
+  "content-plan": "campaign-content-plan",
 };
 
 
