@@ -25,7 +25,7 @@ import {
   IconAudience,
   IconImport,
   IconChart,
-
+  IconScroll,
 } from "@/components/ui-custom/CustomIcon";
 import { CommanderAI } from "@/components/app/CommanderAI";
 import { CommandPalette } from "@/components/app/CommandPalette";
