@@ -20,6 +20,7 @@ import { Route as AppCalendarRouteImport } from './routes/_app/calendar'
 import { Route as AppConnectorsRouteImport } from './routes/_app/connectors'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
 import { Route as AppFunnelRouteImport } from './routes/_app/funnel'
+import { Route as AppHelpRouteImport } from './routes/_app/help'
 import { Route as AppIntegrationsRouteImport } from './routes/_app/integrations'
 import { Route as AppLeadsRouteImport } from './routes/_app/leads'
 import { Route as AppRequestsRouteImport } from './routes/_app/requests'
@@ -114,6 +115,11 @@ const AppDashboardRoute = AppDashboardRouteImport.update({
 const AppFunnelRoute = AppFunnelRouteImport.update({
   id: '/funnel',
   path: '/funnel',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHelpRoute = AppHelpRouteImport.update({
+  id: '/help',
+  path: '/help',
   getParentRoute: () => AppRoute,
 } as any)
 const AppIntegrationsRoute = AppIntegrationsRouteImport.update({
@@ -339,6 +345,7 @@ export interface FileRoutesByFullPath {
   '/connectors': typeof AppConnectorsRoute
   '/dashboard': typeof AppDashboardRoute
   '/funnel': typeof AppFunnelRoute
+  '/help': typeof AppHelpRoute
   '/integrations': typeof AppIntegrationsRoute
   '/leads': typeof AppLeadsRoute
   '/requests': typeof AppRequestsRoute
@@ -392,6 +399,7 @@ export interface FileRoutesByTo {
   '/connectors': typeof AppConnectorsRoute
   '/dashboard': typeof AppDashboardRoute
   '/funnel': typeof AppFunnelRoute
+  '/help': typeof AppHelpRoute
   '/integrations': typeof AppIntegrationsRoute
   '/leads': typeof AppLeadsRoute
   '/requests': typeof AppRequestsRoute
@@ -447,6 +455,7 @@ export interface FileRoutesById {
   '/_app/connectors': typeof AppConnectorsRoute
   '/_app/dashboard': typeof AppDashboardRoute
   '/_app/funnel': typeof AppFunnelRoute
+  '/_app/help': typeof AppHelpRoute
   '/_app/integrations': typeof AppIntegrationsRoute
   '/_app/leads': typeof AppLeadsRoute
   '/_app/requests': typeof AppRequestsRoute
@@ -502,6 +511,7 @@ export interface FileRouteTypes {
     | '/connectors'
     | '/dashboard'
     | '/funnel'
+    | '/help'
     | '/integrations'
     | '/leads'
     | '/requests'
@@ -555,6 +565,7 @@ export interface FileRouteTypes {
     | '/connectors'
     | '/dashboard'
     | '/funnel'
+    | '/help'
     | '/integrations'
     | '/leads'
     | '/requests'
@@ -609,6 +620,7 @@ export interface FileRouteTypes {
     | '/_app/connectors'
     | '/_app/dashboard'
     | '/_app/funnel'
+    | '/_app/help'
     | '/_app/integrations'
     | '/_app/leads'
     | '/_app/requests'
@@ -754,6 +766,13 @@ declare module '@tanstack/react-router' {
       path: '/funnel'
       fullPath: '/funnel'
       preLoaderRoute: typeof AppFunnelRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/help': {
+      id: '/_app/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof AppHelpRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/integrations': {
@@ -1051,6 +1070,7 @@ interface AppRouteChildren {
   AppConnectorsRoute: typeof AppConnectorsRoute
   AppDashboardRoute: typeof AppDashboardRoute
   AppFunnelRoute: typeof AppFunnelRoute
+  AppHelpRoute: typeof AppHelpRoute
   AppIntegrationsRoute: typeof AppIntegrationsRoute
   AppLeadsRoute: typeof AppLeadsRoute
   AppRequestsRoute: typeof AppRequestsRoute
@@ -1084,6 +1104,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppConnectorsRoute: AppConnectorsRoute,
   AppDashboardRoute: AppDashboardRoute,
   AppFunnelRoute: AppFunnelRoute,
+  AppHelpRoute: AppHelpRoute,
   AppIntegrationsRoute: AppIntegrationsRoute,
   AppLeadsRoute: AppLeadsRoute,
   AppRequestsRoute: AppRequestsRoute,

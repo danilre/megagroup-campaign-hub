@@ -203,6 +203,7 @@ export const PRIMARIES: Primary[] = (() => {
         { id: "name", label: "Новая UTM", to: "/tools/utm", icon: <IconSpark size={20} /> },
         { id: "utm-all", label: "Все UTM", to: "/tools/all-utms", icon: <IconScroll size={20} /> },
         { id: "tax", label: "Правила именования", to: "/tools/taxonomy", icon: <IconSpark size={20} /> },
+        { id: "qr", label: "QR-коды", to: "/tools/qr", icon: <IconUtm size={20} /> },
         ADD_SAT,
       ],
     },
@@ -218,6 +219,7 @@ export const PRIMARIES: Primary[] = (() => {
       sats: [
         { id: "targets", label: "MQL / SQO", to: "/tools/funnel-targets", icon: <IconSpark size={20} /> },
         { id: "perf2", label: "Эффективность", to: "/tools/campaign-performance", icon: <IconChart size={20} /> },
+        { id: "budget", label: "Бюджет и ROI", to: "/tools/budget", icon: <IconChart size={20} /> },
         ADD_SAT,
       ],
     },
@@ -234,9 +236,11 @@ export const PRIMARIES: Primary[] = (() => {
         { id: "creator", label: "Генератор названий", to: "/tools/campaign-creator", icon: <IconCampaign size={20} /> },
         { id: "import", label: "Импорт списка", to: "/tools/import", icon: <IconImport size={20} /> },
         { id: "events", label: "События", to: "/tools/events", icon: <IconCalendar size={20} /> },
+        { id: "content-plan", label: "План контента", to: "/tools/content-plan", icon: <IconCalendar size={20} /> },
         ADD_SAT,
       ],
     },
+
   ];
   return defs.map(({ sats, ...p }) => ({ ...p, satellites: withNeighborPositions(p, sats) }));
 })();
