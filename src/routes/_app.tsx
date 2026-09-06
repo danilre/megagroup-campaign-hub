@@ -409,6 +409,19 @@ function AppShell() {
 
             <div className="pt-4 space-y-1">
               <Link
+                to="/help"
+                preload="render"
+                title={collapsed ? "Справка" : undefined}
+                className={`flex items-center ${collapsed ? "justify-center px-0" : "gap-3 px-3"} rounded-xl py-2.5 text-sm transition-colors ${
+                  loc.pathname.startsWith("/help")
+                    ? "bg-glass text-foreground"
+                    : "text-muted-foreground hover:bg-glass/50 hover:text-foreground"
+                }`}
+              >
+                <IconScroll size={18} />
+                {!collapsed && <span>Справка</span>}
+              </Link>
+              <Link
                 to="/settings"
                 preload="render"
                 title={collapsed ? "Настройки" : undefined}
